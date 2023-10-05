@@ -1,3 +1,94 @@
 {
-  "extends": "next/core-web-vitals"
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "next/core-web-vitals",
+    "plugin:json/recommended"
+  ],
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    /* airbnb overwrites */
+    // no comma dangle
+    "comma-dangle": [
+      "error",
+      "never"
+    ],
+    // new line at end of file
+    "linebreak-style": 0,
+    // multiline for destructured objects
+    "object-curly-newline": 0,
+    // `export default` only
+    "import/prefer-default-export": 0,
+    // space between `function` and parenthesis
+    "space-before-function-paren": [
+      "error",
+      "never"
+    ],
+    // if single line `return` statement in body, it must be on the same line
+    "arrow-body-style": 0,
+    // no nested ternaries
+    "no-nested-ternary": 0,
+    // only arrow callbacks
+    "prefer-arrow-callback": 0,
+    // short circuites (||) and ternaries
+    "no-unused-expressions": 0,
+    // parameter re-assigning
+    "no-param-reassign": 0,
+    // underscore useage in variables
+    "no-underscore-dangle": 0,
+    // obj shorthand useage
+    "object-shorthand": 0,
+    // obj indenting
+    "object-curly-spacing": [
+      "error",
+      "always",
+      {
+        "objectsInObjects": false
+      }
+    ],
+    // require new line before comment
+    "lines-around-comment": [
+      "error",
+      {
+        "beforeBlockComment": true
+      }
+    ],
+    // return needs to specify values
+    "consistent-return": 0,
+    /* default overwrites: */
+    "indent": [
+      "error",
+      2
+    ],
+    // allows jsx in js files
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    ],
+    // curly spacing in jsx, and component children
+    "react/jsx-curly-spacing": [
+      2,
+      {
+        "when": "always",
+        "children": true
+      }
+    ],
+    "react/jsx-closing-bracket-location": [
+      2,
+      "line-aligned"
+    ],
+    // allows { ...props }
+    "react/jsx-props-no-spreading": 0
+  }
 }
