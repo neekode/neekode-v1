@@ -10,7 +10,8 @@
     "plugin:json/recommended"
   ],
   "plugins": [
-    "react"
+    "react",
+    "import"
   ],
   "rules": {
     /* airbnb overwrites */
@@ -84,6 +85,7 @@
         "children": true
       }
     ],
+    // defines closing brackets in jsx files
     "react/jsx-closing-bracket-location": [
       2,
       "line-aligned"
