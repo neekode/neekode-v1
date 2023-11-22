@@ -3,13 +3,30 @@ import { createSlice } from '@reduxjs/toolkit';
 export const commonSlice = createSlice({
   name: 'common',
   initialState: {
-    theme: 'dark'
+    theme: window.matchMedia('(prefers-color-scheme: dark)') ? 'dark' : 'light',
+    mode: 'fancy',
+    loading: {
+      app: true
+    }
   },
   reducers: {
     setTheme: (state, action) => {
       state.theme = action.payload;
+    },
+    setMode: (state, action) => {
+      state.mode = action.payload;
+    },
+    setIsAppLoading: (state, action) => {
+      state.loading = {
+        ...state.loading,
+        app: action.payload
+      };
     }
   }
 });
 
-export const { setTheme } = commonSlice.actions;
+export const {
+  setTheme,
+  setMode,
+  setIsAppLoading
+} = commonSlice.actions;

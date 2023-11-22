@@ -1,27 +1,38 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/*@import "tailwindcss/base";*/
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+/*:root {*/
+/*    --foreground-rgb: 0, 0, 0;*/
+/*    --background-start-rgb: 214, 219, 220;*/
+/*    --background-end-rgb: 255, 255, 255;*/
+/*}*/
+
+/*@media (prefers-color-scheme: dark) {*/
+/*    :root {*/
+/*        --foreground-rgb: 50, 255, 255;*/
+/*        --background-start-rgb: 0, 0, 0;*/
+/*        --background-end-rgb: 0, 0, 0;*/
+/*    }*/
+/*}*/
+
+html body {
+    min-height: 100vh;
+    /* TODO: problematic? */
+    overflow: hidden;
+    /*color: rgb(var(--foreground-rgb));*/
+    /*background: linear-gradient(*/
+    /*        to bottom,*/
+    /*        transparent,*/
+    /*        rgb(var(--background-end-rgb))*/
+    /*) rgb(var(--background-start-rgb));*/
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.content-height {
+    height: calc(100% - 64px);
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.page {
+    margin-top: auto;
+    margin-bottom: auto;
 }
