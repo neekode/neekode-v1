@@ -1,12 +1,34 @@
-## Overview
+## neekode.com
 
-Professional Portfolio. Hosted at neekode.com thru Google domains and Firebase.
+Professional Portfolio. It's main purpose is to showcase my career and skillset.
+
+[//]: # (TODO: This website is also used for my small business.)
+
+# Hosting & Deployment
+
+- Domain: Google Domains
+- Server Hosting & Continuous Deployment: Firebase
+- Version Control & Repo: github.com/neekode
+
+  [//]: # (TODO: What else?)
 
 # Tech Stack
 
-- Uses NextJS (create-next-app), Redux, TailwindCSS
-- and some other packages
+- Used NextJS 13 (create-next-app) for groundwork, uses current modern architecture such as Server Components and the
+  App Directory structure for layouts.
+- Installed Redux Toolkit using slices structure and syntax
+- Styles with TailwindCSS utility classes as well as some custom styling. Integrates Tailwind+NextJS theming such as for
+  dark mode.
+- Utilizes ChakraUI for Component Library, also integrates custom theming for the components.
 - ESLint config is written as my personal preference
 - All typing is defined in comments.
 
-[//]: # (TODO: finish this.)
+[//]: # (TODO: Any uses for GraphQL? Does Server Components handle that?)
+
+# Directory
+
+WIP
+
+# Architecture & Code Standards
+
+WIP

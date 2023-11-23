@@ -1,4 +1,9 @@
-export default function Contact({ children }) {
+export const metadata = {
+  title: 'contact - neekode'
+};
+
+// { children }
+export default function Contact() {
   return (
     <div
       id="contact"

@@ -1,19 +1,28 @@
 'use client';
 
-import { useServerInsertedHTML } from 'next/navigation';
 import { Provider } from 'react-redux';
-import { ChakraProvider } from '@chakra-ui/react';
 import { NextUIProvider } from '@nextui-org/react';
-import store from '../src/redux/store';
+import { ChakraProvider, extendTheme } from '@chakra-ui/react';
+import store from './redux/store';
+
+const config = {
+  initialColorMode: 'dark',
+  useSystemColorMode: true
+};
+
+const theme = extendTheme({ config });
 
 export default function Providers({ children }) {
+  // TODO: Template provided this, unsuure what to do with it.
   // useServerInsertedHTML(() => {
   //   return <>{ CssBaseline.flush() }</>;
   // })
 
   return (
     <ReduxProvider>
-      <NextUIProvider>{ children }</NextUIProvider>
+      <ChakraProvider theme={ theme }>
+        <NextUIProvider>{ children }</NextUIProvider>
+      </ChakraProvider>
     </ReduxProvider>
   );
 }

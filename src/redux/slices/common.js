@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const commonSlice = createSlice({
   name: 'common',
   initialState: {
-    theme: window.matchMedia('(prefers-color-scheme: dark)') ? 'dark' : 'light',
+    theme: 'dark',
     mode: 'fancy',
     loading: {
       app: true

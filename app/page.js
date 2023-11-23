@@ -1,7 +1,11 @@
-export default function Home() {
+export const metadata = {
+  title: 'intro - neekode'
+};
+
+export default function Intro() {
   return (
-    <div id="home" className="border-b-amber-600">
-      home
+    <div id="intro" className="page">
+      intro
     </div>
   );
 }

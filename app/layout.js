@@ -1,38 +1,40 @@
-/* This layout acts as the primary container for the application.
-It's connected to common hooks, wraps around each page, and renders a loader when...  */
-import Providers from './providers';
+// External
+import React from 'react';
+// In-app
 import '../src/styles/globals.css';
 import Content from '../src/components/Content';
 import Nav from '../src/components/Nav';
-import AppContainer from '../src/components/AppContainer';
+import Providers from '../src/providers';
 
+// TODO: Dynamic Metadata for SEO
+// export async function generateMetadata({ params }) {
+//   return { };
+// }
+
+export const metadata = {
+  title: {
+    template: '%s - neekode',
+    default: 'work portfolio - neekode'
+  }
+};
+
+/**
+ * Welcome! This is entrypoint to the application.
+ */
 export default function RootLayout({ children }) {
   return (
-
     <html lang="en">
-      <head>
-        <title>Neekode</title>
-        <meta name="description" content="" />
-        <link rel="icon" href="/favicon.ico" />
-      </head>
       <body>
         <Providers>
-          <AppContainer>
+          { /* Custom AppContainer for poot pieces like <main> to access to Redux State. */ }
+          <main className="text-foreground bg-background h-screen">
             <Nav />
             <Content>
               { children }
             </Content>
-          </AppContainer>
+          </main>
         </Providers>
       </body>
     </html>
   );
 }
-
-/**
- * <div
- *         id="content-wrapper"
- *         className={ `${theme}-theme ${mode}-mode` }
- *       >
- *       </div>
- */
