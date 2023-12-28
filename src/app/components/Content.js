@@ -1,6 +1,7 @@
 'use client';
 
 /* This layout is the wrapper for all the content of the page. Siblings with <Nav/>.  */
+
 import useCommonState from '../hooks/common';
 
 export default function Content({ children }) {

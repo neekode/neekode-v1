@@ -1,10 +1,10 @@
 // External
 import React from 'react';
 // In-app
-import '../src/styles/globals.css';
-import Content from '../src/components/Content';
-import Nav from '../src/components/Nav';
-import Providers from '../src/providers';
+import '../styles/globals.css';
+import Providers from '../providers';
+import Content from './components/Content';
+import Nav from './components/Nav';
 
 // TODO: Dynamic Metadata for SEO
 // export async function generateMetadata({ params }) {

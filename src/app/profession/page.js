@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'profession - neekode'
+  title: 'profession'
 };
 
 // { children }

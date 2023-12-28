@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'works - neekode'
+  title: 'works'
 };
 
 export default function Works({ children }) {

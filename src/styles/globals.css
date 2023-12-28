@@ -35,6 +35,5 @@ html body {
 }
 
 .page {
-    margin-top: auto;
-    margin-bottom: auto;
+    margin: auto 60px auto 60px
 }

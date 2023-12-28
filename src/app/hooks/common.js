@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useCallback, useEffect } from 'react';
 import { useColorMode } from '@chakra-ui/react';
-import { setIsAppLoading, setTheme } from '../redux/slices/common';
+import { setIsAppLoading, setTheme } from '../../redux/slices/common';
 
 /**
  * Common State utilized across the application.
