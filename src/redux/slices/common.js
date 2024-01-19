@@ -5,6 +5,10 @@ export const commonSlice = createSlice({
   initialState: {
     theme: 'dark',
     mode: 'fancy',
+    scroll: {
+      direction: '',
+      changes: 0
+    },
     loading: {
       app: true
     }
@@ -21,6 +25,9 @@ export const commonSlice = createSlice({
         ...state.loading,
         app: action.payload
       };
+    },
+    setScroll: (state, action) => {
+      state.scroll = action.payload;
     }
   }
 });
@@ -28,5 +35,6 @@ export const commonSlice = createSlice({
 export const {
   setTheme,
   setMode,
+  setScroll,
   setIsAppLoading
 } = commonSlice.actions;

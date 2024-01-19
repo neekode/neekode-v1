@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
 
 /**
  *  My current logo for Neekode.
@@ -14,18 +13,13 @@ import { useEffect, useState } from 'react';
  *  TODO: Workshop icon?
  */
 function NeekodeIcon({ theme }) {
-  const [isDark, setIsDark] = useState(theme === 'dark');
-  useEffect(() => {
-    setIsDark(theme === 'dark');
-  }, [theme]);
-
   return (
     <div className="m-2">
       <svg xmlns="http://www.w3.org/2000/svg" width={ 36 } height={ 36 } viewBox="0 0 260 260">
         <title>Neekode Brand Icon</title>
         <path
           fill="none"
-          stroke={ isDark ? '#fff' : '#000' }
+          stroke={ theme === 'dark' ? '#fff' : '#000' }
           strokeWidth={ 8 }
           d="M69.233 225.814V75.698l120 150.116h-120zM190.558 40.534v147.791l-120-147.79h120zM3.605 59.581h44v197h-44zM212.07 3.116h44.186v192H212.07z"
         />

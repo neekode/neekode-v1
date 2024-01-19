@@ -1,17 +1,25 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useCallback, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { setSelected } from '../../redux/slices/nav';
+import { createRef, useCallback, useEffect, useRef, useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { selectByRoute, selectByWheel } from '../../redux/slices/nav';
 
 /**
- * Common State utilized across the application.
+ * Navigation State
  */
 export default function useNavState() {
-  const dispatch = useDispatch();
   const router = useRouter();
+  const dispatch = useDispatch();
+  const pathname = usePathname();
+  const [isHovered, setIsHovered] = useState(false);
+  const navItemsRef = useRef([]);
 
   const {
-    // selected
+    scroll
+  } = useSelector((state) => state.common);
+
+  const {
+    tabs,
+    selectedIndex
   } = useSelector((state) => state.nav);
 
   /**
@@ -19,23 +27,63 @@ export default function useNavState() {
    * Depending on where user landed, we can set the
    * currently selected tab in the redux state.
    *
-   *
+   * Here we also set the Element Refs of each of the nav items.
+   * This way, we can track where to place the animated underline.
    */
   useEffect(() => {
-    const { route } = router;
-    dispatch(setSelected({ route }));
-  }, [router]);
+    // TODO?
+    if (scroll.changes === 0) {
+      dispatch(selectByRoute({ route: pathname }));
+    }
+
+    navItemsRef.current = Array(tabs.length)
+      .fill()
+      .map((_, i) => navItemsRef.current[i] || createRef());
+  }, [pathname]);
 
   /**
-   * Callback - Click handler for the theme switcher, switches
-   * both the CharkraUI colormode state (localstorage)
-   * as well as my own redux state.
+   * useEffect - Scroll Route Navigation
+   * If user's mouse is hovered over the navbar, they can scroll to navigate routes.
+   *
+   * TODO!
    */
-  // const temp = useCallback(() => {
-  //
-  // }, []);
+  useEffect(() => {
+    if (isHovered) {
+      if (scroll) {
+        dispatch(selectByWheel({ direction: scroll.direction }));
+      }
+    }
+  }, [scroll.changes]);
+
+  /**
+   * useEffect - Select Route Based on Index State
+   */
+  useEffect(() => {
+    router.push(tabs[selectedIndex].route);
+  }, [selectedIndex]);
+
+  /**
+   * Callback - When navbar is hovered this callback:
+   * - Overrides the .onscroll method to prevent scrolling of the
+   * body navbar while user is scroll the routes in the navbar.
+   * - Sets is isHovered local state.
+   */
+  const handleHovering = useCallback((isEntered) => {
+    const scrollTop = window.pageYOffset;
+    if (isEntered) {
+      window.onscroll = () => window.scrollTo(0, scrollTop);
+    } else {
+      window.onscroll = () => {
+      };
+    }
+    setIsHovered(isEntered);
+  }, []);
 
   return {
-    // selected
+    tabs,
+    selectedIndex,
+    navItemsRef,
+    isHovered,
+    handleHovering
   };
 }

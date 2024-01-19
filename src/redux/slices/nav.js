@@ -2,27 +2,19 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialTabs = [
   {
-    id: 1,
     name: 'intro',
-    selected: false,
     route: '/'
   },
   {
-    id: 2,
     name: 'profession',
-    selected: false,
     route: '/profession'
   },
   {
-    id: 3,
     name: 'works',
-    selected: false,
     route: '/works'
   },
   {
-    id: 4,
     name: 'contact',
-    selected: false,
     route: '/contact'
   }
 ];
@@ -30,20 +22,38 @@ const initialTabs = [
 export const navSlice = createSlice({
   name: 'nav',
   initialState: {
-    tabs: initialTabs
+    tabs: initialTabs,
+    selectedIndex: 0
   },
   reducers: {
-    setSelected: (state, action) => {
+    selectByRoute: (state, action) => {
       const { route } = action.payload;
-      // state.tabs[route].selected = true;
-      state.tabs.forEach((tab) => tab.selected = tab.route === route);
+      state.selectedIndex = state.tabs.findIndex((tab) => tab.route === route);
     },
-    scroll: (state, action) => {
-      state.selected = action.payload;
+    selectByWheel: (state, action) => {
+      const { direction } = action.payload;
+      const isScrollDown = direction === 'down';
+      const current = state.selectedIndex;
+      const endLimit = state.tabs.length - 1;
+
+      let newIndex;
+      if (isScrollDown) {
+        if (current < endLimit) {
+          newIndex = current + 1;
+        } else {
+          newIndex = 0;
+        }
+      } else if (current <= endLimit && current !== 0) {
+        newIndex = current - 1;
+      } else {
+        newIndex = endLimit;
+      }
+      state.selectedIndex = newIndex;
     }
   }
 });
 
 export const {
-  setSelected
+  selectByRoute,
+  selectByWheel
 } = navSlice.actions;

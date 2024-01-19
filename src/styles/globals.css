@@ -27,7 +27,7 @@
 html body {
     min-height: 100vh;
     /* TODO: problematic */
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 .content-height {
@@ -35,5 +35,5 @@ html body {
 }
 
 .page {
-    margin: auto 60px auto 60px
+    margin: 20px 60px 20px 60px
 }
