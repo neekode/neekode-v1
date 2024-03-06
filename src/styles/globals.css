@@ -26,8 +26,6 @@
 
 html body {
     min-height: 100vh;
-    /* TODO: problematic */
-    /*overflow: hidden;*/
 }
 
 .content-height {
@@ -36,4 +34,10 @@ html body {
 
 .page {
     margin: 20px 60px 20px 60px
+}
+
+/* Overwrite of tailwind's default animation duration. */
+.nav-item {
+    transition-duration: 80ms;
+    min-height: 36px;
 }

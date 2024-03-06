@@ -80,6 +80,7 @@ export default function useCommonState() {
     theme,
     mode,
     handleThemeChange,
+    dispatch,
     isAppLoading
   };
 }

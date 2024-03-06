@@ -10,11 +10,11 @@ export default function useNavState() {
   const router = useRouter();
   const dispatch = useDispatch();
   const pathname = usePathname();
-  const [isHovered, setIsHovered] = useState(false);
   const navItemsRef = useRef([]);
 
   const {
-    scroll
+    scroll,
+    loading: { app: isAppLoading }
   } = useSelector((state) => state.common);
 
   const {
@@ -33,6 +33,7 @@ export default function useNavState() {
   useEffect(() => {
     // TODO?
     if (scroll.changes === 0) {
+      debugger;
       dispatch(selectByRoute({ route: pathname }));
     }
 
@@ -44,29 +45,59 @@ export default function useNavState() {
   /**
    * useEffect - Scroll Route Navigation
    * If user's mouse is hovered over the navbar, they can scroll to navigate routes.
-   *
-   * TODO!
    */
+  const hasScrolled = useRef(false);
+  // Used for determining whether the animated scrollbar is rendered
+  const [isScrollDisplayed, setIsScrollDisplayed] = useState(true);
+  // Used for determining whether to control the nav bar with scrolling
+  const [isHovered, setIsHovered] = useState(false);
   useEffect(() => {
     if (isHovered) {
-      if (scroll) {
+      if (scroll && !hasScrolled.current) {
         dispatch(selectByWheel({ direction: scroll.direction }));
+        hasScrolled.current = true;
+        setTimeout(() => {
+          hasScrolled.current = false;
+        }, 400);
       }
     }
-  }, [scroll.changes]);
+  }, [scroll.changes, hasScrolled]);
 
   /**
    * useEffect - Select Route Based on Index State
+   * Also sets the current selectedTabElement.
    */
+  const [selectedTabElement, setSelectedTabElement] = useState({
+    element: {},
+    left: 0,
+    top: 0,
+    width: 0
+  });
   useEffect(() => {
     router.push(tabs[selectedIndex].route);
-  }, [selectedIndex]);
+
+    if (navItemsRef.current[0].current) {
+      const { current: element } = navItemsRef.current[selectedIndex];
+      setSelectedTabElement({
+        element: element,
+        left: Number(element.offsetLeft),
+        width: Number(element.clientWidth)
+      });
+
+      setIsScrollDisplayed(false);
+      setTimeout(() => {
+        setIsScrollDisplayed(true);
+      }, 200);
+    }
+  }, [selectedIndex, window.innerWidth, isAppLoading]);
 
   /**
-   * Callback - When navbar is hovered this callback:
+   * Callback - Attached to <nav>
+   *
+   * When navbar is hovered:
    * - Overrides the .onscroll method to prevent scrolling of the
    * body navbar while user is scroll the routes in the navbar.
-   * - Sets is isHovered local state.
+   * - Sets local state determining isHovered.
    */
   const handleHovering = useCallback((isEntered) => {
     const scrollTop = window.pageYOffset;
@@ -76,14 +107,17 @@ export default function useNavState() {
       window.onscroll = () => {
       };
     }
-    setIsHovered(isEntered);
+    setTimeout(() => {
+      setIsHovered(isEntered);
+    }, 200);
   }, []);
 
   return {
     tabs,
     selectedIndex,
     navItemsRef,
-    isHovered,
+    isScrollDisplayed,
+    selectedTabElement,
     handleHovering
   };
 }
