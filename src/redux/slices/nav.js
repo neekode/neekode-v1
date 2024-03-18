@@ -23,6 +23,7 @@ export const navSlice = createSlice({
   name: 'nav',
   initialState: {
     tabs: initialTabs,
+    isBgControllerOpen: false,
     selectedIndex: 0
   },
   reducers: {
@@ -49,11 +50,15 @@ export const navSlice = createSlice({
         newIndex = endLimit;
       }
       state.selectedIndex = newIndex;
+    },
+    setIsBgControllerOpen: (state, action) => {
+      state.isBgControllerOpen = action.payload;
     }
   }
 });
 
 export const {
   selectByRoute,
-  selectByWheel
+  selectByWheel,
+  setIsBgControllerOpen
 } = navSlice.actions;

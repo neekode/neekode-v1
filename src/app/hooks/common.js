@@ -1,7 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useCallback, useEffect } from 'react';
 import { useColorMode } from '@chakra-ui/react';
-import { setIsAppLoading, setScroll, setTheme } from '../../redux/slices/common';
+import {
+  setIsAppLoading,
+  setMode,
+  setScroll,
+  setTheme,
+  setViewport
+} from '../../redux/slices/common';
 
 /**
  * Common State utilized across the application.
@@ -18,22 +24,47 @@ export default function useCommonState() {
     theme,
     mode,
     scroll,
+    viewport: { isMobile },
     loading: {
       app: isAppLoading
     }
   } = useSelector((state) => state.common);
 
   /**
+   * useEffect - App Init.
+   * The first React logic that runs.
+   * - Handles App loading State
+   * - Adds native browser events: on scroll,
+   */
+  useEffect(() => {
+    dispatch(setIsAppLoading(false));
+
+    const updateViewport = () => {
+      dispatch(setViewport({
+        height: window.innerHeight,
+        width: window.innerWidth,
+        isMobile: window.innerWidth < 550
+      }));
+    };
+
+    updateViewport();
+    window.addEventListener('resize', updateViewport);
+    return () => window.removeEventListener('resize', updateViewport);
+  }, []);
+
+  /**
    * Callback - On Wheel Handler.
    * TODO: I want to use the wheel a bunch to control a lot of the website.
    */
   const onWheel = useCallback((e) => {
-    const direction = e.deltaY < 0 ? 'up' : 'down';
-    dispatch(setScroll({
-      direction,
-      changes: scroll.changes + 1
-    }));
-  }, [scroll.changes]);
+    if (!isMobile) {
+      const direction = e.deltaY < 0 ? 'up' : 'down';
+      dispatch(setScroll({
+        direction,
+        changes: scroll.changes + 1
+      }));
+    }
+  }, [scroll.changes, isMobile]);
 
   /**
    * Callback - Click handler for the theme switcher, switches
@@ -46,20 +77,18 @@ export default function useCommonState() {
   }, [colorMode, dispatch, toggleColorMode]);
 
   /**
-   * useEffect - App Init.
-   * The first React logic that runs.
-   * - Handles App loading State
-   * - Adds native browser events: on scroll,
+   * Callback - Click handler for the mode switcher.
+   * Switches between 'simple' and 'fancy' mode.
+   * TODO: anything else here?
    */
-  useEffect(() => {
-    dispatch(setIsAppLoading(false));
+  const handleModeChange = useCallback((newMode) => {
+    dispatch(setMode(newMode));
   }, []);
 
   /**
    * useEffect - Scroll Event Listener
    * Tracks onWheel Event and Scroll State for various purposes.
    */
-
   useEffect(() => {
     // add eventlistener to window
     window.addEventListener('wheel', onWheel);
@@ -78,8 +107,9 @@ export default function useCommonState() {
 
   return {
     theme,
-    mode,
     handleThemeChange,
+    mode,
+    handleModeChange,
     dispatch,
     isAppLoading
   };

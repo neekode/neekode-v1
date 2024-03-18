@@ -9,6 +9,11 @@ export const commonSlice = createSlice({
       direction: '',
       changes: 0
     },
+    viewport: {
+      height: 0,
+      width: 0,
+      isMobile: false
+    },
     loading: {
       app: true
     }
@@ -19,6 +24,9 @@ export const commonSlice = createSlice({
     },
     setMode: (state, action) => {
       state.mode = action.payload;
+    },
+    setViewport: (state, action) => {
+      state.viewport = action.payload;
     },
     setIsAppLoading: (state, action) => {
       state.loading = {
@@ -34,6 +42,7 @@ export const commonSlice = createSlice({
 
 export const {
   setTheme,
+  setViewport,
   setMode,
   setScroll,
   setIsAppLoading

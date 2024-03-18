@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const metadata = {
   title: 'profession'
 };
@@ -9,7 +11,7 @@ export default function Profession() {
       id="profession"
       className="page"
     >
-      profession
+      profession page
     </div>
   );
 }

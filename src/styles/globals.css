@@ -2,12 +2,13 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-/* TODO: use this nextjs theming template? */
+/*!* TODO: use this nextjs theming template? *!*/
 /*:root {*/
 /*    --foreground-rgb: 0, 0, 0;*/
 /*    --background-start-rgb: 214, 219, 220;*/
 /*    --background-end-rgb: 255, 255, 255;*/
 /*}*/
+
 /*@media (prefers-color-scheme: dark) {*/
 /*    :root {*/
 /*        --foreground-rgb: 50, 255, 255;*/
@@ -15,6 +16,7 @@
 /*        --background-end-rgb: 0, 0, 0;*/
 /*    }*/
 /*}*/
+
 /*html {*/
 /*    color: rgb(var(--foreground-rgb));*/
 /*    background: linear-gradient(*/
@@ -33,11 +35,44 @@ html body {
 }
 
 .page {
-    margin: 20px 60px 20px 60px
+    margin: 10px 30px;
+    max-width: 960px;
+    width: 100%;
+}
+
+@media screen and (min-width: 500px) {
+    .page {
+        margin: 20px 60px;
+    }
+}
+
+nav {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 
 /* Overwrite of tailwind's default animation duration. */
 .nav-item {
     transition-duration: 80ms;
     min-height: 36px;
+}
+
+.chakra-wrap__list {
+    place-content: center;
+}
+
+/* Commented Rules disables my Webstorms inspection of variable usage that are outside of the project scope */
+.nav {
+    min-height: 60px;
+}
+
+/*noinspection ALL*/
+.light-nav {
+    background: var(--chakra-colors-brand-200);
+    border-bottom: 1px solid var(--chakra-colors-accent-500);
+}
+
+/*noinspection ALL*/
+.dark-nav {
+    background: var(--chakra-colors-brand-700);
+    border-bottom: 1px solid var(--chakra-colors-accent-400);
 }

@@ -4,7 +4,8 @@ import React from 'react';
 import '../styles/globals.css';
 import Providers from '../providers';
 import Content from './components/Content';
-import Nav from './components/Nav';
+import Background from './components/background/Background';
+import Nav from './components/nav/Nav';
 
 // TODO: Dynamic Metadata for SEO
 // export async function generateMetadata({ params }) {
@@ -26,9 +27,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <Providers>
-          { /* Custom AppContainer for poot pieces like <main> to access to Redux State. */ }
-          <main className="text-foreground bg-background h-screen">
+          { /* Custom AppContainer for pieces like <main> to access to Redux State. */ }
+          <main>
             <Nav />
+            <Background />
             <Content>
               { children }
             </Content>

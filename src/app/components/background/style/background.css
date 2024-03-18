@@ -1,0 +1,30 @@
+/**
+  Random Colors. Do what you want. If you want to change the colors of the
+  animated shapes in the background, go into shapes.js on line 43.
+ */
+#background-animation {
+    height: 100vh;
+    position: fixed;
+    width: 100%;
+    /*color: rebeccapurple;*/
+    /*background-color: deepskyblue;*/
+}
+
+.animation-controller {
+    position: absolute;
+    z-index: 12;
+    width: 200px;
+    height: 300px;
+    padding: 12px;
+
+    /*noinspection CssUnresolvedCustomProperty*/
+    background: var(--chakra-colors-brand-700);
+
+    -webkit-box-shadow: 3px 6px 14px 7px rgba(0, 0, 0, 0.29);
+    -moz-box-shadow: 3px 6px 14px 7px rgba(0, 0, 0, 0.29);
+    box-shadow: 3px 6px 14px 7px rgba(0, 0, 0, 0.29);
+
+    border-radius: 4px;
+    right: 8px;
+    bottom: 8px;
+}

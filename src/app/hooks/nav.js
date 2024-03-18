@@ -14,6 +14,7 @@ export default function useNavState() {
 
   const {
     scroll,
+    viewport,
     loading: { app: isAppLoading }
   } = useSelector((state) => state.common);
 
@@ -33,7 +34,6 @@ export default function useNavState() {
   useEffect(() => {
     // TODO?
     if (scroll.changes === 0) {
-      debugger;
       dispatch(selectByRoute({ route: pathname }));
     }
 
@@ -89,7 +89,7 @@ export default function useNavState() {
         setIsScrollDisplayed(true);
       }, 200);
     }
-  }, [selectedIndex, window.innerWidth, isAppLoading]);
+  }, [selectedIndex, viewport.width, isAppLoading]);
 
   /**
    * Callback - Attached to <nav>

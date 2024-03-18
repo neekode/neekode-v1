@@ -2,41 +2,42 @@
 
 // External
 import Link from 'next/link';
-import { chakra, shouldForwardProp, Switch } from '@chakra-ui/react';
+import { useRef } from 'react';
+import {
+  chakra,
+  shouldForwardProp
+} from '@chakra-ui/react';
 import { isValidMotionProp, motion } from 'framer-motion';
 
 // In-app
-import { useRef } from 'react';
-import NeekodeIcon from './svgs/NeekodeIcon';
-import useCommonState from '../hooks/common';
-import useNavState from '../hooks/nav';
-import { selectByRoute } from '../../redux/slices/nav';
+import Settings from './Settings';
+import NeekodeIcon from '../svgs/NeekodeIcon';
+import useNavState from '../../hooks/nav';
+import useCommonState from '../../hooks/common';
+import { selectByRoute } from '../../../redux/slices/nav';
 
+// Still not sure what this does.
 const ChakraBox = chakra(motion.div, {
 
-  /**
-   * Allow motion props and non-Chakra props to be forwarded.
-   */
+  /** Allow motion props and non-Chakra props to be forwarded */
   shouldForwardProp: (prop) => isValidMotionProp(prop) || shouldForwardProp(prop)
 });
 
 /**
  * Nav Bar -
- * Does all the things that nav bar does.
+ * Does all the things that nav bar does. Custom Made.
  *
  * TODO:
- * - Scroll to nav to each route.
- *    -> animated scroll bar as border
  * - use Saikou as inspo for mobile?
- * -
  */
 export default function Nav() {
   const {
     dispatch,
-    theme,
     isAppLoading,
-    handleThemeChange
-    // mode
+    theme,
+    handleThemeChange,
+    mode,
+    handleModeChange
   } = useCommonState();
 
   const {
@@ -47,13 +48,16 @@ export default function Nav() {
     selectedTabElement,
     handleHovering
   } = useNavState();
-
   const navRef = useRef({});
+
+  // const bgColor = useColorModeValue('brand.200', 'brand.700');
+  // const textColor = useColorModeValue('brand.800', 'brand.100');
+  // const accentColor = useColorModeValue('accent.500', 'accent.400');
   // TODO: finish up with the mobile version.
   return (
     <nav
       ref={ navRef }
-      className="flex items-center bg-background sticky top-0 justify-between border-b px-4 py-2"
+      className={ `${theme}-nav nav flex items-center sticky top-0 justify-between border-b px-4 py-2` }
       onMouseEnter={ () => handleHovering(true) }
       onMouseLeave={ () => handleHovering(false) }
     >
@@ -82,9 +86,12 @@ export default function Nav() {
           </div>
         );
       }) }
-      <div className="my-auto">
-        <Switch onChange={ handleThemeChange } />
-      </div>
+      <Settings
+        theme={ theme }
+        handleThemeChange={ handleThemeChange }
+        mode={ mode }
+        handleModeChange={ handleModeChange }
+      />
       { isScrollDisplayed && !isAppLoading
         && (
           // TODO: animation improvements.
