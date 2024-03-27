@@ -18,7 +18,8 @@ import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { SettingsIcon } from '@chakra-ui/icons';
-import { setIsBgControllerOpen } from '../../../redux/slices/nav';
+import { setIsControllerOpen } from '../../../redux/slices/background';
+import BackgroundController from '../background/BackgroundController';
 
 /**
  * Settings -
@@ -55,8 +56,9 @@ export default function Settings(props) {
   `;
 
   const {
-    isBgControllerOpen
-  } = useSelector((state) => state.nav);
+    isControllerOpen
+  } = useSelector((state) => state.background);
+
   return (
     <div className="my-auto">
       <Menu
@@ -122,10 +124,11 @@ export default function Settings(props) {
                     { theme }
                     <Switch onChange={ handleThemeChange } />
                   </MenuItem>
-                  <MenuItem onClick={ () => dispatch(setIsBgControllerOpen(!isBgControllerOpen)) }>
-                    Animation Controller
+                  <MenuItem onClick={ () => dispatch(setIsControllerOpen(!isControllerOpen)) }>
+                    Background Controller
                   </MenuItem>
                 </MenuList>
+                { isControllerOpen && <BackgroundController /> }
               </Box>
             </>
           );

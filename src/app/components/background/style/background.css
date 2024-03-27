@@ -6,13 +6,16 @@
     height: 100vh;
     position: fixed;
     width: 100%;
-    /*color: rebeccapurple;*/
-    /*background-color: deepskyblue;*/
+    top: 0;
+}
+
+#canvas-bg {
+    z-index: 500;
 }
 
 .animation-controller {
     position: absolute;
-    z-index: 12;
+    z-index: 500;
     width: 200px;
     height: 300px;
     padding: 12px;
@@ -26,5 +29,4 @@
 
     border-radius: 4px;
     right: 8px;
-    bottom: 8px;
 }

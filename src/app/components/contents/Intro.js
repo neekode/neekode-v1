@@ -48,7 +48,8 @@ export default function IntroContent() {
           borderColor={ accentColor }
           color={ textColor }
         >
-          Box 2
+          <h1>Neeko Blomgren</h1>
+          <h3>UI Engineer</h3>
         </Center>
       </WrapItem>
       <WrapItem

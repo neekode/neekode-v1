@@ -6,6 +6,7 @@ import Providers from '../providers';
 import Content from './components/Content';
 import Background from './components/background/Background';
 import Nav from './components/nav/Nav';
+import Footer from './components/nav/Footer';
 
 // TODO: Dynamic Metadata for SEO
 // export async function generateMetadata({ params }) {
@@ -34,6 +35,7 @@ export default function RootLayout({ children }) {
             <Content>
               { children }
             </Content>
+            <Footer />
           </main>
         </Providers>
       </body>

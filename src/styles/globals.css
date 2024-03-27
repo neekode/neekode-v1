@@ -46,8 +46,9 @@ html body {
     }
 }
 
-nav {
+nav, .footer {
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    z-index: 11;
 }
 
 /* Overwrite of tailwind's default animation duration. */
@@ -61,7 +62,7 @@ nav {
 }
 
 /* Commented Rules disables my Webstorms inspection of variable usage that are outside of the project scope */
-.nav {
+.nav, .footer {
     min-height: 60px;
 }
 
@@ -72,7 +73,19 @@ nav {
 }
 
 /*noinspection ALL*/
+.light-footer {
+    background: var(--chakra-colors-brand-200);
+    border-top: 1px solid var(--chakra-colors-accent-500);
+}
+
+/*noinspection ALL*/
 .dark-nav {
     background: var(--chakra-colors-brand-700);
     border-bottom: 1px solid var(--chakra-colors-accent-400);
+}
+
+/*noinspection ALL*/
+.dark-footer {
+    background: var(--chakra-colors-brand-700);
+    border-top: 1px solid var(--chakra-colors-accent-400);
 }

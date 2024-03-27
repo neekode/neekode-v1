@@ -2,6 +2,7 @@
 
 /* This layout is the wrapper for all the content of the page. Siblings with <Nav/>.  */
 
+import React from 'react';
 import useCommonState from '../hooks/common';
 
 export default function Content({ children }) {
@@ -13,7 +14,9 @@ export default function Content({ children }) {
     <div className="content-height flex justify-center">
       { !isAppLoading ? children
         : (
-          <div className="page">Loading...</div>
+          <div className="page">
+            Loading...
+          </div>
         ) }
     </div>
   );
