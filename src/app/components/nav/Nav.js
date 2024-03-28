@@ -37,6 +37,7 @@ export default function Nav() {
     theme,
     handleThemeChange,
     mode,
+    isMobile,
     handleModeChange
   } = useCommonState();
 
@@ -57,7 +58,7 @@ export default function Nav() {
   return (
     <nav
       ref={ navRef }
-      className={ `${theme}-nav nav flex items-center sticky top-0 justify-between border-b px-4 py-2` }
+      className={ `${theme}-nav nav flex items-center sticky top-0 justify-between border-b px-2` }
       onMouseEnter={ () => handleHovering(true) }
       onMouseLeave={ () => handleHovering(false) }
     >
@@ -72,7 +73,7 @@ export default function Nav() {
           <div
             key={ `${name}-key` }
             ref={ navItemsRef.current[i] }
-            className={ `nav-item flex my-auto items-center underline-offset-4 transition-all ${isSelected ? '' : 'hover:scale-125'}` }
+            className={ `nav-item chakra-button flex my-auto items-center underline-offset-4 transition-all ${isSelected ? '' : 'hover:scale-125'}` }
           >
             <Link
               href={ route }
@@ -81,15 +82,16 @@ export default function Nav() {
             >
               { !isIntroLink
                 ? name
-                : <NeekodeIcon theme={ theme } /> }
+                : <NeekodeIcon theme={ theme } isMobile={ isMobile } /> }
             </Link>
           </div>
         );
       }) }
       <Settings
         theme={ theme }
-        handleThemeChange={ handleThemeChange }
         mode={ mode }
+        isMobile={ isMobile }
+        handleThemeChange={ handleThemeChange }
         handleModeChange={ handleModeChange }
       />
       { isScrollDisplayed && !isAppLoading
@@ -107,8 +109,8 @@ export default function Nav() {
             position="absolute"
             bg={ theme === 'dark' ? '#fff' : '#000' }
             top={ `${Number(navRef.current.getBoundingClientRect().height) - 5}px` }
-            left={ `${selectedTabElement.left - 40}px` }
-            width={ `${selectedTabElement.width + 80}px` }
+            left={ `${selectedTabElement.left - (isMobile ? 10 : 40)}px` }
+            width={ `${selectedTabElement.width + (isMobile ? 20 : 80)}px` }
             height="4px"
           />
         ) }

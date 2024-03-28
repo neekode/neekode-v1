@@ -1,10 +1,11 @@
 'use client';
 
-import { Wrap } from '@chakra-ui/react';
+import { Wrap, WrapItem } from '@chakra-ui/react';
 import useCommonState from '../../hooks/common';
+import { footerButtons } from '../../../constants';
 
 export default function Footer(props) {
-  const {} = props;
+  props;
   const {
     // dispatch,
     // isAppLoading,
@@ -17,13 +18,18 @@ export default function Footer(props) {
   // const bgColor = useColorModeValue('brand.200', 'brand.700');
   // const textColor = useColorModeValue('brand.800', 'brand.100');
 
+  // TODO: finish this.
   return (
     <div
       className={ `${theme}-footer footer flex items-center bottom-0 relative justify-between border-t px-4 py-2` }
     >
-      <Wrap>
-        Im a footer!
-      </Wrap>
+      { footerButtons.map((button) => {
+        return (
+          <WrapItem key={ `${button.name}-footer-btn` }>
+            { button.icon }
+          </WrapItem>
+        );
+      }) }
     </div>
   );
 }

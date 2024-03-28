@@ -10,7 +10,6 @@ export const metadata = {
 export default function Intro() {
   return (
     <Box id="intro" className="page">
-      { /* TODO: Lightly Randomize this stuff?  */ }
       <IntroContent />
     </Box>
   );

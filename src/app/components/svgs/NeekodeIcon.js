@@ -12,10 +12,14 @@ import * as React from 'react';
  *
  *  TODO: Workshop icon?
  */
-function NeekodeIcon({ theme }) {
+function NeekodeIcon({
+  theme,
+  isMobile
+}) {
+  const size = isMobile ? 18 : 36;
   return (
     <div className="m-2">
-      <svg xmlns="http://www.w3.org/2000/svg" width={ 36 } height={ 36 } viewBox="0 0 260 260">
+      <svg xmlns="http://www.w3.org/2000/svg" width={ size } height={ size } viewBox="0 0 260 260">
         <title>Neekode Brand Icon</title>
         <path
           fill="none"

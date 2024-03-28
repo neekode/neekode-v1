@@ -1,14 +1,14 @@
 export const metadata = {
-  title: 'works'
+  title: 'code'
 };
 
-export default function Works({ children }) {
+export default function Code({ children }) {
   return (
     <div
-      id="works-layout"
+      id="code-layout"
       className="page"
     >
-      works layout
+      code layout
       { children }
     </div>
   );

@@ -28,8 +28,9 @@ import BackgroundController from '../background/BackgroundController';
 export default function Settings(props) {
   const {
     theme,
-    handleThemeChange,
     mode,
+    isMobile,
+    handleThemeChange,
     handleModeChange
   } = props;
   const dispatch = useDispatch();
@@ -59,8 +60,11 @@ export default function Settings(props) {
     isControllerOpen
   } = useSelector((state) => state.background);
 
+  const size = isMobile ? 4 : 8;
   return (
-    <div className="my-auto">
+    <div
+      className="nav-item flex my-auto items-center underline-offset-4"
+    >
       <Menu
         offset={ [50, -50] }
       >
@@ -81,15 +85,14 @@ export default function Settings(props) {
               >
                 <MenuButton
                   zIndex="12"
-                  // className="hover:scale-125"
                   as={ IconButton }
                   bg={ bgColor }
                   _hover={ { bg: 'transparent' } }
                   _expanded={ { bg: 'transparent' } }
                   icon={ (
                     <SettingsIcon
-                      height={ 8 }
-                      width={ 8 }
+                      height={ size }
+                      width={ size }
                       color={ textColor }
                     />
                   ) }

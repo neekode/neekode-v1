@@ -10,12 +10,12 @@ const initialTabs = [
     route: '/profession'
   },
   {
-    name: 'works',
-    route: '/works'
+    name: 'code',
+    route: '/code'
   },
   {
-    name: 'contact',
-    route: '/contact'
+    name: 'projects',
+    route: '/projects'
   }
 ];
 

@@ -107,8 +107,9 @@ export default function useCommonState() {
 
   return {
     theme,
-    handleThemeChange,
     mode,
+    isMobile,
+    handleThemeChange,
     handleModeChange,
     dispatch,
     isAppLoading

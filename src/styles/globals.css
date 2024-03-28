@@ -30,42 +30,80 @@ html body {
     min-height: 100vh;
 }
 
+h1, h2, h2 {
+    text-align: center;
+}
+
+h1 {
+    font-size: 31px;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 20px;
+    font-style: italic;
+}
+
+h4 {
+    font-size: 18px;
+    font-weight: bold;
+}
+
 .content-height {
+    min-height: 90vh;
     height: calc(100% - 64px);
 }
 
 .page {
-    margin: 10px 30px;
+    margin: 16px;
     max-width: 960px;
     width: 100%;
+    align-content: center;
 }
 
 @media screen and (min-width: 500px) {
     .page {
-        margin: 20px 60px;
+        margin: 16px;
     }
 }
 
-nav, .footer {
+.nav, .footer {
+    min-height: 15px;
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     z-index: 11;
+}
+
+.footer {
+    bottom: 0;
+}
+
+@media screen and (min-width: 500px) {
+    .page {
+        min-height: 30px;
+        margin: 16px;
+    }
 }
 
 /* Overwrite of tailwind's default animation duration. */
 .nav-item {
     transition-duration: 80ms;
-    min-height: 36px;
+    font-size: 14px;
 }
 
-.chakra-wrap__list {
-    place-content: center;
+@media screen and (min-width: 500px) {
+    .nav {
+        padding: 4px 12px;
+    }
+
+    .nav-item {
+        font-size: 16px;
+    }
 }
 
 /* Commented Rules disables my Webstorms inspection of variable usage that are outside of the project scope */
-.nav, .footer {
-    min-height: 60px;
-}
-
 /*noinspection ALL*/
 .light-nav {
     background: var(--chakra-colors-brand-200);
@@ -88,4 +126,29 @@ nav, .footer {
 .dark-footer {
     background: var(--chakra-colors-brand-700);
     border-top: 1px solid var(--chakra-colors-accent-400);
+}
+
+.tooltip, .external-link {
+    font-weight: bold;
+}
+
+/* TODO: FIGURE OUT ACCENT COLORS*/
+/*noinspection ALL*/
+.tooltip {
+    color: var(--chakra-colors-accent-200);
+}
+
+/*noinspection ALL*/
+.external-link {
+    color: var(--chakra-colors-accent-200);
+    text-decoration: underline;
+}
+
+.external-link:hover {
+    text-decoration: none;
+}
+
+/* TODO: what is this? */
+.chakra-wrap__list {
+    place-content: center;
 }

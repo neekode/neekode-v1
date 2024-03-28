@@ -1,15 +1,15 @@
 export const metadata = {
-  title: 'contact'
+  title: 'projects'
 };
 
 // { children }
-export default function Contact() {
+export default function Projects() {
   return (
     <div
-      id="contact"
+      id="projects"
       className="page"
     >
-      contact
+      projects
     </div>
   );
 }
