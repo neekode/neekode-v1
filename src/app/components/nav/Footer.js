@@ -1,6 +1,6 @@
 'use client';
 
-import { Wrap, WrapItem } from '@chakra-ui/react';
+import { WrapItem } from '@chakra-ui/react';
 import useCommonState from '../../hooks/common';
 import { footerButtons } from '../../../constants';
 

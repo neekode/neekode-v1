@@ -6,17 +6,19 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next export"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
-    "@chakra-ui/theme-tools": "^2.1.2",
     "@chakra-ui/react": "^2.8.1",
+    "@chakra-ui/theme-tools": "^2.1.2",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@nextui-org/react": "^2.1.13",
     "@reduxjs/toolkit": "^1.9.7",
     "eslint-config-airbnb": "^19.0.4",
+    "firebase": "^10.10.0",
     "framer-motion": "^10.16.4",
     "next": "13.5.4",
     "react": "^18",
