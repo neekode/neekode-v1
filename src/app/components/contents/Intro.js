@@ -2,7 +2,7 @@
 
 /* This layout is the wrapper for all the content of the page. Siblings with <Nav/>.  */
 
-import { Center, Image, Wrap, WrapItem, useColorModeValue, Tooltip } from '@chakra-ui/react';
+import { Center, Image, Wrap, WrapItem, useColorModeValue, Tooltip, Box } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import Link from 'next/link';
 
@@ -18,11 +18,31 @@ export default function IntroContent() {
   // TODO: fun background accent shapes.
   return (
     <Wrap
-      spacing={ isMobile ? '4' : '4' }
+      spacing="8"
       placeContent="center"
     >
-      <WrapItem>
-        <Center borderRadius="10">
+      { /* <WrapItem> */ }
+      { /*    */ }
+      { /* </WrapItem> */ }
+      <Wrap
+        position="relative"
+        width="100%"
+        maxWidth="400px"
+        boxShadow="lg"
+        borderBottom="1px"
+        borderRight="1px"
+        borderRadius="10"
+        bg={ bgColor }
+        borderColor={ accentColor }
+        paddingTop={ isMobile ? '12px' : '' }
+        paddingBottom={ isMobile ? '12px' : '' }
+        marginLeft={ isMobile ? '' : '80px' }
+      >
+        { !isMobile && <Box minHeight="180px" minWidth="100px" /> }
+        <WrapItem
+          position={ isMobile ? 'relative' : 'absolute' }
+          left={ isMobile ? 'relative' : '-80px' }
+        >
           <Image
             borderRadius="full"
             placeSelf="center"
@@ -30,58 +50,113 @@ export default function IntroContent() {
             src="/head-shot-2.jpg"
             alt="intro head shot"
             boxShadow="lg"
-            border="1px"
+            borderBottom="1px"
+            borderRight="1px"
             borderColor={ accentColor }
           />
-        </Center>
-      </WrapItem>
+        </WrapItem>
+        <WrapItem>
+          <Center
+            width="100%"
+            alignSelf="center"
+            color={ textColor }
+          >
+            <div className="block items-center">
+              <h1>Neeko Blomgren</h1>
+              <h2>UI/UX Web Developer</h2>
+              <h3>efficiency, simplicity, modernity</h3>
+            </div>
+          </Center>
+        </WrapItem>
+      </Wrap>
       <WrapItem
         width="100%"
-        maxWidth="500px"
+        placeContent="center"
       >
+        { /* <Box>column 1</Box> */ }
         <Center
-          width="100%"
-          alignSelf="center"
-          borderRadius="10"
+          width="95%"
+          borderBottomLeftRadius="10"
+          borderTopRightRadius="10"
+          borderBottomRightRadius="10"
           boxShadow="lg"
-          border="1px"
+          borderBottom="1px"
+          borderRight="1px"
+          display="flex"
+          flexDirection={ isMobile ? 'column' : 'row' }
           bg={ bgColor }
           borderColor={ accentColor }
           color={ textColor }
         >
-          <div className="block items-center">
-            <h1>Neeko Blomgren</h1>
-            <h2>UI Engineer</h2>
-            <h3>efficiency, simplicity, modernity</h3>
-          </div>
-        </Center>
-      </WrapItem>
-      <WrapItem
-        width="100%"
-      >
-        <Center
-          width="100%"
-          borderRadius="10"
-          boxShadow="lg"
-          border="1px"
-          bg={ bgColor }
-          borderColor={ accentColor }
-          color={ textColor }
-        >
-          <Wrap padding="4">
-            <WrapItem width="100%">
-              <h3>welcome!</h3>
+          <WrapItem
+            marginBottom="auto"
+            marginTop="12px"
+            marginLeft="12px"
+          >
+            <h3>welcome!</h3>
+          </WrapItem>
+          <Box
+            display="flex"
+            flexDirection="column"
+            paddingTop="16px"
+            paddingLeft="20px"
+            paddingRight="40px"
+            marginTop="16px"
+            marginBottom="auto"
+            placeContent="center"
+            gap="16px"
+          >
+            <WrapItem width="100%" display="inline">
+              I&apos;m a front-end web specialist.
             </WrapItem>
-            <WrapItem width="100%">
-              entered the industry self-taught, and now with 5 years professional front-end SPA
-              experience
+            <WrapItem width="100%" display="inline">
+              Having started&nbsp;
+              <Tooltip
+                hasArrow
+                placement="top"
+                label="Graduated with a UX diploma"
+              >
+                <span className="tooltip">
+                  self-taught in code,&nbsp;
+                </span>
+              </Tooltip>
+              I&apos;ve been in the industry for 5 years, and am currently a lead at&nbsp;
+              <Tooltip
+                hasArrow
+                placement="top"
+                label="Responsible for princess.com/cruise-search/"
+              >
+                <span className="tooltip">
+                  Princess Cruiselines&nbsp;
+                </span>
+              </Tooltip>
             </WrapItem>
-            <WrapItem width="100%">
-              i consider myself a React savant.
+            <WrapItem width="100%" display="inline">
+              Whether it be fitting into a massive teams and making&nbsp;
+              <Tooltip
+                hasArrow
+                placement="top"
+                label="Like the background feature in Microsoft Teams"
+              >
+                <span className="tooltip">
+                  enterprise-level contributions,&nbsp;
+                </span>
+              </Tooltip>
+              or taking&nbsp;
+              <Tooltip
+                hasArrow
+                placement="top"
+                label="Such as this portfolio, with most of the code 100% owned by me."
+              >
+                <span className="tooltip">
+                  personal projects&nbsp;
+                </span>
+              </Tooltip>
+              from ideation to production, I am a well-balanced professional with integrity.
             </WrapItem>
             <WrapItem width="100%" display="inline">
               { /* TODO: place IMD page. */ }
-              with an&nbsp;
+              With an&nbsp;
               <Tooltip hasArrow placement="top" label="external link to the program i attended">
                 <Link className="inline" href="http://uw.com">
                   <span className="external-link inline">
@@ -89,39 +164,23 @@ export default function IntroContent() {
                   </span>
                 </Link>
               </Tooltip>
-              &nbsp;i&apos;m comfortable in a design conversation, and have an eye for pixel
-              perfection
+              &nbsp;I&apos;m comfortable in a design conversation, and have an eye for pixel
+              perfection. I design all of my personal projects.
             </WrapItem>
-            <WrapItem width="100%" display="inline">
-              whether it be fitting into a massive teams and making&nbsp;
-              <Tooltip
-                hasArrow
-                placement="top"
-                label="like for Microsoft Teams"
-              >
-                <span className="tooltip">
-                  enterprise-level contributions,&nbsp;
-                </span>
-              </Tooltip>
+            { /* <WrapItem width="100%" display="inline"> */ }
+            { /*    */ }
+            { /* </WrapItem> */ }
+            <WrapItem marginBottom="16px" width="100%" display="inline">
+              You&apos;ll find my solutions to be committed, timely, and ever-evolving.
             </WrapItem>
-            <WrapItem width="100%" display="inline">
-              or taking&nbsp;
-              <Tooltip
-                hasArrow
-                placement="top"
-                label="like this portfolio"
-              >
-                <span className="tooltip">
-                  personal projects&nbsp;
-                </span>
-              </Tooltip>
-              from ideation to production,
-            </WrapItem>
-            <WrapItem width="100%" display="inline">
-              you&apos;ll find my solutions to be well-researched, thorough, and ever evolving. and
-              always on time.
-            </WrapItem>
-          </Wrap>
+          </Box>
+          { /* <WrapItem */ }
+          { /*   marginBottom="auto" */ }
+          { /*   padding="16px" */ }
+          { /*   width="10%" */ }
+          { /* > */ }
+          { /*   <h3>goodbye!</h3> */ }
+          { /* </WrapItem> */ }
         </Center>
       </WrapItem>
       <WrapItem
@@ -129,20 +188,30 @@ export default function IntroContent() {
       >
         <Center
           width="100%"
-          borderRadius="10"
+          borderBottomLeftRadius="10"
+          borderTopRightRadius="10"
+          borderBottomRightRadius="10"
           boxShadow="lg"
-          border="1px"
+          borderBottom="1px"
+          borderRight="1px"
           bg={ bgColor }
           borderColor={ accentColor }
           color={ textColor }
+          display="flex"
+          flexDirection={ isMobile ? 'column' : 'row' }
         >
-          <Wrap padding="4">
-            <WrapItem width="100%">
-              <h3>this website</h3>
-            </WrapItem>
+          <WrapItem
+            width="10%"
+            marginBottom="auto"
+            marginTop="12px"
+            marginLeft="12px"
+          >
+            <h3>the site</h3>
+          </WrapItem>
+          <Wrap padding="4" width="90%" marginTop="20px">
             <WrapItem width="100%" display="inline">
-              built using my preferred tech of NextJS, React, Redux Toolkit, Chakra, and
-              Tailwind, it is split into 3 sections.
+              It&apos;s built using my preferred stack of NextJS, React, Redux Toolkit, Chakra, and
+              Tailwind. It&apos;s split into 3 sections.
             </WrapItem>
             <WrapItem width="100%" display="inline">
               <h4>

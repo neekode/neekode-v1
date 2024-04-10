@@ -8,7 +8,7 @@ export default function Code({ children }) {
       id="code-layout"
       className="page"
     >
-      code layout
+      { /* code layout */ }
       { children }
     </div>
   );

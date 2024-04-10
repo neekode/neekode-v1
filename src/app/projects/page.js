@@ -1,3 +1,5 @@
+import ProjectsContent from '../components/contents/Projects';
+
 export const metadata = {
   title: 'projects'
 };
@@ -9,7 +11,7 @@ export default function Projects() {
       id="projects"
       className="page"
     >
-      projects
+      <ProjectsContent />
     </div>
   );
 }

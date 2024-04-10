@@ -58,15 +58,15 @@ h4 {
 }
 
 .page {
-    margin: 16px;
-    max-width: 960px;
+    margin: 16px 0;
+    /*max-width: 960px;*/
     width: 100%;
     align-content: center;
 }
 
 @media screen and (min-width: 500px) {
     .page {
-        margin: 16px;
+        /*margin: 16px;*/
     }
 }
 
@@ -77,13 +77,12 @@ h4 {
 }
 
 .footer {
-    bottom: 0;
+    bottom: -10px;
 }
 
 @media screen and (min-width: 500px) {
     .page {
         min-height: 30px;
-        margin: 16px;
     }
 }
 

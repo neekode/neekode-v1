@@ -1,4 +1,5 @@
 import React from 'react';
+import ProfessionContent from '../components/contents/Profession';
 
 export const metadata = {
   title: 'profession'
@@ -11,7 +12,7 @@ export default function Profession() {
       id="profession"
       className="page"
     >
-      profession page
+      <ProfessionContent />
     </div>
   );
 }

@@ -28,16 +28,16 @@ const theme = {
       900: '#14181F'
     },
     accent: {
-      50: '#F6EEF6',
-      100: '#E7D0E7',
-      200: '#D7B2D7',
-      300: '#C793C7',
-      400: '#B875B8',
-      500: '#A857A8',
-      600: '#864686',
-      700: '#653465',
-      800: '#432343',
-      900: '#221122'
+      50: '#EDF4F8',
+      100: '#CCE0EB',
+      200: '#ABCDDD',
+      300: '#8AB9D0',
+      400: '#6AA5C3',
+      500: '#4992B6',
+      600: '#3A7592',
+      700: '#2C576D',
+      800: '#1D3A49',
+      900: '#0F1D24'
     }
   },
   // Initial Configuration for extending theme defining specific styling to default elements
