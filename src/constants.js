@@ -1,5 +1,20 @@
 import { AttachmentIcon, EmailIcon, PhoneIcon, StarIcon } from '@chakra-ui/icons';
 
+export const getBaseWrapperProps = (isMobile) => {
+  return {
+    width: '95%',
+    minHeight: '300px',
+    borderBottomLeftRadius: '10',
+    borderTopRightRadius: '10',
+    borderBottomRightRadius: '10',
+    boxShadow: 'lg',
+    borderBottom: '1px',
+    borderRight: '1px',
+    display: 'flex',
+    flexDirection: isMobile ? 'column' : 'row'
+  };
+};
+
 // TODO: finish this.
 export const footerButtons = [
   {

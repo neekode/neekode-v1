@@ -1,12 +1,23 @@
 'use client';
 
 /* This layout is the wrapper for all the content of the page. Siblings with <Nav/>.  */
-
-import { Center, Image, Wrap, WrapItem, useColorModeValue, Tooltip, Box } from '@chakra-ui/react';
+import {
+  Center,
+  Image,
+  Wrap,
+  WrapItem,
+  useColorModeValue,
+  Tooltip,
+  Box,
+  useTheme
+} from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import Link from 'next/link';
+import { getBaseWrapperProps } from '../../../constants';
+import CircleMenu from '../widgets/CircleMenu';
 
 export default function IntroContent() {
+  const theme = useTheme();
   const {
     viewport: { isMobile }
   } = useSelector((state) => state.common);
@@ -15,15 +26,17 @@ export default function IntroContent() {
   const bgColor = useColorModeValue('brand.200', 'brand.700');
   const accentColor = useColorModeValue('accent.500', 'accent.400');
   const textColor = useColorModeValue('brand.800', 'brand.100');
+
+  // For Widgets
+  const textHex = theme.colors.brand[textColor.split('.')[1]];
+
   // TODO: fun background accent shapes.
+  const wrapperProps = getBaseWrapperProps(isMobile);
   return (
     <Wrap
       spacing="8"
       placeContent="center"
     >
-      { /* <WrapItem> */ }
-      { /*    */ }
-      { /* </WrapItem> */ }
       <Wrap
         position="relative"
         width="100%"
@@ -75,15 +88,7 @@ export default function IntroContent() {
       >
         { /* <Box>column 1</Box> */ }
         <Center
-          width="95%"
-          borderBottomLeftRadius="10"
-          borderTopRightRadius="10"
-          borderBottomRightRadius="10"
-          boxShadow="lg"
-          borderBottom="1px"
-          borderRight="1px"
-          display="flex"
-          flexDirection={ isMobile ? 'column' : 'row' }
+          { ...wrapperProps }
           bg={ bgColor }
           borderColor={ accentColor }
           color={ textColor }
@@ -92,8 +97,9 @@ export default function IntroContent() {
             marginBottom="auto"
             marginTop="12px"
             marginLeft="12px"
+            textAlign="center"
           >
-            <h3>welcome!</h3>
+            <h3>at a glance</h3>
           </WrapItem>
           <Box
             display="flex"
@@ -106,8 +112,15 @@ export default function IntroContent() {
             placeContent="center"
             gap="16px"
           >
-            <WrapItem width="100%" display="inline">
-              I&apos;m a front-end web specialist.
+            <WrapItem
+              width="100%"
+              display="flex"
+              flexDirection="column"
+              gap="16px"
+              alignItems="center"
+            >
+              I&apos;m a front-end specialist with 5 years in the industry.
+              <CircleMenu textColor={ textHex } />
             </WrapItem>
             <WrapItem width="100%" display="inline">
               Having started&nbsp;
@@ -174,31 +187,17 @@ export default function IntroContent() {
               You&apos;ll find my solutions to be committed, timely, and ever-evolving.
             </WrapItem>
           </Box>
-          { /* <WrapItem */ }
-          { /*   marginBottom="auto" */ }
-          { /*   padding="16px" */ }
-          { /*   width="10%" */ }
-          { /* > */ }
-          { /*   <h3>goodbye!</h3> */ }
-          { /* </WrapItem> */ }
         </Center>
       </WrapItem>
       <WrapItem
         width={ `${isMobile ? '95%' : '85%'}` }
       >
         <Center
+          { ...wrapperProps }
           width="100%"
-          borderBottomLeftRadius="10"
-          borderTopRightRadius="10"
-          borderBottomRightRadius="10"
-          boxShadow="lg"
-          borderBottom="1px"
-          borderRight="1px"
           bg={ bgColor }
           borderColor={ accentColor }
           color={ textColor }
-          display="flex"
-          flexDirection={ isMobile ? 'column' : 'row' }
         >
           <WrapItem
             width="10%"

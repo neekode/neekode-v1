@@ -44,7 +44,8 @@ const theme = {
   styles: {
     global: (props) => ({
       body: {
-        bg: mode('brand.100', 'brand.800')(props)
+        bg: mode('brand.100', 'brand.800')(props),
+        fontSize: 20
       },
       div: {
         zIndex: 10
