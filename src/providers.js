@@ -38,6 +38,18 @@ const theme = {
       700: '#2C576D',
       800: '#1D3A49',
       900: '#0F1D24'
+    },
+    neutral: {
+      50: '#F0F2F4',
+      100: '#D5DBE2',
+      200: '#BAC3CF',
+      300: '#9FACBC',
+      400: '#8494A9',
+      500: '#697D96',
+      600: '#546478',
+      700: '#3F4B5A',
+      800: '#2A323C',
+      900: '#15191E'
     }
   },
   // Initial Configuration for extending theme defining specific styling to default elements

@@ -40,6 +40,7 @@ export default function useNavState() {
     navItemsRef.current = Array(tabs.length)
       .fill()
       .map((_, i) => navItemsRef.current[i] || createRef());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   /**
@@ -61,6 +62,7 @@ export default function useNavState() {
         }, 400);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scroll.changes, hasScrolled]);
 
   /**
@@ -89,7 +91,7 @@ export default function useNavState() {
         setIsScrollDisplayed(true);
       }, 200);
     }
-  }, [selectedIndex, viewport.width, isAppLoading]);
+  }, [router, tabs, selectedIndex, viewport.width, isAppLoading]);
 
   /**
    * Callback - Attached to <nav>

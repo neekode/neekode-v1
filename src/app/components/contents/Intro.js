@@ -9,12 +9,13 @@ import {
   useColorModeValue,
   Tooltip,
   Box,
-  useTheme
+  useTheme, useToken
 } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import Link from 'next/link';
-import { getBaseWrapperProps } from '../../../constants';
-import CircleMenu from '../widgets/CircleMenu';
+import { getBaseWrapperProps, experienceSections } from '../../../constants';
+import SectionedCircle from '../widgets/SectionedCircle';
+import ToolBelt from '../widgets/ToolBelt';
 
 export default function IntroContent() {
   const theme = useTheme();
@@ -29,6 +30,7 @@ export default function IntroContent() {
 
   // For Widgets
   const textHex = theme.colors.brand[textColor.split('.')[1]];
+  const neutralHex = useToken('colors', 'neutral.300');
 
   // TODO: fun background accent shapes.
   const wrapperProps = getBaseWrapperProps(isMobile);
@@ -40,11 +42,12 @@ export default function IntroContent() {
       <Wrap
         position="relative"
         width="100%"
-        maxWidth="400px"
+        maxWidth="440px"
         boxShadow="lg"
         borderBottom="1px"
         borderRight="1px"
         borderRadius="10"
+        borderBottomRightRadius="50"
         bg={ bgColor }
         borderColor={ accentColor }
         paddingTop={ isMobile ? '12px' : '' }
@@ -54,7 +57,7 @@ export default function IntroContent() {
         { !isMobile && <Box minHeight="180px" minWidth="100px" /> }
         <WrapItem
           position={ isMobile ? 'relative' : 'absolute' }
-          left={ isMobile ? 'relative' : '-80px' }
+          left={ isMobile ? 'relative' : '-60px' }
         >
           <Image
             borderRadius="full"
@@ -86,7 +89,6 @@ export default function IntroContent() {
         width="100%"
         placeContent="center"
       >
-        { /* <Box>column 1</Box> */ }
         <Center
           { ...wrapperProps }
           bg={ bgColor }
@@ -101,8 +103,7 @@ export default function IntroContent() {
           >
             <h3>at a glance</h3>
           </WrapItem>
-          <Box
-            display="flex"
+          <Wrap
             flexDirection="column"
             paddingTop="16px"
             paddingLeft="20px"
@@ -110,18 +111,31 @@ export default function IntroContent() {
             marginTop="16px"
             marginBottom="auto"
             placeContent="center"
-            gap="16px"
           >
-            <WrapItem
-              width="100%"
-              display="flex"
-              flexDirection="column"
-              gap="16px"
-              alignItems="center"
-            >
-              I&apos;m a front-end specialist with 5 years in the industry.
-              <CircleMenu textColor={ textHex } />
-            </WrapItem>
+            <Wrap spacing="64px">
+              <WrapItem
+                display="flex"
+                flexDirection="column"
+                gap="12px"
+                alignItems="center"
+              >
+                Experience
+                <SectionedCircle
+                  segments={ experienceSections }
+                  textColor={ textHex }
+                  ringColor={ neutralHex }
+                />
+              </WrapItem>
+              <WrapItem
+                display="flex"
+                flexDirection="column"
+                gap="12px"
+                alignItems="center"
+              >
+                Tools
+                <ToolBelt beltColor={ neutralHex } />
+              </WrapItem>
+            </Wrap>
             <WrapItem width="100%" display="inline">
               Having started&nbsp;
               <Tooltip
@@ -186,7 +200,7 @@ export default function IntroContent() {
             <WrapItem marginBottom="16px" width="100%" display="inline">
               You&apos;ll find my solutions to be committed, timely, and ever-evolving.
             </WrapItem>
-          </Box>
+          </Wrap>
         </Center>
       </WrapItem>
       <WrapItem

@@ -77,7 +77,8 @@ function BackgroundController() {
       radius: (Math.random() * 15).toFixed(3),
       speed: (Math.random() * 0.15).toFixed(3)
     }));
-  }, [inputsState, amount, radius, speed]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputsState, amount, radius, speed, dispatch]);
 
   /**
    * Callback - Renderer Handler
@@ -91,7 +92,8 @@ function BackgroundController() {
       radius: inputsState.radius,
       speed: inputsState.speed
     }));
-  }, [inputsState, amount, radius, speed]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputsState, amount, radius, speed, dispatch]);
 
   return (
     <div id="Controller" className="">

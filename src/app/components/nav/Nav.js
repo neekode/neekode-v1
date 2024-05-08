@@ -51,9 +51,6 @@ export default function Nav() {
   } = useNavState();
   const navRef = useRef({});
 
-  // const bgColor = useColorModeValue('brand.200', 'brand.700');
-  // const textColor = useColorModeValue('brand.800', 'brand.100');
-  // const accentColor = useColorModeValue('accent.500', 'accent.400');
   // TODO: finish up with the mobile version.
   return (
     <nav

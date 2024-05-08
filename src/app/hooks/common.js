@@ -50,7 +50,7 @@ export default function useCommonState() {
     updateViewport();
     window.addEventListener('resize', updateViewport);
     return () => window.removeEventListener('resize', updateViewport);
-  }, []);
+  }, [dispatch]);
 
   /**
    * Callback - On Wheel Handler.
@@ -64,7 +64,7 @@ export default function useCommonState() {
         changes: scroll.changes + 1
       }));
     }
-  }, [scroll.changes, isMobile]);
+  }, [scroll.changes, isMobile, dispatch]);
 
   /**
    * Callback - Click handler for the theme switcher, switches
@@ -83,7 +83,7 @@ export default function useCommonState() {
    */
   const handleModeChange = useCallback((newMode) => {
     dispatch(setMode(newMode));
-  }, []);
+  }, [dispatch]);
 
   /**
    * useEffect - Scroll Event Listener
@@ -103,7 +103,7 @@ export default function useCommonState() {
    */
   useEffect(() => {
     dispatch(setTheme(colorMode));
-  }, [colorMode]);
+  }, [colorMode, dispatch]);
 
   return {
     theme,

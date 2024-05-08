@@ -47,7 +47,7 @@ function Background() {
     if (context.canvas) {
       context.clearRect(0, 0, canvas.width, canvas.height);
     }
-  }, [context.canvas]);
+  }, [context]);
 
   // init() function fires on pageload from useEffect, and when user re-renders and randomizes.
   // Default (on pageload) argument values as initial state of amount, radius, and speed.
@@ -104,7 +104,7 @@ function Background() {
       const newContext = canvasElement.current.getContext('2d');
       setContext(newContext);
     }
-  }, [isAppLoading, canvasElement.current]);
+  }, [isAppLoading]);
 
   /**
    * useEffect - On Canvas Ready
@@ -113,8 +113,10 @@ function Background() {
    */
   useEffect(() => {
     if (context.canvas) {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       init(amount, radius, speed);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [context.canvas]);
 
   /**
@@ -126,6 +128,7 @@ function Background() {
     if (context.canvas) {
       init(amount, radius, speed);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [amount, radius, speed, viewportWidth, viewportHeight]);
 
   return (

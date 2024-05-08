@@ -3,38 +3,18 @@ import React, { useState } from 'react';
 /**
  * TODO:
  */
-function CircleMenu(props) {
-  const { textColor } = props;
+export default function SectionedCircle(props) {
+  const {
+    segments,
+    ringColor,
+    textColor
+  } = props;
   const [activeSegment, setActiveSegment] = useState(null);
-  const segmentsData = [
-    {
-      id: 1,
-      label: 'princess cruiselines',
-      value: 7,
-      color: '#003595',
-      content: 'Princess \n Cruiselines'
-    },
-    {
-      id: 2,
-      label: 'microsoft teams',
-      value: 5,
-      color: '#6264A7',
-      content: 'Microsoft \n  Teams'
-    },
-    {
-      id: 3,
-      label: 'people tech',
-      value: 3,
-      color: '#A72037',
-      content: 'People Tech \n Group'
-    }
-    // Add more sections with respective values
-  ];
 
   const outerRadius = 100; // Default outer radius
   const innerRadius = 80; // Inner radius (hollow part)
   const expandedRadius = 105; // Expanded radius for the active segment
-  const totalValue = segmentsData.reduce((acc, cur) => acc + cur.value, 0); // Total of all values
+  const totalValue = segments.reduce((acc, cur) => acc + cur.value, 0); // Total of all values
 
   const getCoordinatesForAngle = (angle, radius) => {
     // Calculate coordinates for a given angle and radius
@@ -48,9 +28,9 @@ function CircleMenu(props) {
   };
 
   const createSegmentPath = (index, isActive) => {
-    const startAngle = segmentsData.slice(0, index)
+    const startAngle = segments.slice(0, index)
       .reduce((acc, cur) => acc + (cur.value / totalValue) * 360, 0);
-    const angleExtent = (segmentsData[index].value / totalValue) * 360;
+    const angleExtent = (segments[index].value / totalValue) * 360;
     const endAngle = startAngle + angleExtent;
     const radius = isActive ? expandedRadius : outerRadius;
     const startOuter = getCoordinatesForAngle(startAngle, radius);
@@ -71,22 +51,35 @@ function CircleMenu(props) {
         viewBox="0 0 210 210"
         style={ { transition: 'all 0.3s ease-in-out' } }
       >
-        { segmentsData.map((segment, index) => (
+        { segments.map((segment, index) => (
           <path
             key={ segment.id }
             d={ createSegmentPath(index, segment.id === activeSegment) }
-            fill={ segment.id === activeSegment ? segment.color : 'grey' }
+            fill={ segment.id === activeSegment ? segment.color : ringColor }
             onMouseEnter={ () => setActiveSegment(segment.id) }
             onClick={ () => setActiveSegment(segment.id) }
             style={ { transition: 'd 0.3s ease' } }
           />
         )) }
-        <text x="105" y="110" textAnchor="middle" fill={ textColor } fontSize="18">
-          { activeSegment ? segmentsData.find((seg) => seg.id === activeSegment).content : '5 years' }
+        <text
+          x="105"
+          y="95"
+          textAnchor="middle"
+          fill={ textColor }
+          fontSize={ activeSegment ? 22 : 30 }
+        >
+          { activeSegment ? segments.find((seg) => seg.id === activeSegment).content1 : '5' }
+        </text>
+        <text
+          x="105"
+          y="125"
+          textAnchor="middle"
+          fill={ textColor }
+          fontSize={ activeSegment ? 22 : 30 }
+        >
+          { activeSegment ? segments.find((seg) => seg.id === activeSegment).content2 : 'years' }
         </text>
       </svg>
     </div>
   );
 }
-
-export default CircleMenu;
