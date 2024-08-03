@@ -12,10 +12,8 @@ import {
   useTheme, useToken
 } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
-import Link from 'next/link';
-import { getBaseWrapperProps, experienceSections } from '../../../constants';
-import SectionedCircle from '../widgets/SectionedCircle';
-import ToolBelt from '../widgets/ToolBelt';
+import { getBaseWrapperProps } from '../../../constants';
+import AtAGlance from '../modules/AtAGlance';
 
 export default function IntroContent() {
   const theme = useTheme();
@@ -24,13 +22,18 @@ export default function IntroContent() {
   } = useSelector((state) => state.common);
 
   // For Divs.
-  const bgColor = useColorModeValue('brand.200', 'brand.700');
-  const accentColor = useColorModeValue('accent.500', 'accent.400');
-  const textColor = useColorModeValue('brand.800', 'brand.100');
+  const colorValues = {
+    bgColor: useColorModeValue('brand.200', 'brand.700'),
+    accentColor: useColorModeValue('accent.500', 'accent.400'),
+    textColor: useColorModeValue('brand.800', 'brand.100')
+  };
 
   // For Widgets
-  const textHex = theme.colors.brand[textColor.split('.')[1]];
-  const neutralHex = useToken('colors', 'neutral.300');
+  const colorHexes = {
+    textHex: theme.colors.brand[colorValues.textColor.split('.')[1]],
+    neutralHex: useToken('colors', 'neutral.300'),
+    bgHex: useToken('colors', 'brand.700')
+  };
 
   // TODO: fun background accent shapes.
   const wrapperProps = getBaseWrapperProps(isMobile);
@@ -48,8 +51,8 @@ export default function IntroContent() {
         borderRight="1px"
         borderRadius="10"
         borderBottomRightRadius="50"
-        bg={ bgColor }
-        borderColor={ accentColor }
+        bg={ colorValues.bgColor }
+        borderColor={ colorValues.accentColor }
         paddingTop={ isMobile ? '12px' : '' }
         paddingBottom={ isMobile ? '12px' : '' }
         marginLeft={ isMobile ? '' : '80px' }
@@ -68,14 +71,14 @@ export default function IntroContent() {
             boxShadow="lg"
             borderBottom="1px"
             borderRight="1px"
-            borderColor={ accentColor }
+            borderColor={ colorValues.accentColor }
           />
         </WrapItem>
         <WrapItem>
           <Center
             width="100%"
             alignSelf="center"
-            color={ textColor }
+            color={ colorValues.textColor }
           >
             <div className="block items-center">
               <h1>Neeko Blomgren</h1>
@@ -85,142 +88,29 @@ export default function IntroContent() {
           </Center>
         </WrapItem>
       </Wrap>
-      <WrapItem
-        width="100%"
-        placeContent="center"
-      >
-        <Center
-          { ...wrapperProps }
-          bg={ bgColor }
-          borderColor={ accentColor }
-          color={ textColor }
-        >
-          <WrapItem
-            marginBottom="auto"
-            marginTop="12px"
-            marginLeft="12px"
-            textAlign="center"
-          >
-            <h3>at a glance</h3>
-          </WrapItem>
-          <Wrap
-            flexDirection="column"
-            paddingTop="16px"
-            paddingLeft="20px"
-            paddingRight="40px"
-            marginTop="16px"
-            marginBottom="auto"
-            placeContent="center"
-          >
-            <Wrap spacing="64px">
-              <WrapItem
-                display="flex"
-                flexDirection="column"
-                gap="12px"
-                alignItems="center"
-              >
-                Experience
-                <SectionedCircle
-                  segments={ experienceSections }
-                  textColor={ textHex }
-                  ringColor={ neutralHex }
-                />
-              </WrapItem>
-              <WrapItem
-                display="flex"
-                flexDirection="column"
-                gap="12px"
-                alignItems="center"
-              >
-                Tools
-                <ToolBelt beltColor={ neutralHex } />
-              </WrapItem>
-            </Wrap>
-            <WrapItem width="100%" display="inline">
-              Having started&nbsp;
-              <Tooltip
-                hasArrow
-                placement="top"
-                label="Graduated with a UX diploma"
-              >
-                <span className="tooltip">
-                  self-taught in code,&nbsp;
-                </span>
-              </Tooltip>
-              I&apos;ve been in the industry for 5 years, and am currently a lead at&nbsp;
-              <Tooltip
-                hasArrow
-                placement="top"
-                label="Responsible for princess.com/cruise-search/"
-              >
-                <span className="tooltip">
-                  Princess Cruiselines&nbsp;
-                </span>
-              </Tooltip>
-            </WrapItem>
-            <WrapItem width="100%" display="inline">
-              Whether it be fitting into a massive teams and making&nbsp;
-              <Tooltip
-                hasArrow
-                placement="top"
-                label="Like the background feature in Microsoft Teams"
-              >
-                <span className="tooltip">
-                  enterprise-level contributions,&nbsp;
-                </span>
-              </Tooltip>
-              or taking&nbsp;
-              <Tooltip
-                hasArrow
-                placement="top"
-                label="Such as this portfolio, with most of the code 100% owned by me."
-              >
-                <span className="tooltip">
-                  personal projects&nbsp;
-                </span>
-              </Tooltip>
-              from ideation to production, I am a well-balanced professional with integrity.
-            </WrapItem>
-            <WrapItem width="100%" display="inline">
-              { /* TODO: place IMD page. */ }
-              With an&nbsp;
-              <Tooltip hasArrow placement="top" label="external link to the program i attended">
-                <Link className="inline" href="http://uw.com">
-                  <span className="external-link inline">
-                    education in UX,
-                  </span>
-                </Link>
-              </Tooltip>
-              &nbsp;I&apos;m comfortable in a design conversation, and have an eye for pixel
-              perfection. I design all of my personal projects.
-            </WrapItem>
-            { /* <WrapItem width="100%" display="inline"> */ }
-            { /*    */ }
-            { /* </WrapItem> */ }
-            <WrapItem marginBottom="16px" width="100%" display="inline">
-              You&apos;ll find my solutions to be committed, timely, and ever-evolving.
-            </WrapItem>
-          </Wrap>
-        </Center>
-      </WrapItem>
+      <AtAGlance
+        colorValues={ colorValues }
+        colorHexes={ colorHexes }
+        wrapperProps={ wrapperProps }
+      />
       <WrapItem
         width={ `${isMobile ? '95%' : '85%'}` }
       >
         <Center
           { ...wrapperProps }
           width="100%"
-          bg={ bgColor }
-          borderColor={ accentColor }
-          color={ textColor }
+          bg={ colorValues.bgColor }
+          borderColor={ colorValues.accentColor }
+          color={ colorValues.textColor }
         >
-          <WrapItem
+          <Box
             width="10%"
             marginBottom="auto"
             marginTop="12px"
             marginLeft="12px"
           >
-            <h3>the site</h3>
-          </WrapItem>
+            <h3>the site (we want it to turn into THE STORY) </h3>
+          </Box>
           <Wrap padding="4" width="90%" marginTop="20px">
             <WrapItem width="100%" display="inline">
               It&apos;s built using my preferred stack of NextJS, React, Redux Toolkit, Chakra, and

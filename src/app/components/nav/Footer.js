@@ -15,9 +15,6 @@ export default function Footer(props) {
     // handleModeChange
   } = useCommonState();
 
-  // const bgColor = useColorModeValue('brand.200', 'brand.700');
-  // const textColor = useColorModeValue('brand.800', 'brand.100');
-
   // TODO: finish this.
   return (
     <div
