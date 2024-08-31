@@ -1,7 +1,9 @@
-import { Box, Heading, Wrap, WrapItem } from '@chakra-ui/react';
-import { useState } from 'react';
+import { Box, Heading, ListItem, UnorderedList, Wrap, WrapItem } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import SectionedShape from '../widgets/SectionedShape';
 import { processSegments, experienceSegments, toolsSegments } from '../../../constants';
+import TapMeIcon from '../svgs/TapMeIcon';
 
 export default function AtAGlance({
   wrapperProps,
@@ -15,7 +17,7 @@ export default function AtAGlance({
       segments: experienceSegments
     },
     {
-      header: 'Tools',
+      header: 'My Toolbox',
       segments: toolsSegments
     },
     {
@@ -24,10 +26,33 @@ export default function AtAGlance({
     }
   ]);
 
+  const {
+    viewport: {
+      isMobile,
+      isTablet
+    }
+  } = useSelector((state) => state.common);
+
+  /**
+   * useEffect - Reset Active Segment After Timeout
+   * This useEffect automatically resets the active segment to null after 30 seconds,
+   * which resets it back to its default state.
+   */
+  useEffect(() => {
+    let timeoutId;
+    if (activeSegment !== null) {
+      timeoutId = setTimeout(() => {
+        setActiveSegment(null);
+      }, 30000);
+    }
+    return () => clearTimeout(timeoutId);
+  }, [activeSegment]);
+
+  // TODO: webstorm breakpoints and devtools integration
   return (
     <WrapItem
       width="100%"
-      maxWidth="90vw"
+      margin="1"
       placeContent="center"
     >
       <Wrap
@@ -36,43 +61,77 @@ export default function AtAGlance({
         borderColor={ colorValues.accentColor }
         color={ colorValues.textColor }
       >
-        { /* TODO: some styling here. */ }
+        { /* TODO: how do i put a small fade here? also on the inner icons. */ }
         <WrapItem
-          padding="12px"
           textAlign="center"
           flexDirection="column"
-          // height="100%"
-          // borderRight="1px"
-          // borderRightColor={ accentColor }
+          minHeight={ isMobile || isTablet ? '280px' : '360px' }
         >
           <Heading
-            size="md"
+            fontSize="2xl"
             alignSelf="center"
-            textDecoration="underline"
+            marginBottom="2"
+            marginTop="2"
           >
-            at a glance
+            { activeSegment
+              ? activeSegment.header
+              : 'at a glance' }
           </Heading>
           <Box
             h="100%"
-            maxW="120px"
-            alignContent="center"
-            fontStyle="italic"
+            minH="150px"
+            minW={ isMobile || isTablet ? '100vw' : '280px' }
+            maxW={ isMobile ? '' : '120px' }
+            alignContent={ !activeSegment ? 'center' : 'flexStart' }
+            fontSize="16px"
+            padding="2"
+            fontStyle={ activeSegment ? '' : 'italic' }
+            borderColor={ colorValues.accentColor }
+            boxShadow="2xl"
+            borderBottomLeftRadius="10"
+            borderTopRightRadius="10"
+            borderBottomRightRadius="100"
+            borderRight="1px"
+            borderTop="1px"
+            style={ {
+              textAlign: '-webkit-center'
+            } }
           >
+            { /* Here, we determine if there is an activeSegment, if there is we check
+            if that segment's constant has a bullets array property. If not, we back
+             into the description property instead.
+             */ }
+            { /* TODO: replace with CTA icon */ }
             {
-              activeSegment ? activeSegment.description : 'Tap/Hover for Details'
+              activeSegment
+                ? (activeSegment.bullets
+                  ? (
+                    <UnorderedList>
+                      { /* todo: get rid of this dumbass eslint issue with
+                            using indexes as ids. */ }
+                      { activeSegment.bullets.map((bullet, i) => (
+                        <ListItem
+                          // eslint-disable-next-line react/no-array-index-key
+                          key={ `${activeSegment.id}-bullet-${i}` }
+                          marginLeft="4"
+                          marginBottom="2"
+                          textAlign="left"
+                        >
+                          { bullet }
+                        </ListItem>
+                      )) }
+                    </UnorderedList>
+                  ) : <div>{ activeSegment.description }</div>
+                ) : <TapMeIcon rotate={ 45 } />
             }
           </Box>
         </WrapItem>
         <WrapItem
           flexDirection="column"
-          paddingTop="16px"
-          paddingLeft="20px"
-          paddingRight="40px"
-          marginTop="16px"
-          marginBottom="auto"
+          padding="6"
           placeContent="center"
         >
-          <Wrap spacing="64px">
+          <Wrap>
             { sections.map(({
               header,
               segments
@@ -81,18 +140,19 @@ export default function AtAGlance({
                 key={ `${header}-key` }
                 display="flex"
                 flexDirection="column"
-                gap="12px"
                 alignItems="center"
+                flexWrap={ isMobile ? 'wrap-reverse' : '' }
               >
-                { header }
                 <SectionedShape
+                  isMobile={ isMobile }
                   segments={ segments }
                   textColor={ colorHexes.textHex }
                   shapeColor={ colorHexes.neutralHex }
-                  lineColor={ colorHexes.bgHex }
+                  shadowColor={ colorHexes.darkerBgHex }
                   activeSegment={ activeSegment }
                   setActiveSegment={ setActiveSegment }
                 />
+                { header }
               </WrapItem>
             )) }
           </Wrap>

@@ -53,6 +53,7 @@ const theme = {
     }
   },
   // Initial Configuration for extending theme defining specific styling to default elements
+  // TODO: how to extend theme into Chakra headers?
   styles: {
     global: (props) => ({
       body: {

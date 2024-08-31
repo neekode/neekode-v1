@@ -10,7 +10,7 @@ export const backgroundSlice = createSlice({
     // Size of shapes
     radius: 2,
     // Speed at which the balls are travelling.
-    speed: 0.1,
+    speed: 0.08,
     // Tracks the interval of consecutive draws.
     // Necessary to unify single interval, not creating others.
     interval: {},

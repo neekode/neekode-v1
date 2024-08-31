@@ -43,7 +43,8 @@ export default function useCommonState() {
       dispatch(setViewport({
         height: window.innerHeight,
         width: window.innerWidth,
-        isMobile: window.innerWidth < 550
+        isMobile: window.innerWidth <= 768,
+        isTablet: window.innerWidth > 768 && window.innerWidth <= 1024
       }));
     };
 

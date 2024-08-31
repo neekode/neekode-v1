@@ -15,7 +15,7 @@ Professional Portfolio. It's main purpose is to showcase my career and skillset.
 
 # Tech Stack
 
-- Used NextJS 13 (create-next-app) for groundwork, uses current modern architecture such as Server Components and the
+- Uses NextJS 13 (create-next-app) for groundwork, uses current modern architecture such as Server Components and the
   App Directory structure for layouts.
 - Installed Redux Toolkit using slices structure and syntax
 - Styles with TailwindCSS utility classes as well as some custom styling. Integrates Tailwind+NextJS theming such as for

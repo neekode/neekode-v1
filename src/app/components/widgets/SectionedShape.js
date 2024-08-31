@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 export default function SectionedShape(props) {
   const {
+    isMobile,
     activeSegment,
     setActiveSegment,
     segments,
     shapeColor,
-    textColor,
-    lineColor
+    // textColor,
+    shadowColor
   } = props;
+
   const [shape, setShape] = useState({
     radius: 100,
     expandedRadius: 105,
@@ -20,6 +22,8 @@ export default function SectionedShape(props) {
 
   /**
    * useEffect - Determine Shape Type
+   * This useEffect determines the type of shape based on the number of segments.
+   * It sets the appropriate shape type, angle variable, and initial positioning for the shape.
    */
   useEffect(() => {
     if (segments.length) {
@@ -30,8 +34,8 @@ export default function SectionedShape(props) {
           ...shape,
           type: 'triangle',
           angleVariable: 2,
-          posX: 105,
-          posY: 125
+          posX: 125,
+          posY: 140
         };
         break;
       case 4:
@@ -39,8 +43,8 @@ export default function SectionedShape(props) {
           ...shape,
           type: 'square',
           angleVariable: 4,
-          posX: 105,
-          posY: 105
+          posX: 125,
+          posY: 115
         };
         break;
       case 5:
@@ -48,8 +52,8 @@ export default function SectionedShape(props) {
           ...shape,
           type: 'pentagon',
           angleVariable: 2,
-          posX: 105,
-          posY: 105
+          posX: 125,
+          posY: 110
         };
         break;
       default:
@@ -57,90 +61,119 @@ export default function SectionedShape(props) {
       }
       setShape(newShape);
     }
-  }, [segments.length]);
+  }, [segments.length, shape]);
 
   /**
-   * useEffect - Reset Active Segment After Timeout
+   * useCallback - Evaluate Vertices Coords
+   * Takes in number of sides and calculates render coordinates for each vertex.
+   * Includes optional offsets for positioning adjustment (used for 3D effect).
    */
-  useEffect(() => {
-    let timeoutId;
-    if (activeSegment !== null) {
-      timeoutId = setTimeout(() => {
-        setActiveSegment(null);
-      }, 5000);
-    }
-    return () => clearTimeout(timeoutId);
-  }, [activeSegment]);
-
-  const getPolygonVertices = (numSides, newRadius) => {
+  const getPolygonVertices = useCallback((numSides, newRadius, offsetX = 0, offsetY = 0) => {
     const angleStep = (2 * Math.PI) / numSides;
     return Array.from({ length: numSides }, (_, i) => {
-      const angle = angleStep * i - Math.PI / shape.angleVariable; // Start from the top
-      const x = shape.posX + newRadius * Math.cos(angle);
-      const y = shape.posY + newRadius * Math.sin(angle);
+      const angle = angleStep * i - Math.PI / shape.angleVariable;
+      const x = shape.posX + newRadius * Math.cos(angle) + offsetX;
+      const y = shape.posY + newRadius * Math.sin(angle) + offsetY;
       return {
         x,
         y
       };
     });
-  };
+  }, [shape.angleVariable, shape.posX, shape.posY]);
 
-  const createSegmentPath = (index, numSides, isActive) => {
-    const vertices = getPolygonVertices(numSides, isActive ? shape.expandedRadius : shape.radius);
+  /**
+   * useCallback - Draw Segment
+   * This useCallback creates an SVG path string for each segment of the shape.
+   * It uses the vertices calculated by getPolygonVertices and applies any specified offsets.
+   * The end point of each path is adjusted with a gap factor to bring the segments closer together.
+   */
+  const createSegmentPath = useCallback((index, numSides, isActive, offsetX = 0, offsetY = 0) => {
+    const vertices = getPolygonVertices(numSides, isActive
+      ? shape.expandedRadius
+      : shape.radius, offsetX, offsetY);
     const start = vertices[index];
-    const end = vertices[(index + 1) % numSides];
+    const nextIndex = (index + 1) % numSides;
+
+    // Adjusted to bring segments closer together
+    const gapFactor = 0.83; // Control how close the segments are
+    const end = {
+      x: start.x + (vertices[nextIndex].x - start.x) * gapFactor,
+      y: start.y + (vertices[nextIndex].y - start.y) * gapFactor
+    };
+
     return `M${start.x},${start.y} L${end.x},${end.y}`;
-  };
+  }, [getPolygonVertices, shape.expandedRadius, shape.radius]);
 
   return !!shape.type && (
     <div>
       <svg
-        width={ 210 }
-        height={ 210 }
-        viewBox="0 0 220 220"
+        width={ isMobile ? 120 : 240 }
+        height={ isMobile ? 110 : 240 }
+        viewBox="0 0 240 220"
         style={ { transition: 'all 0.3s ease-in-out' } }
       >
         { segments.map((segment, index) => (
           <g key={ segment.id }>
+            { segment.id !== activeSegment?.id
+              ? (
+                <path
+                  d={ createSegmentPath(
+                    index,
+                    segments.length,
+                    segment.id === activeSegment?.id,
+                    -5,
+                    3
+                  ) }
+                  stroke={ shadowColor }
+                  style={ {
+                    transition: 'all 1s ease',
+                    filter: segment.id !== activeSegment?.id ? 'drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.2))' : 'none'
+                  } }
+                  strokeLinecap="round"
+                  strokeWidth="16"
+                  fill="none"
+                />
+              ) : null }
+
             <path
-              d={ createSegmentPath(index, segments.length, segment.id === activeSegment?.id) }
+              d={ createSegmentPath(
+                index,
+                segments.length,
+                false,
+                0,
+                0
+              ) }
               stroke={ segment.id === activeSegment?.id ? segment.color : shapeColor }
-              strokeWidth="20"
+              strokeWidth="16"
               fill="none"
               onMouseEnter={ () => setActiveSegment(segment) }
               onClick={ () => setActiveSegment(segment) }
-              style={ { transition: 'all 0.3s ease' } }
+              style={ {
+                transition: 'all 0.3s ease',
+                cursor: 'pointer'
+              } }
+              strokeLinecap="round"
             />
           </g>
         )) }
-        { segments.map((segment, i) => (
-          <path
-            key={ `${segment.id}-segment` }
-            d={ createSegmentPath(i, segments.length, false) }
-            stroke={ lineColor }
-            strokeWidth="2"
-            fill="purple"
-            vectorEffect="non-scaling-stroke"
-          />
-        )) }
-        <text
-          x={ shape.posX }
-          y={ shape.posY }
-          textAnchor="middle"
-          fill={ textColor }
-          fontSize={ activeSegment ? 22 : 30 }
+        <foreignObject
+          x={ shape.posX - 30 } // Adjust X position
+          y={ shape.posY - 30 } // Adjust Y position
+          width="60"
+          height="60"
         >
-          { activeSegment ? segments.find((seg) => seg.id === activeSegment.id)?.innerContent1 : '' }
-        </text>
-        <text
-          x={ shape.posX }
-          y={ shape.posY + 30 }
-          textAnchor="middle"
-          fill={ textColor }
-          fontSize={ activeSegment ? 22 : 30 }
-        >
-          { activeSegment ? segments.find((seg) => seg.id === activeSegment.id)?.innerContent2 : '' }
-        </text>
+          <div style={ {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100%'
+          } }
+          >
+            { activeSegment
+              ? segments.find((seg) => seg.id === activeSegment.id)?.icon
+              : '' }
+          </div>
+        </foreignObject>
       </svg>
     </div>
   );

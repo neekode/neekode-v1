@@ -9,7 +9,9 @@ import {
   useColorModeValue,
   Tooltip,
   Box,
-  useTheme, useToken
+  useTheme,
+  useToken,
+  Heading
 } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import { getBaseWrapperProps } from '../../../constants';
@@ -32,7 +34,8 @@ export default function IntroContent() {
   const colorHexes = {
     textHex: theme.colors.brand[colorValues.textColor.split('.')[1]],
     neutralHex: useToken('colors', 'neutral.300'),
-    bgHex: useToken('colors', 'brand.700')
+    bgHex: useToken('colors', 'brand.700'),
+    darkerBgHex: useToken('colors', 'brand.800')
   };
 
   // TODO: fun background accent shapes.
@@ -109,9 +112,15 @@ export default function IntroContent() {
             marginTop="12px"
             marginLeft="12px"
           >
-            <h3>the site (we want it to turn into THE STORY) </h3>
+            <Heading
+              size="md"
+              alignSelf="center"
+              textDecoration="underline"
+            >
+              my story
+            </Heading>
           </Box>
-          <Wrap padding="4" width="90%" marginTop="20px">
+          <Wrap padding="4" width="100vw" marginTop="20px">
             <WrapItem width="100%" display="inline">
               It&apos;s built using my preferred stack of NextJS, React, Redux Toolkit, Chakra, and
               Tailwind. It&apos;s split into 3 sections.

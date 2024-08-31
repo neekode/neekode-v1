@@ -151,3 +151,15 @@ h4 {
 .chakra-wrap__list {
     place-content: center;
 }
+
+
+/**
+    Utility Classes Because I get lazy sometimes:
+ */
+.underline-hover:hover {
+    text-decoration: underline;
+}
+
+.icon-path-hover-effect:hover path {
+    fill: rgba(255, 255, 255, 0.7);
+}

@@ -1,4 +1,7 @@
 import { AttachmentIcon, EmailIcon, PhoneIcon, StarIcon } from '@chakra-ui/icons';
+import PrincessIcon from './app/components/svgs/PrincessIcon';
+import MSTeamsIcon from './app/components/svgs/MSTeamsIcon';
+import PTGIcon from './app/components/svgs/PTGIcon';
 
 export const getBaseWrapperProps = (isMobile) => {
   return {
@@ -6,106 +9,136 @@ export const getBaseWrapperProps = (isMobile) => {
     borderBottomLeftRadius: '10',
     borderTopRightRadius: '10',
     borderBottomRightRadius: '100',
-    boxShadow: 'lg',
-    borderBottom: '1px',
     borderRight: '1px',
+    borderBottom: '1px',
+    boxShadow: 'lg',
     display: 'flex',
     flexDirection: isMobile ? 'column' : 'row'
   };
 };
 
-// TODO: desc
+// TODO: replace all inner bulletss with icons.
+//  ...is it legal to use my company's brands on my portfolio lol
 export const experienceSegments = [
   {
     id: 'exp-pcl',
-    innerContent1: 'Princess',
-    innerContent2: 'Cruiselines',
-    description: 'princess cruiselines',
+    header: 'Princess Cruiselines',
+    icon: (<PrincessIcon />),
+    bullets: [
+      'Current Position',
+      'From November 2021',
+      'Major code owner of princess.com/cruise-search/, PCLs primary source of online Booking Revenue.',
+      'I regularly build complex features, define and implement standards, and overhaul architectures.'
+    ],
     color: '#003595'
   },
   {
     id: 'exp-mst',
-    innerContent1: 'Microsoft',
-    innerContent2: 'Teams',
-    description: 'microsoft teams',
+    header: 'Microsoft Teams',
+    icon: (<MSTeamsIcon />),
+    bullets: [
+      'From [TODO] to [TODO]',
+      'Developed Microsoft Teams Rooms, MSFTs smart conference room solution.',
+      'Made significant contributions like a component to switch the display config of a Room.',
+      'Part of a massive effort to migrate MSTeams from AngularJS to modern React.'
+    ],
     color: '#6264A7'
   },
   {
     id: 3,
-    innerContent1: 'People',
-    innerContent2: 'Tech Group',
-    description: 'people tech',
+    header: 'People Tech Group',
+    icon: (<PTGIcon />),
+    bullets: [
+      'First professional position, from [TODO] to [TODO].',
+      '1 out of 14 interns selected for a Junior-level position.',
+      'Worked on enterprise-level projects with senior developers for a large contract w/ Costco.',
+      'Contributed a notification system and conditional rendering based on user role.'
+    ],
     color: '#A72037'
   }
 ];
 
-// TODO: colors and desc
+// TODO: colors and desc, also, how can i make these string constants turn into links n shit?
 export const toolsSegments = [
   {
-    id: 'tool-next',
-    innerContent1: 'NextJS',
-    innerContent2: '13',
-    description: 'nextjs 13',
+    id: 'tool-react',
+    header: 'React (NextJS 13)',
+    icon: 'icon',
+    bullets: [
+      'react',
+      'nextjs 13'
+    ],
     color: '#003595'
   },
   {
-    id: 'tool-react',
-    innerContent1: 'React',
-    innerContent2: '18',
-    description: 'react 18',
-    color: '#6264A7'
-  },
-  {
     id: 'tool-redux',
-    innerContent1: 'Redux',
-    innerContent2: 'Toolkit',
-    description: 'redux toolkit',
+    header: 'Redux (Toolkit)',
+    icon: 'icon',
+    bullets: ['redux toolkit'],
     color: '#A72037'
   },
   {
+    id: 'tool-other',
+    header: 'The Other Stuff',
+    icon: 'icon',
+    bullets: [
+      'Here we have the, still very significant, but less fundamental pieces of my UI developer toolbox. [TODO]',
+      'AEM Integration',
+      'Unit Test Design',
+      'Git',
+      'UX Background',
+      'Legacy Tech: jQuery, XML, AngularJS, etc.'
+    ],
+    color: '#6264A7'
+  },
+  {
     id: 'tool-basics',
-    innerContent1: 'The',
-    innerContent2: 'Basics',
-    description: 'html,css,js',
+    header: 'The Basics',
+    icon: 'icon',
+    bullets: [
+      'From my first simple webpage for a freshman webdev course at UW in 2014, all the way to the complex SPA foundational structure overhauls today, my fundamentals are extremely polished. ',
+      '10 years, HTML5 / JSX',
+      '10 years, CSS / SASS',
+      '9 years, ES6 / TypeScript'
+    ],
     color: '#A72037'
   }
 ];
 
-// TODO: colors and desc
 export const processSegments = [
   {
     id: 'process-discipline',
-    innerContent1: '1.',
-    innerContent2: 'Discipline',
+    header: '1. Discipline',
+    icon: 'icon',
     description: 'starting with a learned foundation...',
     color: '#003595'
   },
   {
     id: 'process-analysis',
-    innerContent1: '2.',
-    innerContent2: 'Analysis',
-    description: 'to find a solution, we must first understand the problem....',
+    header: '2. Analysis',
+    icon: 'icon',
+    bullets: ['to find a solution, we must first understand the problem....'],
     color: '#6264A7'
   },
   {
     id: 'process-research',
-    innerContent1: '3.',
-    innerContent2: 'Research',
-    description: 'find the context, know the best patterns and architectures...',
+    header: '3. Research',
+    icon: 'icon',
+    bullets: ['find the context, know the best patterns and architectures...'],
     color: '#A72037'
   },
   {
     id: 'process-communication',
-    innerContent1: '4.',
-    innerContent2: 'Communication',
-    description: 'know the stakeholders, talk with points of expertise, let all involved be aware.',
+    header: '4. Communication',
+    icon: 'icon',
+    bullets: ['know the stakeholders, talk with points of expertise, let all involved be aware.'],
     color: '#A72037'
   },
   {
     id: 'process-development',
-    innerContent1: '5.',
-    innerContent2: 'Development',
-    description: 'write clean, extensible, modular code.',
+    header: '5. Development',
+    icon: 'icon',
+    bullets: ['write clean, extensible, modular code.'],
     color: '#A72037'
   }
 ];
