@@ -1,9 +1,19 @@
 import { Box, Heading, ListItem, UnorderedList, Wrap, WrapItem } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import SectionedShape from '../widgets/SectionedShape';
-import { processSegments, experienceSegments, toolsSegments } from '../../../constants';
+import {
+  getProcessSegments,
+  getExperienceSegments,
+  getToolsSegments,
+  fadeAnimation
+} from '../../../constants';
 import TapMeIcon from '../svgs/TapMeIcon';
+
+// Create motion components from Chakra components
+const MotionUnorderedList = motion(UnorderedList);
+const MotionHeading = motion(Heading);
 
 export default function AtAGlance({
   wrapperProps,
@@ -14,15 +24,15 @@ export default function AtAGlance({
   const [sections] = useState([
     {
       header: 'Experience',
-      segments: experienceSegments
+      segments: getExperienceSegments({ colorHexes })
     },
     {
       header: 'My Toolbox',
-      segments: toolsSegments
+      segments: getToolsSegments({ colorHexes })
     },
     {
       header: 'Process',
-      segments: processSegments
+      segments: getProcessSegments({ colorHexes })
     }
   ]);
 
@@ -43,12 +53,11 @@ export default function AtAGlance({
     if (activeSegment !== null) {
       timeoutId = setTimeout(() => {
         setActiveSegment(null);
-      }, 30000);
+      }, 60000);
     }
     return () => clearTimeout(timeoutId);
   }, [activeSegment]);
 
-  // TODO: webstorm breakpoints and devtools integration
   return (
     <WrapItem
       width="100%"
@@ -67,21 +76,22 @@ export default function AtAGlance({
           flexDirection="column"
           minHeight={ isMobile || isTablet ? '280px' : '360px' }
         >
-          <Heading
+          <MotionHeading
             fontSize="2xl"
             alignSelf="center"
             marginBottom="2"
             marginTop="2"
+            { ...fadeAnimation }
+            key={ activeSegment ? activeSegment.header : 'at-a-glance' }
           >
-            { activeSegment
-              ? activeSegment.header
-              : 'at a glance' }
-          </Heading>
+            { activeSegment ? activeSegment.header : 'at a glance' }
+          </MotionHeading>
+          { /* Content Box fade effect */ }
           <Box
             h="100%"
             minH="150px"
             minW={ isMobile || isTablet ? '100vw' : '280px' }
-            maxW={ isMobile ? '' : '120px' }
+            maxW={ isMobile || isTablet ? '' : '120px' }
             alignContent={ !activeSegment ? 'center' : 'flexStart' }
             fontSize="16px"
             padding="2"
@@ -90,40 +100,41 @@ export default function AtAGlance({
             boxShadow="2xl"
             borderBottomLeftRadius="10"
             borderTopRightRadius="10"
-            borderBottomRightRadius="100"
+            borderBottomRightRadius={ isMobile || isTablet ? '30' : '100' }
             borderRight="1px"
             borderTop="1px"
             style={ {
               textAlign: '-webkit-center'
             } }
+            key={ activeSegment ? `${activeSegment.id}-box` : 'default-box' }
           >
-            { /* Here, we determine if there is an activeSegment, if there is we check
-            if that segment's constant has a bullets array property. If not, we back
-             into the description property instead.
-             */ }
-            { /* TODO: replace with CTA icon */ }
-            {
-              activeSegment
-                ? (activeSegment.bullets
-                  ? (
-                    <UnorderedList>
-                      { /* todo: get rid of this dumbass eslint issue with
-                            using indexes as ids. */ }
-                      { activeSegment.bullets.map((bullet, i) => (
-                        <ListItem
-                          // eslint-disable-next-line react/no-array-index-key
-                          key={ `${activeSegment.id}-bullet-${i}` }
-                          marginLeft="4"
-                          marginBottom="2"
-                          textAlign="left"
-                        >
-                          { bullet }
-                        </ListItem>
-                      )) }
-                    </UnorderedList>
-                  ) : <div>{ activeSegment.description }</div>
-                ) : <TapMeIcon rotate={ 45 } />
-            }
+            { activeSegment
+              ? (activeSegment.bullets
+                ? (
+                  <MotionUnorderedList
+                    { ...fadeAnimation }
+                    maxW={ isMobile || isTablet ? '720px' : '' }
+                    fontSize={ isMobile || isTablet ? '18px' : '' }
+                  >
+                    { activeSegment.bullets.map((bullet, i) => (
+                      <ListItem
+                        // eslint-disable-next-line
+                          key={`${activeSegment.id}-bullet-${i}`}
+                        marginLeft="4"
+                        marginBottom="2"
+                        textAlign="left"
+                      >
+                        { bullet }
+                      </ListItem>
+                    )) }
+                  </MotionUnorderedList>
+                ) : <div>{ activeSegment.description }</div>
+              ) : (
+                <TapMeIcon
+                  colorHexes={ colorHexes }
+                  rotate={ isMobile || isTablet ? 180 : 45 }
+                />
+              ) }
           </Box>
         </WrapItem>
         <WrapItem
@@ -141,7 +152,7 @@ export default function AtAGlance({
                 display="flex"
                 flexDirection="column"
                 alignItems="center"
-                flexWrap={ isMobile ? 'wrap-reverse' : '' }
+                flexWrap={ isMobile || isTablet ? 'wrap-reverse' : '' }
               >
                 <SectionedShape
                   isMobile={ isMobile }

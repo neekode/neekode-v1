@@ -2,7 +2,7 @@
 // Takes Context and Canvas as arguments
 
 // Think this needs polish and refactoring.
-export const shapesModule = (ctx) => {
+export const shapesModule = (ctx, shapeColor) => {
   return {
     // Point: (newX, newY) => {
     //   const x = newX;
@@ -41,7 +41,7 @@ export const shapesModule = (ctx) => {
     // },
     Circle: (newX, newY, newR, newMoveX, newMoveY) => {
       // Where to change the color of the circles.
-      ctx.strokeStyle = '#35ADC8';
+      ctx.strokeStyle = shapeColor;
 
       let x = newX;
       let y = newY;

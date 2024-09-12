@@ -8,7 +8,7 @@ import * as React from 'react';
  *  a good idea to originally take smaller images to convert.
  */
 function TapMeIcon({
-  theme = 'dark', // Default value
+  colorHexes,
   rotate = 0
 }) {
   return (
@@ -22,7 +22,7 @@ function TapMeIcon({
     >
 
       <g
-        fill={ theme === 'dark' ? '#fff' : '#000' }
+        fill={ colorHexes.iconHex }
         transform={ `scale(.08) rotate(${180 + rotate}, 1915, 2630)` }
         stroke="none"
       >

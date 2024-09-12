@@ -61,7 +61,7 @@ export default function SectionedShape(props) {
       }
       setShape(newShape);
     }
-  }, [segments.length, shape]);
+  }, [segments.length]);
 
   /**
    * useCallback - Evaluate Vertices Coords
@@ -110,7 +110,7 @@ export default function SectionedShape(props) {
         width={ isMobile ? 120 : 240 }
         height={ isMobile ? 110 : 240 }
         viewBox="0 0 240 220"
-        style={ { transition: 'all 0.3s ease-in-out' } }
+        style={ { transition: 'all 0.5s ease-in-out' } }
       >
         { segments.map((segment, index) => (
           <g key={ segment.id }>
@@ -126,7 +126,7 @@ export default function SectionedShape(props) {
                   ) }
                   stroke={ shadowColor }
                   style={ {
-                    transition: 'all 1s ease',
+                    transition: 'all .5s ease',
                     filter: segment.id !== activeSegment?.id ? 'drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.2))' : 'none'
                   } }
                   strokeLinecap="round"
@@ -149,7 +149,7 @@ export default function SectionedShape(props) {
               onMouseEnter={ () => setActiveSegment(segment) }
               onClick={ () => setActiveSegment(segment) }
               style={ {
-                transition: 'all 0.3s ease',
+                transition: 'all 0.5s ease',
                 cursor: 'pointer'
               } }
               strokeLinecap="round"

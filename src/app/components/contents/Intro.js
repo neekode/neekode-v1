@@ -23,18 +23,22 @@ export default function IntroContent() {
     viewport: { isMobile }
   } = useSelector((state) => state.common);
 
-  // For Divs.
+  // TODO: move these into redux?
+  // Color Values Selected Based on Color Mode.
   const colorValues = {
+    textColor: useColorModeValue('brand.800', 'brand.100'),
+    iconColor: useColorModeValue('brand.700', 'brand.200'),
     bgColor: useColorModeValue('brand.200', 'brand.700'),
-    accentColor: useColorModeValue('accent.500', 'accent.400'),
-    textColor: useColorModeValue('brand.800', 'brand.100')
+    neutralColor: useColorModeValue('neutral.500', 'neutral.300'),
+    accentColor: useColorModeValue('accent.500', 'accent.400')
   };
 
-  // For Widgets
+  // Colors Converted to Hex Values based on above, as well as extra colors.
   const colorHexes = {
     textHex: theme.colors.brand[colorValues.textColor.split('.')[1]],
-    neutralHex: useToken('colors', 'neutral.300'),
-    bgHex: useToken('colors', 'brand.700'),
+    iconHex: theme.colors.brand[colorValues.iconColor.split('.')[1]],
+    bgHex: theme.colors.brand[colorValues.bgColor.split('.')[1]],
+    neutralHex: theme.colors.brand[colorValues.neutralColor.split('.')[1]],
     darkerBgHex: useToken('colors', 'brand.800')
   };
 
@@ -91,11 +95,14 @@ export default function IntroContent() {
           </Center>
         </WrapItem>
       </Wrap>
+      { /* First Section */ }
       <AtAGlance
+        theme={ theme }
         colorValues={ colorValues }
         colorHexes={ colorHexes }
         wrapperProps={ wrapperProps }
       />
+      { /* First Section */ }
       <WrapItem
         width={ `${isMobile ? '95%' : '85%'}` }
       >

@@ -7,8 +7,7 @@ import * as React from 'react';
  *  I was able to copy this SVG code from their main website.
  */
 function MSTeamsIcon({
-  theme = 'dark' // Default value
-  // isMobile
+  colorHexes
 }) {
   return (
     <a
@@ -17,7 +16,7 @@ function MSTeamsIcon({
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        fill={ theme === 'dark' ? '#fff' : '#000' }
+        fill={ colorHexes.iconHex }
         width="40px"
         height="40px"
         viewBox="0 0 24 24"

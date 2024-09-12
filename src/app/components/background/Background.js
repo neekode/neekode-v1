@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import BackgroundController from './BackgroundController';
+import { useColorModeValue, useTheme } from '@chakra-ui/react';
 import { circleDrawLoop, genCircles, shapesModule } from './scripts/shapes';
 import './style/background.css';
 import { setIntervalObj } from '../../../redux/slices/background';
@@ -16,6 +17,7 @@ import { setIntervalObj } from '../../../redux/slices/background';
  */
 function Background() {
   const dispatch = useDispatch();
+  const theme = useTheme();
   const {
     viewport: {
       width: viewportWidth,
@@ -23,6 +25,11 @@ function Background() {
     },
     loading: { app: isAppLoading }
   } = useSelector((state) => state.common);
+
+  // Color Values Selected Based on Color Mode.
+  const shapeColorValue = useColorModeValue('accent.400', 'accent.500');
+  const shapeColorHex = theme.colors.accent[shapeColorValue.split('.')[1]];
+  // debugger;
 
   const {
     amount,
@@ -67,7 +74,7 @@ function Background() {
 
     // Placing Context and Canvas into shapes modules to encapsulate it for usage
     // with shapes instance and draw functions.
-    const shapes = shapesModule(context, canvasElement.current);
+    const shapes = shapesModule(context, shapeColorHex);
 
     // Generates Circle Objects
     const circles = genCircles(amt, rad, spd, shapes, canvasElement.current);

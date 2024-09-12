@@ -8,20 +8,19 @@ import * as React from 'react';
  *  which i then altered to fit inside my use case.
  */
 function PTGIcon({
-  theme = 'dark' // Default value
-  // isMobile
+  colorHexes
 }) {
   return (
     <a className="m-2 icon-path-hover-effect" href="https://peopletech.com/home">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        fill={ theme === 'dark' ? '#fff' : '#000' }
+        fill={ colorHexes.iconHex }
         width="70" // Match the width to the other icons
         height="70" // Match the height to the other icons
         viewBox="200 450 1240 1240" // Adjusted viewBox to better fit the content
       >
         <g
-          fill={ theme === 'dark' ? '#fff' : '#000' }
+          fill={ colorHexes.iconHex }
           stroke="none"
         >
           <path
