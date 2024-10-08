@@ -7,15 +7,15 @@ import {
   Wrap,
   WrapItem,
   useColorModeValue,
-  Tooltip,
   Box,
   useTheme,
   useToken,
-  Heading
+  Flex
 } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import { getBaseWrapperProps } from '../../../constants';
 import AtAGlance from '../modules/AtAGlance';
+import MyStory from '../modules/MyStory';
 
 export default function IntroContent() {
   const theme = useTheme();
@@ -42,12 +42,13 @@ export default function IntroContent() {
     darkerBgHex: useToken('colors', 'brand.800')
   };
 
-  // TODO: fun background accent shapes.
-  const wrapperProps = getBaseWrapperProps(isMobile);
   return (
-    <Wrap
-      spacing="8"
+    <Flex
       placeContent="center"
+      gap="24px"
+      marginTop="24px"
+      direction="column"
+      alignSelf="center"
     >
       <Wrap
         position="relative"
@@ -100,71 +101,15 @@ export default function IntroContent() {
         theme={ theme }
         colorValues={ colorValues }
         colorHexes={ colorHexes }
-        wrapperProps={ wrapperProps }
+        wrapperProps={ getBaseWrapperProps(isMobile, 'right') }
       />
-      { /* First Section */ }
-      <WrapItem
-        width={ `${isMobile ? '95%' : '85%'}` }
-      >
-        <Center
-          { ...wrapperProps }
-          width="100%"
-          bg={ colorValues.bgColor }
-          borderColor={ colorValues.accentColor }
-          color={ colorValues.textColor }
-        >
-          <Box
-            width="10%"
-            marginBottom="auto"
-            marginTop="12px"
-            marginLeft="12px"
-          >
-            <Heading
-              size="md"
-              alignSelf="center"
-              textDecoration="underline"
-            >
-              my story
-            </Heading>
-          </Box>
-          <Wrap padding="4" width="100vw" marginTop="20px">
-            <WrapItem width="100%" display="inline">
-              It&apos;s built using my preferred stack of NextJS, React, Redux Toolkit, Chakra, and
-              Tailwind. It&apos;s split into 3 sections.
-            </WrapItem>
-            <WrapItem width="100%" display="inline">
-              <h4>
-                profession -
-              </h4>
-              { /* TODO: fancy e. */ }
-              here you can find a nice UX to expand on the details of my work experience;
-              <Tooltip
-                hasArrow
-                placement="top"
-                label="download my resume in PDF from the footer."
-              >
-                <span className="tooltip">
-                  &nbsp;basically a fancier resume.
-                </span>
-              </Tooltip>
-            </WrapItem>
-            <WrapItem width="100%" display="inline">
-              <h4>
-                code -
-              </h4>
-              interactive code examples with technical explanations to showcase my discipline. comes
-              with a coding sandbox.
-            </WrapItem>
-            <WrapItem width="100%" display="inline">
-              <h4>
-                projects -
-              </h4>
-              more details on my personal projects. go there for deep dives on my
-              functionality and design, such as the fancy background in this website.
-            </WrapItem>
-          </Wrap>
-        </Center>
-      </WrapItem>
-    </Wrap>
+      { /* Second Section */ }
+      <MyStory
+        theme={ theme }
+        colorValues={ colorValues }
+        colorHexes={ colorHexes }
+        wrapperProps={ getBaseWrapperProps(isMobile, 'left') }
+      />
+    </Flex>
   );
 }

@@ -19,16 +19,103 @@ export const fadeAnimation = {
   transition: { duration: 0.8 } // Adjust the duration for smoothness
 };
 
-export const getBaseWrapperProps = (isMobile) => {
+// Animation for headings (Reveal effect)
+export const headingVariants = {
+  hidden: {
+    opacity: 0,
+    y: -20
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6 }
+  },
+  exit: {
+    opacity: 0,
+    y: -10,
+    transition: { duration: 0.3 }
+  }
+};
+
+// Animation settings for changing height
+export const getHeightAnimation = (type = 'slow') => {
   return {
-    minHeight: '300px',
+    initial: {
+      height: 0
+    },
+    animate: {
+      height: '100%'
+    }, // Adjust the target height as needed
+    exit: {
+      height: 0
+    },
+    transition: {
+      duration: type === 'slow' ? 1.4 : 0.6,
+      type:
+        'tween'
+    } // Use 'tween' for smoother height animations
+  };
+};
+
+// Custom animation for the list
+export const getListVariantsReveal = () => {
+  return {
+    hidden: {
+      opacity: 0,
+      y: 20
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        when: 'beforeChildren',
+        staggerChildren: 0.1,
+        delayChildren: 0.3
+      }
+    },
+    exit: {
+      opacity: 0,
+      y: -20
+    }
+  };
+};
+
+// Custom animation for each list item
+export const getListItemVariantsReveal = () => {
+  return {
+    hidden: {
+      opacity: 0,
+      x: -10
+    },
+    visible: {
+      opacity: 1,
+      x: 0
+    },
+    exit: {
+      opacity: 0,
+      x: 10
+    }
+  };
+};
+
+export const getBaseWrapperProps = (isMobile, side) => {
+  const isLeftSide = side === 'left';
+  return {
+    minHeight: '500px',
+    maxWidth: isMobile ? '' : '80%',
     borderBottomLeftRadius: '10',
     borderTopRightRadius: '10',
-    borderBottomRightRadius: '100',
-    borderRight: '1px',
-    borderBottom: '1px',
+    borderBottomRightRadius: isLeftSide ? '0' : '100',
+    borderTopLeftRadius: isLeftSide ? '100' : '0',
+    borderLeft: isLeftSide ? '1px' : '0',
+    borderTop: isLeftSide ? '1px' : '0',
+    borderRight: isLeftSide ? '0' : '1px',
+    borderBottom: isLeftSide ? '0' : '1px',
     boxShadow: 'lg',
     display: 'flex',
+    placeContent: 'center',
+    placeSelf: 'center',
+    minWidth: isMobile ? '300px' : '500px',
     flexDirection: isMobile ? 'column' : 'row'
   };
 };
@@ -43,9 +130,18 @@ export const getExperienceSegments = ({ colorHexes }) => {
       subheader: 'Current Position. Lead UI developer for PCL’s primary booking system since Nov. 2021.',
       icon: (<PrincessIcon colorHexes={ colorHexes } />),
       bullets: [
-        'Major code owner of princess.com/cruise-search/, PCLs primary source of online Booking Revenue.',
-        'Regularly builds complex features, defines new standards, and overhauls application architecture.',
-        'Sole developer in re-building a legacy Deck Plans front-end into a modern React SPA.'
+        {
+          id: 'exp-pcl-1',
+          text: 'Major code owner of princess.com/cruise-search/, PCLs primary source of online Booking Revenue.'
+        },
+        {
+          id: 'exp-pcl-2',
+          text: 'Regularly builds complex features, defines new standards, and overhauls application architecture.'
+        },
+        {
+          id: 'exp-pcl-3',
+          text: 'Sole developer in re-building a legacy Deck Plans front-end into a modern React SPA.'
+        }
       ],
       color: '#003595'
     },
@@ -55,9 +151,18 @@ export const getExperienceSegments = ({ colorHexes }) => {
       subheader: 'Worked for MSTeams Rooms, Microsoft\'s smart conference room solution. Nov. 2019 - Jun. 2021.',
       icon: (<MSTeamsIcon colorHexes={ colorHexes } />),
       bullets: [
-        'Made significant contributions like a component to switch the display config of a Room.',
-        'Part of a massive effort to migrate MSTeams from AngularJS to modern React.',
-        'Resolved numerous bugs and followed enterprise-level methodology and code review.'
+        {
+          id: 'exp-mst-1',
+          text: 'Made significant contributions like a component to switch the display config of a Room.'
+        },
+        {
+          id: 'exp-mst-2',
+          text: 'Part of a massive effort to migrate MSTeams from AngularJS to modern React.'
+        },
+        {
+          id: 'exp-mst-3',
+          text: 'Resolved numerous bugs and followed enterprise-level methodology and code review.'
+        }
       ],
       color: '#6264A7'
     },
@@ -67,16 +172,24 @@ export const getExperienceSegments = ({ colorHexes }) => {
       subheader: 'First position, worked on enterprise-level React projects as an intern, then Junior in 2019.',
       icon: (<PTGIcon colorHexes={ colorHexes } />),
       bullets: [
-        '1 out of 14 interns selected for a Junior-level position.',
-        'Worked on enterprise-level projects with senior developers for a large contract w/ Costco.',
-        'Contributed a notification system and conditional rendering based on user role.'
+        {
+          id: 'exp-ptg-1',
+          text: '1 out of 14 interns selected for a Junior-level position.'
+        },
+        {
+          id: 'exp-ptg-2',
+          text: 'Worked on enterprise-level projects with senior developers for a large contract w/ Costco.'
+        },
+        {
+          id: 'exp-ptg-3',
+          text: 'Contributed a notification system and conditional rendering based on user role.'
+        }
       ],
       color: '#A72037'
     }
   ];
 };
 
-// TODO: colors and desc, also, how can i make these string constants turn into links n shit?
 export const getToolsSegments = ({ colorHexes }) => {
   return [
     {
@@ -85,10 +198,22 @@ export const getToolsSegments = ({ colorHexes }) => {
       subheader: '7 years of experience with modular and reusable React components.',
       icon: (<ReactIcon colorHexes={ colorHexes } />),
       bullets: [
-        'React - 7 years',
-        'Designs sensible component hierarchies with re-usable components.',
-        'Utilizes modern practices such as functional components, hooks, and memoization.',
-        'Can build enterprise-level projects from the ground up.'
+        {
+          id: 'tool-react-1',
+          text: 'React - 7 years'
+        },
+        {
+          id: 'tool-react-2',
+          text: 'Designs sensible component hierarchies with re-usable components.'
+        },
+        {
+          id: 'tool-react-3',
+          text: 'Utilizes modern practices such as functional components, hooks, and memoization.'
+        },
+        {
+          id: 'tool-react-4',
+          text: 'Can build enterprise-level projects from the ground up.'
+        }
       ],
       color: '#61DAFB'
     },
@@ -98,10 +223,22 @@ export const getToolsSegments = ({ colorHexes }) => {
       subheader: 'Experience with state management and modern SSR with Redux and NextJS.',
       icon: (<NextIcon colorHexes={ colorHexes } />),
       bullets: [
-        'Redux (Toolkit) - 5 years',
-        'Uses latest methodology of Slices and feature-based organization for state-management.',
-        'NextJS - 3 years',
-        'Leverages server components and the App Directory Structure, as well as ChakraUI and TailwindCSS libraries.'
+        {
+          id: 'tool-redux-next-1',
+          text: 'Redux (Toolkit) - 5 years'
+        },
+        {
+          id: 'tool-redux-next-2',
+          text: 'Uses latest methodology of Slices and feature-based organization for state-management.'
+        },
+        {
+          id: 'tool-redux-next-3',
+          text: 'NextJS - 3 years'
+        },
+        {
+          id: 'tool-redux-next-4',
+          text: 'Leverages server components and the App Directory Structure, as well as ChakraUI and TailwindCSS libraries.'
+        }
       ],
       color: '#764ABC'
     },
@@ -111,11 +248,26 @@ export const getToolsSegments = ({ colorHexes }) => {
       subheader: '6 years of professional experience has culminated into a deep knowledge for other tools that are standard today.',
       icon: (<ToolsIcon colorHexes={ colorHexes } />),
       bullets: [
-        'AEM Integration',
-        'Telemetry Implementations',
-        'Unit Test Design',
-        'UX Background, Git, Agile',
-        'Legacy Tech such as jQuery, XML, AngularJS, etc.'
+        {
+          id: 'tool-other-1',
+          text: 'AEM Integration'
+        },
+        {
+          id: 'tool-other-2',
+          text: 'Telemetry Implementations'
+        },
+        {
+          id: 'tool-other-3',
+          text: 'Unit Test Design'
+        },
+        {
+          id: 'tool-other-4',
+          text: 'UX Background, Git, Agile'
+        },
+        {
+          id: 'tool-other-5',
+          text: 'Legacy Tech such as jQuery, XML, AngularJS, etc.'
+        }
       ],
       color: '#4A90E2'
     },
@@ -125,10 +277,22 @@ export const getToolsSegments = ({ colorHexes }) => {
       subheader: '10+ years experience with web development fundamentals.',
       icon: (<BasicsIcon colorHexes={ colorHexes } />),
       bullets: [
-        'HTML5 / JSX - 10 years',
-        'CSS / SASS - 10 years',
-        'ES6 / TypeScript - 9 years',
-        'From my first webpage at UW in 2014, all the way to the complex SPA foundational structure overhauls today, I have worked for a long time to polish my fundamentals.'
+        {
+          id: 'tool-basics-1',
+          text: 'HTML5 / JSX - 10 years'
+        },
+        {
+          id: 'tool-basics-2',
+          text: 'CSS / SASS - 10 years'
+        },
+        {
+          id: 'tool-basics-3',
+          text: 'ES6 / TypeScript - 9 years'
+        },
+        {
+          id: 'tool-basics-4',
+          text: 'From my first webpage at UW in 2014, all the way to the complex SPA foundational structure overhauls today, I have worked for a long time to polish my fundamentals.'
+        }
       ],
       color: '#5A5A5A'
     }
@@ -143,9 +307,18 @@ export const getProcessSegments = ({ colorHexes }) => {
       subheader: 'Building a foundation through discipline and learned skills.',
       icon: (<ChecklistIcon colorHexes={ colorHexes } />),
       bullets: [
-        'A solid foundation of knowledge and discipline is crucial to delivering effective results.',
-        'Hone the necessary skills, adopt best practices, and cultivate a mindset focused on continual improvement.',
-        'Ensure preparedness for every challenge by building a robust foundation.'
+        {
+          id: 'process-discipline-1',
+          text: 'A solid foundation of knowledge and discipline is crucial to delivering effective results.'
+        },
+        {
+          id: 'process-discipline-2',
+          text: 'Hone the necessary skills, adopt best practices, and cultivate a mindset focused on continual improvement.'
+        },
+        {
+          id: 'process-discipline-3',
+          text: 'Ensure preparedness for every challenge by building a robust foundation.'
+        }
       ],
       color: '#334155' // Dark slate blue
     },
@@ -155,9 +328,18 @@ export const getProcessSegments = ({ colorHexes }) => {
       subheader: 'Understanding the problem and finding the best solutions.',
       icon: (<OpenBookIcon colorHexes={ colorHexes } />),
       bullets: [
-        'Break down the problem into manageable components to fully understand its intricacies.',
-        'Ask the right questions to identify core challenges and potential blockers.',
-        'Identify existing design patterns, architectures, and industry best practices relevant to the project.'
+        {
+          id: 'process-analysis-research-1',
+          text: 'Break down the problem into manageable components to fully understand its intricacies.'
+        },
+        {
+          id: 'process-analysis-research-2',
+          text: 'Ask the right questions to identify core challenges and potential blockers.'
+        },
+        {
+          id: 'process-analysis-research-3',
+          text: 'Identify existing design patterns, architectures, and industry best practices relevant to the project.'
+        }
       ],
       color: '#005A87' // Deep cyan-blue
     },
@@ -167,9 +349,18 @@ export const getProcessSegments = ({ colorHexes }) => {
       subheader: 'Collaboration across all stakeholders is essential.',
       icon: (<ChatBubblesIcon colorHexes={ colorHexes } />),
       bullets: [
-        'Engage stakeholders at each stage to gather requirements, feedback, and alignment.',
-        'Bridge the gap between technical and non-technical perspectives, ensuring mutual understanding.',
-        'Encourage open dialogue to keep everyone informed and foster a sense of shared ownership.'
+        {
+          id: 'process-communication-1',
+          text: 'Engage stakeholders at each stage to gather requirements, feedback, and alignment.'
+        },
+        {
+          id: 'process-communication-2',
+          text: 'Bridge the gap between technical and non-technical perspectives, ensuring mutual understanding.'
+        },
+        {
+          id: 'process-communication-3',
+          text: 'Encourage open dialogue to keep everyone informed and foster a sense of shared ownership.'
+        }
       ],
       color: '#00897B' // Teal
     },
@@ -179,9 +370,18 @@ export const getProcessSegments = ({ colorHexes }) => {
       subheader: 'Writing clean, extensible, and modular code.',
       icon: (<BasicsIcon colorHexes={ colorHexes } />),
       bullets: [
-        'Apply modular design principles to create reusable components.',
-        'Prioritize clean, readable code to facilitate ease of maintenance and future scalability.',
-        'Implement best practices for testing, ensuring reliability and performance.'
+        {
+          id: 'process-development-1',
+          text: 'Apply modular design principles to create reusable components.'
+        },
+        {
+          id: 'process-development-2',
+          text: 'Prioritize clean, readable code to facilitate ease of maintenance and future scalability.'
+        },
+        {
+          id: 'process-development-3',
+          text: 'Implement best practices for testing, ensuring reliability and performance.'
+        }
       ],
       color: '#43A047' // Leaf green
     },
@@ -191,9 +391,18 @@ export const getProcessSegments = ({ colorHexes }) => {
       subheader: 'Continuous improvement through testing and refinement.',
       icon: (<CycleIcon colorHexes={ colorHexes } />),
       bullets: [
-        'Gather feedback from user testing and iterate on the solution to enhance usability.',
-        'Measure performance against established goals, and make data-driven adjustments.',
-        'Remain adaptable, embracing change to continuously optimize the final product.'
+        {
+          id: 'process-iteration-1',
+          text: 'Gather feedback from user testing and iterate on the solution to enhance usability.'
+        },
+        {
+          id: 'process-iteration-2',
+          text: 'Measure performance against established goals, and make data-driven adjustments.'
+        },
+        {
+          id: 'process-iteration-3',
+          text: 'Remain adaptable, embracing change to continuously optimize the final product.'
+        }
       ],
       color: '#7CB342' // Light green
     }

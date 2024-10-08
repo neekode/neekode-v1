@@ -112,8 +112,8 @@ export default function SectionedShape(props) {
 
   return !!shape.type && (
     <svg
-      width={ isMobile || isTablet ? 120 : 240 }
-      height={ isMobile || isTablet ? 110 : 240 }
+      width={ isMobile || isTablet ? 200 : 300 }
+      height={ isMobile || isTablet ? 200 : 300 }
       viewBox="0 0 240 220"
       style={ { transition: 'all 0.5s ease-in-out' } }
     >

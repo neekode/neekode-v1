@@ -1,5 +1,5 @@
 import { Box, Heading, ListItem, UnorderedList, Wrap, WrapItem } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import SectionedShape from '../widgets/SectionedShape';
@@ -7,13 +7,18 @@ import {
   getProcessSegments,
   getExperienceSegments,
   getToolsSegments,
-  fadeAnimation
+  fadeAnimation,
+  headingVariants,
+  getListVariantsReveal,
+  getListItemVariantsReveal
 } from '../../../constants';
 import TapMeIcon from '../svgs/TapMeIcon';
 
 // Create motion components from Chakra components
 const MotionUnorderedList = motion(UnorderedList);
+const MotionListItem = motion(ListItem);
 const MotionHeading = motion(Heading);
+const MotionBox = motion(Box);
 
 export default function AtAGlance({
   wrapperProps,
@@ -59,22 +64,17 @@ export default function AtAGlance({
   }, [activeSegment]);
 
   return (
-    <WrapItem
-      width="100%"
-      margin="1"
-      placeContent="center"
-    >
+    <AnimatePresence>
       <Wrap
         { ...wrapperProps }
         bg={ colorValues.bgColor }
         borderColor={ colorValues.accentColor }
         color={ colorValues.textColor }
       >
-        { /* TODO: how do i put a small fade here? also on the inner icons. */ }
         <WrapItem
           textAlign="center"
           flexDirection="column"
-          minHeight={ isMobile || isTablet ? '280px' : '360px' }
+          minHeight={ isMobile || isTablet ? '280px' : '500spx' }
         >
           <MotionHeading
             fontSize="2xl"
@@ -86,12 +86,10 @@ export default function AtAGlance({
           >
             { activeSegment ? activeSegment.header : 'at a glance' }
           </MotionHeading>
-          { /* Content Box fade effect */ }
           <Box
-            h="100%"
-            minH={ isMobile ? '240px' : '200px' }
-            minW={ isMobile || isTablet ? '100vw' : '320px' }
-            maxW={ isMobile || isTablet ? '' : '320px' }
+            minH={ isMobile || isTablet ? '360px' : '500px' }
+            minW={ isMobile || isTablet ? '300px' : '400px' }
+            maxW={ isMobile ? '' : '400px' }
             alignContent={ !activeSegment ? 'center' : 'flexStart' }
             fontSize="16px"
             padding="2"
@@ -108,6 +106,7 @@ export default function AtAGlance({
             gap="12px"
             alignItems={ activeSegment ? '' : 'center' }
             placeContent={ isMobile || isTablet ? 'center' : 'center' }
+            overflow="hidden"
             style={ {
               textAlign: '-webkit-center'
             } }
@@ -116,42 +115,57 @@ export default function AtAGlance({
             { activeSegment
               ? (activeSegment.bullets
                 ? (
-                  <>
-                    <MotionHeading { ...fadeAnimation } fontStyle="italic" size="xs">
+                  <Box
+                    gap="3"
+                  >
+                    <MotionHeading
+                      variants={ headingVariants }
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      fontStyle="italic"
+                      size="xs"
+                      marginBottom="12px"
+                    >
                       { activeSegment.subheader }
                     </MotionHeading>
                     <MotionUnorderedList
-                      { ...fadeAnimation }
+                      variants={ getListVariantsReveal() }
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
                       maxW={ isMobile || isTablet ? '720px' : '' }
-                      fontSize={ isMobile || isTablet ? '18px' : '' }
+                      fontSize="18px"
                       key={ `${activeSegment?.id}-list` }
                       placeSelf="center"
                     >
-                      { activeSegment.bullets.map((bullet, i) => (
-                        <ListItem
-                          // eslint-disable-next-line
-                            key={`${activeSegment.id}-bullet-${i}`}
+                      { activeSegment.bullets.map((bullet) => (
+                        <MotionListItem
+                          variants={ getListItemVariantsReveal() }
+                          key={ bullet.id }
                           marginLeft="4"
-                          marginBottom="4px"
+                          marginBottom="8px"
                           textAlign="left"
                         >
-                          { bullet }
-                        </ListItem>
+                          { bullet.text }
+                        </MotionListItem>
                       )) }
                     </MotionUnorderedList>
-                  </>
+                  </Box>
                 ) : <div>{ activeSegment.description }</div>
               ) : (
-                <TapMeIcon
-                  colorHexes={ colorHexes }
-                  rotate={ isMobile || isTablet ? 180 : 45 }
-                />
+                <MotionBox { ...fadeAnimation }>
+                  <TapMeIcon
+                    colorHexes={ colorHexes }
+                    rotate={ isMobile || isTablet ? 180 : 45 }
+                  />
+                </MotionBox>
               ) }
           </Box>
         </WrapItem>
         <WrapItem
           flexDirection="column"
-          padding="6"
+          padding="1"
           placeContent="center"
         >
           <Wrap>
@@ -165,6 +179,7 @@ export default function AtAGlance({
                 flexDirection="column"
                 alignItems="center"
                 flexWrap={ isMobile || isTablet ? 'wrap-reverse' : '' }
+                maxW="400px"
               >
                 <SectionedShape
                   isMobile={ isMobile }
@@ -182,6 +197,6 @@ export default function AtAGlance({
           </Wrap>
         </WrapItem>
       </Wrap>
-    </WrapItem>
+    </AnimatePresence>
   );
 }
