@@ -44,7 +44,7 @@ export default function useCommonState() {
         height: window.innerHeight,
         width: window.innerWidth,
         isMobile: window.innerWidth <= 768,
-        isTablet: window.innerWidth > 768 && window.innerWidth <= 1024
+        isTablet: window.innerWidth > 768 && window.innerWidth <= 1090
       }));
     };
 

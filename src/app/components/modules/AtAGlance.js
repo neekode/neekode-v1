@@ -89,9 +89,9 @@ export default function AtAGlance({
           { /* Content Box fade effect */ }
           <Box
             h="100%"
-            minH="150px"
-            minW={ isMobile || isTablet ? '100vw' : '280px' }
-            maxW={ isMobile || isTablet ? '' : '120px' }
+            minH={ isMobile ? '240px' : '200px' }
+            minW={ isMobile || isTablet ? '100vw' : '320px' }
+            maxW={ isMobile || isTablet ? '' : '320px' }
             alignContent={ !activeSegment ? 'center' : 'flexStart' }
             fontSize="16px"
             padding="2"
@@ -103,6 +103,11 @@ export default function AtAGlance({
             borderBottomRightRadius={ isMobile || isTablet ? '30' : '100' }
             borderRight="1px"
             borderTop="1px"
+            display="flex"
+            flexDirection="column"
+            gap="12px"
+            alignItems={ activeSegment ? '' : 'center' }
+            placeContent={ isMobile || isTablet ? 'center' : 'center' }
             style={ {
               textAlign: '-webkit-center'
             } }
@@ -111,23 +116,30 @@ export default function AtAGlance({
             { activeSegment
               ? (activeSegment.bullets
                 ? (
-                  <MotionUnorderedList
-                    { ...fadeAnimation }
-                    maxW={ isMobile || isTablet ? '720px' : '' }
-                    fontSize={ isMobile || isTablet ? '18px' : '' }
-                  >
-                    { activeSegment.bullets.map((bullet, i) => (
-                      <ListItem
-                        // eslint-disable-next-line
-                          key={`${activeSegment.id}-bullet-${i}`}
-                        marginLeft="4"
-                        marginBottom="2"
-                        textAlign="left"
-                      >
-                        { bullet }
-                      </ListItem>
-                    )) }
-                  </MotionUnorderedList>
+                  <>
+                    <MotionHeading { ...fadeAnimation } fontStyle="italic" size="xs">
+                      { activeSegment.subheader }
+                    </MotionHeading>
+                    <MotionUnorderedList
+                      { ...fadeAnimation }
+                      maxW={ isMobile || isTablet ? '720px' : '' }
+                      fontSize={ isMobile || isTablet ? '18px' : '' }
+                      key={ `${activeSegment?.id}-list` }
+                      placeSelf="center"
+                    >
+                      { activeSegment.bullets.map((bullet, i) => (
+                        <ListItem
+                          // eslint-disable-next-line
+                            key={`${activeSegment.id}-bullet-${i}`}
+                          marginLeft="4"
+                          marginBottom="4px"
+                          textAlign="left"
+                        >
+                          { bullet }
+                        </ListItem>
+                      )) }
+                    </MotionUnorderedList>
+                  </>
                 ) : <div>{ activeSegment.description }</div>
               ) : (
                 <TapMeIcon
@@ -156,6 +168,7 @@ export default function AtAGlance({
               >
                 <SectionedShape
                   isMobile={ isMobile }
+                  isTablet={ isTablet }
                   segments={ segments }
                   textColor={ colorHexes.textHex }
                   shapeColor={ colorHexes.neutralHex }

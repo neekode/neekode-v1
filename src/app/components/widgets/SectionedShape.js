@@ -1,8 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Heading } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
+import { fadeAnimation } from '../../../constants';
+
+const MotionBox = motion(Heading);
 
 export default function SectionedShape(props) {
   const {
     isMobile,
+    isTablet,
     activeSegment,
     setActiveSegment,
     segments,
@@ -105,76 +111,77 @@ export default function SectionedShape(props) {
   }, [getPolygonVertices, shape.expandedRadius, shape.radius]);
 
   return !!shape.type && (
-    <div>
-      <svg
-        width={ isMobile ? 120 : 240 }
-        height={ isMobile ? 110 : 240 }
-        viewBox="0 0 240 220"
-        style={ { transition: 'all 0.5s ease-in-out' } }
-      >
-        { segments.map((segment, index) => (
-          <g key={ segment.id }>
-            { segment.id !== activeSegment?.id
-              ? (
-                <path
-                  d={ createSegmentPath(
-                    index,
-                    segments.length,
-                    segment.id === activeSegment?.id,
-                    -5,
-                    3
-                  ) }
-                  stroke={ shadowColor }
-                  style={ {
-                    transition: 'all .5s ease',
-                    filter: segment.id !== activeSegment?.id ? 'drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.2))' : 'none'
-                  } }
-                  strokeLinecap="round"
-                  strokeWidth="16"
-                  fill="none"
-                />
-              ) : null }
+    <svg
+      width={ isMobile || isTablet ? 120 : 240 }
+      height={ isMobile || isTablet ? 110 : 240 }
+      viewBox="0 0 240 220"
+      style={ { transition: 'all 0.5s ease-in-out' } }
+    >
+      { segments.map((segment, index) => (
+        <g key={ segment.id }>
+          { segment.id !== activeSegment?.id
+            ? (
+              <path
+                d={ createSegmentPath(
+                  index,
+                  segments.length,
+                  segment.id === activeSegment?.id,
+                  -5,
+                  3
+                ) }
+                stroke={ shadowColor }
+                style={ {
+                  transition: 'all .5s ease',
+                  filter: segment.id !== activeSegment?.id ? 'drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.2))' : 'none'
+                } }
+                strokeLinecap="round"
+                strokeWidth="16"
+                fill="none"
+              />
+            ) : null }
 
-            <path
-              d={ createSegmentPath(
-                index,
-                segments.length,
-                false,
-                0,
-                0
-              ) }
-              stroke={ segment.id === activeSegment?.id ? segment.color : shapeColor }
-              strokeWidth="16"
-              fill="none"
-              onMouseEnter={ () => setActiveSegment(segment) }
-              onClick={ () => setActiveSegment(segment) }
-              style={ {
-                transition: 'all 0.5s ease',
-                cursor: 'pointer'
-              } }
-              strokeLinecap="round"
-            />
-          </g>
-        )) }
-        <foreignObject
-          x={ shape.posX - 30 } // Adjust X position
-          y={ shape.posY - 30 } // Adjust Y position
-          width="60"
-          height="60"
-        >
-          <div style={ {
+          <path
+            d={ createSegmentPath(
+              index,
+              segments.length,
+              false,
+              0,
+              0
+            ) }
+            stroke={ segment.id === activeSegment?.id ? segment.color : shapeColor }
+            strokeWidth="16"
+            fill="none"
+            onMouseEnter={ () => setActiveSegment(segment) }
+            onClick={ () => setActiveSegment(segment) }
+            style={ {
+              transition: 'all 0.5s ease',
+              cursor: 'pointer'
+            } }
+            strokeLinecap="round"
+          />
+        </g>
+      )) }
+      <foreignObject
+        x={ shape.posX - 30 } // Adjust X position
+        y={ shape.posY - 30 } // Adjust Y position
+        width="60"
+        height="60"
+      >
+        <MotionBox
+          { ...fadeAnimation }
+          key={ activeSegment?.id }
+          style={ {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
             height: '100%'
           } }
-          >
-            { activeSegment
-              ? segments.find((seg) => seg.id === activeSegment.id)?.icon
-              : '' }
-          </div>
-        </foreignObject>
-      </svg>
-    </div>
+        >
+          { activeSegment
+            ? segments.find((seg) => seg.id === activeSegment.id)?.icon
+            : '' }
+        </MotionBox>
+      </foreignObject>
+    </svg>
   );
 }
