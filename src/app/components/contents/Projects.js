@@ -1,43 +1,45 @@
 'use client';
 
 /* This layout is the wrapper for all the content of the page. Siblings with <Nav/>.  */
-
-import { Center, Wrap, useColorModeValue } from '@chakra-ui/react';
+import { Flex, useColorModeValue, useTheme, useToken } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import React from 'react';
+import { contentContainerStyles, getBaseWrapperProps } from '../../../constants';
+import MyStory from '../modules/MyStory';
 
 export default function ProjectsContent() {
+  const theme = useTheme();
   const {
     viewport: { isMobile }
   } = useSelector((state) => state.common);
 
-  // For Divs.
-  const bgColor = useColorModeValue('brand.200', 'brand.700');
-  const accentColor = useColorModeValue('accent.500', 'accent.400');
-  const textColor = useColorModeValue('brand.800', 'brand.100');
-  // TODO: fun background accent shapes.
+  // TODO: move these into redux?
+  // Color Values Selected Based on Color Mode.
+  const colorValues = {
+    textColor: useColorModeValue('brand.800', 'brand.100'),
+    iconColor: useColorModeValue('brand.700', 'brand.200'),
+    bgColor: useColorModeValue('brand.200', 'brand.700'),
+    neutralColor: useColorModeValue('neutral.500', 'neutral.300'),
+    accentColor: useColorModeValue('accent.500', 'accent.400')
+  };
+
+  // Colors Converted to Hex Values based on above, as well as extra colors.
+  const colorHexes = {
+    textHex: theme.colors.brand[colorValues.textColor.split('.')[1]],
+    iconHex: theme.colors.brand[colorValues.iconColor.split('.')[1]],
+    bgHex: theme.colors.brand[colorValues.bgColor.split('.')[1]],
+    neutralHex: theme.colors.brand[colorValues.neutralColor.split('.')[1]],
+    darkerBgHex: useToken('colors', 'brand.800')
+  };
+
   return (
-    <Wrap
-      spacing="8"
-      placeContent="center"
-    >
-      <Center
-        width="95%"
-        minHeight="300px"
-        borderBottomLeftRadius="10"
-        borderTopRightRadius="10"
-        borderBottomRightRadius="10"
-        boxShadow="lg"
-        borderBottom="1px"
-        borderRight="1px"
-        display="flex"
-        flexDirection={ isMobile ? 'column' : 'row' }
-        bg={ bgColor }
-        borderColor={ accentColor }
-        color={ textColor }
-      >
-        Projects Page - work in progress
-      </Center>
-    </Wrap>
+    <Flex { ...contentContainerStyles }>
+      <MyStory
+        theme={ theme }
+        colorValues={ colorValues }
+        colorHexes={ colorHexes }
+        wrapperProps={ getBaseWrapperProps(isMobile, 'left') }
+      />
+    </Flex>
   );
 }

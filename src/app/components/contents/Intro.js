@@ -2,20 +2,15 @@
 
 /* This layout is the wrapper for all the content of the page. Siblings with <Nav/>.  */
 import {
-  Center,
-  Image,
-  Wrap,
-  WrapItem,
   useColorModeValue,
-  Box,
   useTheme,
   useToken,
   Flex
 } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
-import { getBaseWrapperProps } from '../../../constants';
+import { contentContainerStyles, getBaseWrapperProps } from '../../../constants';
 import AtAGlance from '../modules/AtAGlance';
-import MyStory from '../modules/MyStory';
+import ProfilePicture from '../modules/ProfilePicture';
 
 export default function IntroContent() {
   const theme = useTheme();
@@ -43,72 +38,16 @@ export default function IntroContent() {
   };
 
   return (
-    <Flex
-      placeContent="center"
-      gap="24px"
-      marginTop="24px"
-      direction="column"
-      alignSelf="center"
-    >
-      <Wrap
-        position="relative"
-        width="100%"
-        maxWidth="440px"
-        boxShadow="lg"
-        borderBottom="1px"
-        borderRight="1px"
-        borderRadius="10"
-        borderBottomRightRadius="50"
-        bg={ colorValues.bgColor }
-        borderColor={ colorValues.accentColor }
-        paddingTop={ isMobile ? '12px' : '' }
-        paddingBottom={ isMobile ? '12px' : '' }
-        marginLeft={ isMobile ? '' : '80px' }
-      >
-        { !isMobile && <Box minHeight="180px" minWidth="100px" /> }
-        <WrapItem
-          position={ isMobile ? 'relative' : 'absolute' }
-          left={ isMobile ? 'relative' : '-60px' }
-        >
-          <Image
-            borderRadius="full"
-            placeSelf="center"
-            boxSize="180"
-            src="/head-shot-2.jpg"
-            alt="intro head shot"
-            boxShadow="lg"
-            borderBottom="1px"
-            borderRight="1px"
-            borderColor={ colorValues.accentColor }
-          />
-        </WrapItem>
-        <WrapItem>
-          <Center
-            width="100%"
-            alignSelf="center"
-            color={ colorValues.textColor }
-          >
-            <div className="block items-center">
-              <h1>Neeko Blomgren</h1>
-              <h2>UI/UX Web Developer</h2>
-              <h3>efficiency, simplicity, modernity</h3>
-            </div>
-          </Center>
-        </WrapItem>
-      </Wrap>
-      { /* First Section */ }
+    <Flex { ...contentContainerStyles }>
+      <ProfilePicture
+        colorValues={ colorValues }
+        isMobile={ isMobile }
+      />
       <AtAGlance
         theme={ theme }
         colorValues={ colorValues }
         colorHexes={ colorHexes }
         wrapperProps={ getBaseWrapperProps(isMobile, 'right') }
-      />
-      { /* Second Section */ }
-      <MyStory
-        theme={ theme }
-        colorValues={ colorValues }
-        colorHexes={ colorHexes }
-        wrapperProps={ getBaseWrapperProps(isMobile, 'left') }
       />
     </Flex>
   );

@@ -120,6 +120,7 @@ export default function useNavState() {
     navItemsRef,
     isScrollDisplayed,
     selectedTabElement,
+    router,
     handleHovering
   };
 }

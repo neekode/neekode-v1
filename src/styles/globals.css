@@ -57,10 +57,16 @@ h4 {
     height: calc(100% - 64px);
 }
 
-.page {
-    /*max-width: 960px;*/
+.app-container {
     width: 100%;
-    align-content: center;
+    height: 100vh;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+}
+
+.page {
+    scroll-snap-align: center;
+    height: 100vh;
 }
 
 @media screen and (min-width: 500px) {
@@ -103,6 +109,7 @@ h4 {
 
 /* Commented Rules disables my Webstorms inspection of variable usage that are outside of the project scope */
 /*noinspection ALL*/
+/* TODO: this shit is unnecessary.*/
 .light-nav {
     background: var(--chakra-colors-brand-200);
     border-bottom: 1px solid var(--chakra-colors-accent-500);

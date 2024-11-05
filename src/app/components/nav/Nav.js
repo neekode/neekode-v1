@@ -25,10 +25,7 @@ const ChakraBox = chakra(motion.div, {
 
 /**
  * Nav Bar -
- * Does all the things that nav bar does. Custom Made.
- *
- * TODO:
- * - use Saikou as inspo for mobile?
+ * TODO: needs to be totally overhauled.
  */
 export default function Nav() {
   const {
@@ -49,9 +46,11 @@ export default function Nav() {
     selectedTabElement,
     handleHovering
   } = useNavState();
+
   const navRef = useRef({});
 
   // TODO: finish up with the mobile version.
+  // TODO: refactor this thing.
   return (
     <nav
       ref={ navRef }
@@ -69,7 +68,7 @@ export default function Nav() {
         return (
           <div
             key={ `${name}-key` }
-            ref={ navItemsRef.current[i] }
+            ref={ (el) => (navItemsRef.current[i] = el) }
             className={ `nav-item chakra-button flex my-auto items-center underline-offset-4 transition-all ${isSelected ? '' : 'hover:scale-125'}` }
           >
             <Link
@@ -104,8 +103,8 @@ export default function Nav() {
             } }
             padding="1"
             position="absolute"
-            bg={ theme === 'dark' ? '#fff' : '#000' }
-            top={ `${Number(navRef.current.getBoundingClientRect().height) - 5}px` }
+            bg={ theme === 'dark' ? '#000' : '#fff' }
+            top={ `${Number(navRef.current?.getBoundingClientRect().height) - 5}px` }
             left={ `${selectedTabElement.left - (isMobile ? 10 : 40)}px` }
             width={ `${selectedTabElement.width + (isMobile ? 20 : 80)}px` }
             height="4px"

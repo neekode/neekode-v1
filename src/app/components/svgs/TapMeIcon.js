@@ -9,14 +9,15 @@ import * as React from 'react';
  */
 function TapMeIcon({
   colorHexes,
+  size,
   rotate = 0
 }) {
   return (
     <svg
       version="1.0"
       xmlns="http://www.w3.org/2000/svg"
-      width="128px"
-      height="128px"
+      width={ size }
+      height={ size }
       viewBox="0 0 383 526"
       preserveAspectRatio="xMidYMid meet"
     >

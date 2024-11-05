@@ -5,7 +5,6 @@ import { initializeApp } from 'firebase/app';
 // In-app
 import '../styles/globals.css';
 import Providers from '../providers';
-import Content from './components/Content';
 import Background from './components/background/Background';
 import Nav from './components/nav/Nav';
 import Footer from './components/nav/Footer';
@@ -45,14 +44,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
+        { /* Custom Providers. */ }
         <Providers>
-          { /* Custom AppContainer for pieces like <main> to access to Redux State. */ }
-          <main>
+          <main
+            id="main"
+            className="app-container"
+          >
             <Nav />
             <Background />
-            <Content>
-              { children }
-            </Content>
+            { children }
             <Footer />
           </main>
         </Providers>

@@ -1,7 +1,9 @@
-import { Wrap, WrapItem } from '@chakra-ui/react';
+import { Wrap } from '@chakra-ui/react';
 import { AnimatePresence } from 'framer-motion';
-import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import DynamicContent from '../widgets/DynamicContent';
+import Timeline from '../widgets/Timeline';
 
 export default function MyStory({
   wrapperProps,
@@ -11,9 +13,13 @@ export default function MyStory({
   const {
     viewport: {
       isMobile,
-      isTablet
+      width
     }
   } = useSelector((state) => state.common);
+
+  // , setActiveSegment
+  const [activeSegment] = useState(null);
+  const hasWrapped = width < 1540;
 
   return (
     <AnimatePresence>
@@ -22,8 +28,19 @@ export default function MyStory({
         bg={ colorValues.bgColor }
         borderColor={ colorValues.accentColor }
         color={ colorValues.textColor }
+        flexDirection={ hasWrapped ? 'column-reverse' : '' }
       >
-        Coming Soon!
+        <Timeline />
+        <DynamicContent
+          type="my-story"
+          direction="left"
+          title="my story"
+          colorValues={ colorValues }
+          colorHexes={ colorHexes }
+          isMobile={ isMobile }
+          hasWrapped={ hasWrapped }
+          activeSegment={ activeSegment }
+        />
       </Wrap>
     </AnimatePresence>
 

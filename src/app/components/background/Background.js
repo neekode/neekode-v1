@@ -2,7 +2,6 @@
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import BackgroundController from './BackgroundController';
 import { useColorModeValue, useTheme } from '@chakra-ui/react';
 import { circleDrawLoop, genCircles, shapesModule } from './scripts/shapes';
 import './style/background.css';

@@ -17,6 +17,8 @@ export const commonSlice = createSlice({
     loading: {
       app: true
     }
+    // TODO: finish this.
+    // appSections:
   },
   reducers: {
     setTheme: (state, action) => {

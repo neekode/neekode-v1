@@ -98,6 +98,16 @@ export const getListItemVariantsReveal = () => {
   };
 };
 
+export const contentContainerStyles = {
+  placeContent: 'center',
+  gap: '40px',
+  marginTop: '24px',
+  direction: 'column',
+  alignSelf: 'center',
+  width: '100vw',
+  height: '100vh'
+};
+
 export const getBaseWrapperProps = (isMobile, side) => {
   const isLeftSide = side === 'left';
   return {

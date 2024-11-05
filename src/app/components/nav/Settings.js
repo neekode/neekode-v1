@@ -9,11 +9,9 @@ import {
   MenuItem,
   MenuList,
   Switch,
-  keyframes,
   useColorModeValue
 } from '@chakra-ui/react';
-
-// In-app
+import { keyframes } from '@emotion/react';
 import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -38,51 +36,50 @@ export default function Settings(props) {
   const bgColor = useColorModeValue('brand.200', 'brand.700');
   const textColor = useColorModeValue('brand.800', 'brand.100');
 
+  // Spin animation for gear icon
   const gearSpin = keyframes`
-    from {
-      transform: rotate(45deg);
-    }
-    to {
-      transform: rotate(0deg)
-    }`;
-
-  // TODO: fix this.
-  const menuSlide = keyframes`
-    from {
-      right: 40px
-    }
-    to {
-      right: 0
-    }
+      from {
+          transform: rotate(45deg);
+      }
+      to {
+          transform: rotate(0deg);
+      }
   `;
 
-  const {
-    isControllerOpen
-  } = useSelector((state) => state.background);
+  // Slide animation for menu
+  const menuSlide = keyframes`
+      from {
+          right: 40px;
+      }
+      to {
+          right: 0;
+      }
+  `;
+
+  const { isControllerOpen } = useSelector((state) => state.background);
 
   const size = isMobile ? 4 : 8;
-  return (
-    <div
-      className="nav-item flex my-auto items-center underline-offset-4"
-    >
-      <Menu
-        offset={ [50, -50] }
-      >
-        { ({ isOpen }) => {
-          const gearSpinAnimation = `${gearSpin} 0.5s linear`;
-          const menuSlideAnimation = `${menuSlide} 5s linear`;
 
+  return (
+    <div className="nav-item flex my-auto items-center underline-offset-4">
+      <Menu offset={ [50, -50] }>
+        { ({ isOpen }) => {
+          // Define animations with Emotion's `keyframes`
+          const gearSpinAnimation = `${gearSpin} 0.5s linear infinite`;
+          const menuSlideAnimation = `${menuSlide} 0.5s ease`;
+
+          // Apply animations conditionally
           const attachGearSpin = {
             animation: isOpen ? gearSpinAnimation : null
           };
+
           const attachMenuSlide = {
             animation: isOpen ? menuSlideAnimation : null
           };
+
           return (
             <>
-              <Box
-                { ...attachGearSpin }
-              >
+              <Box { ...attachGearSpin }>
                 <MenuButton
                   zIndex="12"
                   as={ IconButton }
@@ -96,27 +93,10 @@ export default function Settings(props) {
                       color={ textColor }
                     />
                   ) }
-                  // _focus={ { outline: `1px solid ${accentColor}` } }
                 />
               </Box>
-              <Box
-                { ...attachMenuSlide }
-              >
-                <MenuList
-                  height={ 200 }
-                  as={ motion.div }
-                  // height="40px"
-                  // width="40px"
-                  // position="absolute"
-                  // right="60px"
-                  // drag="x"
-                  // dragConstraints={ {
-                  //   left: -100,
-                  //   right: 800
-                  // } }
-                  // transition="0.5s linear"
-                  // onMouseLeave={ onClose }
-                >
+              <Box { ...attachMenuSlide }>
+                <MenuList as={ motion.div } height={ 200 }>
                   <MenuItem>
                     { mode }
                     <Switch
@@ -127,7 +107,9 @@ export default function Settings(props) {
                     { theme }
                     <Switch onChange={ handleThemeChange } />
                   </MenuItem>
-                  <MenuItem onClick={ () => dispatch(setIsControllerOpen(!isControllerOpen)) }>
+                  <MenuItem
+                    onClick={ () => dispatch(setIsControllerOpen(!isControllerOpen)) }
+                  >
                     Background Controller
                   </MenuItem>
                 </MenuList>
@@ -137,6 +119,7 @@ export default function Settings(props) {
           );
         } }
       </Menu>
+      { /* Tooltip for future use */ }
       { /* <Tooltip hasArrow placement="left" label="Settings"> */ }
       { /* </Tooltip> */ }
     </div>

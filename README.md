@@ -9,7 +9,7 @@ Professional Portfolio. It's main purpose is to showcase my career and skillset.
 - Domain: Google Domains
 - Server Hosting & Continuous Deployment: Firebase
 - Version Control & Repo: github.com/neekode
-- To Deploy, first 'npm run build' then 'firebase deploy'
+- To Deploy, first 'npm run build' then 'firebase deploy' (don't forget to node and firebase ;) )
 
   [//]: # (TODO: What else?)
 

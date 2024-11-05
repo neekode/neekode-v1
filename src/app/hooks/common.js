@@ -27,7 +27,8 @@ export default function useCommonState() {
     viewport: { isMobile },
     loading: {
       app: isAppLoading
-    }
+    },
+    appSections
   } = useSelector((state) => state.common);
 
   /**
@@ -113,6 +114,7 @@ export default function useCommonState() {
     handleThemeChange,
     handleModeChange,
     dispatch,
-    isAppLoading
+    isAppLoading,
+    appSections
   };
 }

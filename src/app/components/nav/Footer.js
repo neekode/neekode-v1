@@ -1,6 +1,6 @@
 'use client';
 
-import { WrapItem } from '@chakra-ui/react';
+import { Flex, WrapItem } from '@chakra-ui/react';
 import useCommonState from '../../hooks/common';
 import { footerButtons } from '../../../constants';
 
@@ -17,16 +17,24 @@ export default function Footer(props) {
 
   // TODO: finish this.
   return (
-    <div
-      className={ `${theme}-footer footer flex items-center bottom-0 relative justify-between border-t px-4 py-2` }
+    <Flex
+      width="100%"
+      placeContent="center"
+      padding="8"
+      zIndex="500"
+      marginTop="4"
+      position="relative"
+      className={ `${theme}-footer footer` }
     >
-      { footerButtons.map((button) => {
-        return (
-          <WrapItem key={ `${button.name}-footer-btn` }>
-            { button.icon }
-          </WrapItem>
-        );
-      }) }
-    </div>
+      <Flex gap="20">
+        { footerButtons.map((button) => {
+          return (
+            <WrapItem key={ `${button.name}-footer-btn` }>
+              { button.icon }
+            </WrapItem>
+          );
+        }) }
+      </Flex>
+    </Flex>
   );
 }
