@@ -7,8 +7,6 @@ const MotionBox = motion(Heading);
 
 export default function SectionedShape(props) {
   const {
-    isMobile,
-    isTablet,
     activeSegment,
     setActiveSegment,
     segments,
@@ -112,8 +110,8 @@ export default function SectionedShape(props) {
 
   return !!shape.type && (
     <svg
-      width={ isMobile || isTablet ? 140 : 280 }
-      height={ isMobile || isTablet ? 140 : 280 }
+      width="100%"
+      height="100%"
       viewBox="0 0 240 220"
       style={ { transition: 'all 0.5s ease-in-out' } }
     >

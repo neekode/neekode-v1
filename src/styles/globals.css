@@ -26,6 +26,26 @@
 /*    ) rgb(var(--background-start-rgb));*/
 /*}*/
 
+/* Hiding Scrollbar because I built my own. */
+/* For Chrome, Safari, and Edge */
+::-webkit-scrollbar {
+    display: none; /* Hide scrollbar */
+}
+
+/* For Firefox */
+* {
+    scrollbar-width: none; /* Hide scrollbar */
+}
+
+/* For IE/Edge */
+body {
+    -ms-overflow-style: none; /* Hide scrollbar */
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 html body {
     min-height: 100vh;
 }
@@ -83,12 +103,6 @@ h4 {
 
 .footer {
     bottom: -10px;
-}
-
-@media screen and (min-width: 500px) {
-    .page {
-        min-height: 30px;
-    }
 }
 
 /* Overwrite of tailwind's default animation duration. */

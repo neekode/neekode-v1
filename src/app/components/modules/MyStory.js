@@ -13,13 +13,12 @@ export default function MyStory({
   const {
     viewport: {
       isMobile,
-      width
+      isTablet
     }
   } = useSelector((state) => state.common);
 
   // , setActiveSegment
   const [activeSegment] = useState(null);
-  const hasWrapped = width < 1540;
 
   return (
     <AnimatePresence>
@@ -28,7 +27,7 @@ export default function MyStory({
         bg={ colorValues.bgColor }
         borderColor={ colorValues.accentColor }
         color={ colorValues.textColor }
-        flexDirection={ hasWrapped ? 'column-reverse' : '' }
+        flexDirection="column-reverse"
       >
         <Timeline />
         <DynamicContent
@@ -38,7 +37,7 @@ export default function MyStory({
           colorValues={ colorValues }
           colorHexes={ colorHexes }
           isMobile={ isMobile }
-          hasWrapped={ hasWrapped }
+          isTablet={ isTablet }
           activeSegment={ activeSegment }
         />
       </Wrap>

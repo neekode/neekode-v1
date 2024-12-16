@@ -3,12 +3,11 @@ import { createSlice } from '@reduxjs/toolkit';
 export const commonSlice = createSlice({
   name: 'common',
   initialState: {
+    // TODO: theme can just be useTheme().
     theme: 'dark',
     mode: 'fancy',
-    scroll: {
-      direction: '',
-      changes: 0
-    },
+    colorValues: {},
+    colorHexes: {},
     viewport: {
       height: 0,
       width: 0,
@@ -17,8 +16,6 @@ export const commonSlice = createSlice({
     loading: {
       app: true
     }
-    // TODO: finish this.
-    // appSections:
   },
   reducers: {
     setTheme: (state, action) => {
@@ -36,8 +33,14 @@ export const commonSlice = createSlice({
         app: action.payload
       };
     },
-    setScroll: (state, action) => {
-      state.scroll = action.payload;
+    // setScroll: (state, action) => {
+    //   state.scroll = action.payload;
+    // },
+    setColorValues: (state, action) => {
+      state.colorValues = action.payload;
+    },
+    setColorHexes: (state, action) => {
+      state.colorHexes = action.payload;
     }
   }
 });
@@ -46,6 +49,7 @@ export const {
   setTheme,
   setViewport,
   setMode,
-  setScroll,
-  setIsAppLoading
+  setIsAppLoading,
+  setColorValues,
+  setColorHexes
 } = commonSlice.actions;

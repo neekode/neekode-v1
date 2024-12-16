@@ -3,6 +3,8 @@
 /* This layout is the wrapper for all the content of the page. Siblings with <Nav/>. */
 import React, { useEffect, useState, useRef } from 'react';
 import { Box, Center, Spinner } from '@chakra-ui/react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setIsTabActive, setIsTabLoaded } from '../../redux/slices/nav';
 
 // TODO: finish this!!! looking awesome though. gotta figure out
 //  the best "spot" to put the actual scroll trigger.
@@ -15,42 +17,59 @@ export default function ContentWrapper({
   children,
   section
 }) {
+  const dispatch = useDispatch();
+  const {
+    loading: { app: isAppLoading }
+  } = useSelector((state) => state.common);
+  const {
+    topTabs
+  } = useSelector((state) => state.nav);
+
   const [isContentReady, setIsContentReady] = useState(false);
   const containerRef = useRef(null);
+  // Profile picture content should be treated the same as intro nav tab
+  const correspondingTab = section.id !== 'profile-picture' ? topTabs.find((tab) => tab.id === section.id) : topTabs[0];
 
   /**
    * useEffect - Watches for user "entering" the component via scroll.
    * (Started by AI)
-   * TODO: use this in other ways. we want to tie the "nav" to this
-   * state so as to watch for which component
-   *   is currently scrolled over. Then we can set the state of the Nav.
+   * Sets nav state depending on corresponding content that is currently scrolled over.
    */
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsContentReady(true);
-          observer.disconnect(); // Stop observing once content is ready
+    if (!isAppLoading) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setIsContentReady(true);
+            if (!correspondingTab.isLoaded) {
+              dispatch(setIsTabLoaded({ id: section.id }));
+            }
+            dispatch(setIsTabActive({
+              id: section.id,
+              isActive: true
+            }));
+          }
+        },
+        {
+          root: null,
+          rootMargin: '0px',
+          threshold: 0.1
         }
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
+      );
+
+      if (containerRef.current) {
+        observer.observe(containerRef.current);
       }
-    );
 
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
+      return () => {
+        if (containerRef.current) observer.unobserve(containerRef.current);
+      };
     }
-
-    return () => {
-      if (containerRef.current) observer.unobserve(containerRef.current);
-    };
-  }, []);
+  }, [isAppLoading]);
 
   return (
     <Box
+      id={ section.id }
       ref={ containerRef }
       key={ `${section.label}-box` }
       className="page"

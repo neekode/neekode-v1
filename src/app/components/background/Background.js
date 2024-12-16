@@ -106,7 +106,7 @@ function Background() {
    * and that the context an then be attached to it.
    */
   useEffect(() => {
-    if (!isAppLoading && canvasElement.current) {
+    if (!isAppLoading && canvasElement.current && Object.keys(context).length === 0) {
       const newContext = canvasElement.current.getContext('2d');
       setContext(newContext);
     }
@@ -130,6 +130,7 @@ function Background() {
    * When the redux-based state of Amount, Radius, and Speed are tracked to have changed,
    * we can re-initialize the animation. It also watches for viewport changes.
    */
+  // neeks TODO: rework. also the whole file lol.
   useEffect(() => {
     if (context.canvas) {
       init(amount, radius, speed);

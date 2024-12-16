@@ -1,88 +1,97 @@
 'use client';
 
-// External
-import Link from 'next/link';
-import { useRef } from 'react';
-import {
-  chakra,
-  shouldForwardProp
-} from '@chakra-ui/react';
+import React, { useEffect, useRef, useState } from 'react';
+import { chakra, shouldForwardProp } from '@chakra-ui/react';
 import { isValidMotionProp, motion } from 'framer-motion';
-
-// In-app
+import { useSelector } from 'react-redux';
 import Settings from './Settings';
 import NeekodeIcon from '../svgs/NeekodeIcon';
 import useNavState from '../../hooks/nav';
 import useCommonState from '../../hooks/common';
-import { selectByRoute } from '../../../redux/slices/nav';
+import { selectByLink } from '../../../redux/slices/nav';
 
-// Still not sure what this does.
+// Chakra-enhanced motion div
 const ChakraBox = chakra(motion.div, {
-
-  /** Allow motion props and non-Chakra props to be forwarded */
   shouldForwardProp: (prop) => isValidMotionProp(prop) || shouldForwardProp(prop)
 });
 
-/**
- * Nav Bar -
- * TODO: needs to be totally overhauled.
- */
 export default function Nav() {
   const {
     dispatch,
-    isAppLoading,
     theme,
     handleThemeChange,
     mode,
-    isMobile,
     handleModeChange
   } = useCommonState();
-
   const {
-    tabs,
-    selectedIndex,
+    topTabs,
     navItemsRef,
-    isScrollDisplayed,
-    selectedTabElement,
-    handleHovering
+    selectedIndex
   } = useNavState();
 
-  const navRef = useRef({});
+  const {
+    colorHexes,
+    viewport: { isMobile }
+  } = useSelector((state) => state.common);
 
-  // TODO: finish up with the mobile version.
-  // TODO: refactor this thing.
+  const [activeTabStyles, setActiveTabStyles] = useState({
+    left: 0,
+    width: 0
+  });
+  const navRef = useRef(null);
+
+  // Effect to calculate active tab position and width
+  useEffect(() => {
+    const activeIndex = topTabs.findIndex((tab) => tab.isActive);
+    if (activeIndex !== -1 && navItemsRef.current[activeIndex]) {
+      const {
+        offsetLeft,
+        offsetWidth
+      } = navItemsRef.current[selectedIndex];
+      setActiveTabStyles({
+        left: offsetLeft,
+        width: offsetWidth
+      });
+    }
+  }, [selectedIndex]);
+
   return (
     <nav
       ref={ navRef }
       className={ `${theme}-nav nav flex items-center sticky top-0 justify-between border-b px-2` }
-      onMouseEnter={ () => handleHovering(true) }
-      onMouseLeave={ () => handleHovering(false) }
     >
-      { /* Mapping from nav constant for all nav buttons. */ }
-      { tabs.map(({
-        name,
-        route
+      { /* Navigation Tabs */ }
+      { topTabs.map(({
+        id,
+        label,
+        link,
+        isActive
       }, i) => {
-        const isIntroLink = name === 'intro';
-        const isSelected = selectedIndex === i;
+        const isIntroLink = id === 'intro';
         return (
           <div
-            key={ `${name}-key` }
-            ref={ (el) => (navItemsRef.current[i] = el) }
-            className={ `nav-item chakra-button flex my-auto items-center underline-offset-4 transition-all ${isSelected ? '' : 'hover:scale-125'}` }
+            key={ `${id}-key` }
+            ref={ (el) => {
+              navItemsRef.current[i] = el;
+            } }
+            className={ `nav-item flex my-auto items-center underline-offset-4 transition-all ${
+              isActive ? '' : 'hover:scale-125'
+            }` }
           >
-            <Link
-              href={ route }
-              className={ isSelected ? 'cursor-default' : '' }
-              onClick={ () => dispatch(selectByRoute({ route })) }
+            <a
+              href={ link }
+              className={ isActive ? 'cursor-default' : '' }
+              onClick={ () => dispatch(selectByLink({ id })) }
+              style={ { scrollBehavior: 'smooth' } }
             >
-              { !isIntroLink
-                ? name
-                : <NeekodeIcon theme={ theme } isMobile={ isMobile } /> }
-            </Link>
+              { !isIntroLink ? label : <NeekodeIcon theme={ theme } isMobile={ isMobile } /> }
+            </a>
           </div>
+
         );
       }) }
+
+      { /* Settings */ }
       <Settings
         theme={ theme }
         mode={ mode }
@@ -90,26 +99,24 @@ export default function Nav() {
         handleThemeChange={ handleThemeChange }
         handleModeChange={ handleModeChange }
       />
-      { isScrollDisplayed && !isAppLoading
-        && (
-          // TODO: animation improvements.
-          <ChakraBox
-            animate={ {
-              scale: [0.3, 0.5],
-              borderRadius: ['10%']
-            } }
-            transition={ {
-              duration: 0.7
-            } }
-            padding="1"
-            position="absolute"
-            bg={ theme === 'dark' ? '#000' : '#fff' }
-            top={ `${Number(navRef.current?.getBoundingClientRect().height) - 5}px` }
-            left={ `${selectedTabElement.left - (isMobile ? 10 : 40)}px` }
-            width={ `${selectedTabElement.width + (isMobile ? 20 : 80)}px` }
-            height="4px"
-          />
-        ) }
+
+      { /* Custom Animated Underline */ }
+      <ChakraBox
+        animate={ {
+          left: activeTabStyles.left,
+          width: activeTabStyles.width
+        } }
+        transition={ {
+          type: 'spring',
+          stiffness: 200,
+          damping: 20
+        } }
+        position="absolute"
+        bottom="0"
+        bg={ colorHexes.accentHex }
+        height="4px"
+        borderRadius="2px"
+      />
     </nav>
   );
 }

@@ -7,12 +7,7 @@ import { footerButtons } from '../../../constants';
 export default function Footer(props) {
   props;
   const {
-    // dispatch,
-    // isAppLoading,
     theme
-    // handleThemeChange,
-    // mode,
-    // handleModeChange
   } = useCommonState();
 
   // TODO: finish this.

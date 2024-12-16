@@ -7,7 +7,6 @@ import '../styles/globals.css';
 import Providers from '../providers';
 import Background from './components/background/Background';
 import Nav from './components/nav/Nav';
-import Footer from './components/nav/Footer';
 
 // Import the functions you need from the SDKs you need
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -53,7 +52,7 @@ export default function RootLayout({ children }) {
             <Nav />
             <Background />
             { children }
-            <Footer />
+            { /* <Footer /> */ }
           </main>
         </Providers>
       </body>

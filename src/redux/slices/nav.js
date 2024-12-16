@@ -1,59 +1,72 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialTabs = [
+const initialTopTabs = [
   {
-    name: 'intro',
-    route: '/'
+    id: 'intro',
+    label: 'intro',
+    link: '#intro',
+    isActive: true,
+    isLoaded: false
   },
   {
-    name: 'profession',
-    route: '/profession'
+    id: 'my-story',
+    label: 'my story',
+    isActive: false,
+    isLoaded: false
   },
   {
-    name: 'code',
-    route: '/code'
+    id: 'code',
+    label: 'code',
+    link: '#code',
+    isActive: false,
+    isLoaded: false
   },
   {
-    name: 'projects',
-    route: '/projects'
+    id: 'projects',
+    label: 'projects',
+    link: '#projects',
+    isActive: false,
+    isLoaded: false
   }
 ];
 
 export const navSlice = createSlice({
   name: 'nav',
   initialState: {
-    tabs: initialTabs,
+    topTabs: initialTopTabs,
     selectedIndex: 0
   },
   reducers: {
-    selectByRoute: (state, action) => {
+    selectByLink: (state, action) => {
       const { route } = action.payload;
-      state.selectedIndex = state.tabs.findIndex((tab) => tab.route === route);
+      state.selectedIndex = state.topTabs.findIndex((tab) => tab.route === route);
     },
-    selectByWheel: (state, action) => {
-      const { direction } = action.payload;
-      const isScrollDown = direction === 'down';
-      const current = state.selectedIndex;
-      const endLimit = state.tabs.length - 1;
+    setIsTabLoaded: (state, action) => {
+      const { id } = action.payload;
+      // When profile picture exists in the sections, it is treated as the intro component.
+      const targetTabIndex = id !== 'profile-picture' ? state.topTabs.findIndex((tab) => tab.id === id) : 0;
+      state.topTabs[targetTabIndex].isLoaded = true;
+    },
+    setIsTabActive: (state, action) => {
+      const {
+        id,
+        isActive
+      } = action.payload;
 
-      let newIndex;
-      if (isScrollDown) {
-        if (current < endLimit) {
-          newIndex = current + 1;
-        } else {
-          newIndex = 0;
-        }
-      } else if (current <= endLimit && current !== 0) {
-        newIndex = current - 1;
-      } else {
-        newIndex = endLimit;
-      }
-      state.selectedIndex = newIndex;
+      // Loop through all tabs to reset their isActive state
+      state.topTabs.forEach((tab) => {
+        tab.isActive = tab.id === id ? isActive : false;
+      });
+
+      // Update the selected index
+      const targetTabIndex = id !== 'profile-picture' ? state.topTabs.findIndex((tab) => tab.id === id) : 0;
+      state.selectedIndex = targetTabIndex;
     }
   }
 });
 
 export const {
-  selectByRoute,
-  selectByWheel
+  selectByLink,
+  setIsTabLoaded,
+  setIsTabActive
 } = navSlice.actions;

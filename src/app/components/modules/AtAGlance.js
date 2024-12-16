@@ -34,8 +34,7 @@ export default function AtAGlance({
   const {
     viewport: {
       isMobile,
-      isTablet,
-      width
+      isTablet
     }
   } = useSelector((state) => state.common);
 
@@ -54,8 +53,6 @@ export default function AtAGlance({
     return () => clearTimeout(timeoutId);
   }, [activeSegment]);
 
-  const hasWrapped = width < 1540;
-
   return (
     <AnimatePresence>
       <Wrap
@@ -70,13 +67,16 @@ export default function AtAGlance({
           title="at a glance"
           colorValues={ colorValues }
           colorHexes={ colorHexes }
-          isMobile={ isMobile }
-          hasWrapped={ hasWrapped }
           activeSegment={ activeSegment }
+          isMobile={ isMobile }
+          isTablet={ isTablet }
         />
         <WrapItem
+          width={ isMobile || isTablet ? '100%' : '69%' }
+          gap={ isMobile ? '16px' : '' }
           flexDirection="column"
           padding="24px"
+          alignItems="center"
           placeContent="center"
         >
           <Wrap>
@@ -85,12 +85,14 @@ export default function AtAGlance({
               segments
             }) => (
               <WrapItem
+                maxW={ isMobile ? '35%' : '32%' }
                 key={ `${header}-key` }
                 display="flex"
                 flexDirection="column"
                 alignItems="center"
+                alignSelf="center"
+                fontSize={ isMobile ? '16px' : '20px' }
                 flexWrap={ isMobile || isTablet ? 'wrap-reverse' : '' }
-                maxW="400px"
               >
                 <SectionedShape
                   isMobile={ isMobile }

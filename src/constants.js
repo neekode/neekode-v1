@@ -108,11 +108,10 @@ export const contentContainerStyles = {
   height: '100vh'
 };
 
-export const getBaseWrapperProps = (isMobile, side) => {
+export const getBaseWrapperProps = (isMobile, isTablet, side) => {
   const isLeftSide = side === 'left';
   return {
-    minHeight: '500px',
-    maxWidth: isMobile ? '' : '80%',
+    width: isMobile ? '' : '85%',
     borderBottomLeftRadius: '10',
     borderTopRightRadius: '10',
     borderBottomRightRadius: isLeftSide ? '0' : '100',
@@ -125,13 +124,10 @@ export const getBaseWrapperProps = (isMobile, side) => {
     display: 'flex',
     placeContent: 'center',
     placeSelf: 'center',
-    minWidth: isMobile ? '300px' : '500px',
     flexDirection: isMobile ? 'column' : 'row'
   };
 };
 
-// TODO: replace all inner bullets with icons.
-//  ...is it legal to use my company's brands on my portfolio lol
 export const getExperienceSegments = ({ colorHexes }) => {
   return [
     {
