@@ -38,21 +38,6 @@ export default function AtAGlance({
     }
   } = useSelector((state) => state.common);
 
-  /**
-   * useEffect - Reset Active Segment After Timeout
-   * This useEffect automatically resets the active segment to null after 30 seconds,
-   * which resets it back to its default state.
-   */
-  useEffect(() => {
-    let timeoutId;
-    if (activeSegment !== null) {
-      timeoutId = setTimeout(() => {
-        setActiveSegment(null);
-      }, 120000);
-    }
-    return () => clearTimeout(timeoutId);
-  }, [activeSegment]);
-
   return (
     <AnimatePresence>
       <Wrap
@@ -68,14 +53,15 @@ export default function AtAGlance({
           colorValues={ colorValues }
           colorHexes={ colorHexes }
           activeSegment={ activeSegment }
+          setActiveSegment={ setActiveSegment }
           isMobile={ isMobile }
           isTablet={ isTablet }
         />
         <WrapItem
-          width={ isMobile || isTablet ? '100%' : '69%' }
+          width={ isMobile || isTablet ? '100%' : '59%' }
           gap={ isMobile ? '16px' : '' }
           flexDirection="column"
-          padding="24px"
+          padding={ isMobile ? '12px' : '24px' }
           alignItems="center"
           placeContent="center"
         >
@@ -85,13 +71,13 @@ export default function AtAGlance({
               segments
             }) => (
               <WrapItem
-                maxW={ isMobile ? '35%' : '32%' }
+                maxW={ isMobile ? '25%' : '30%' }
                 key={ `${header}-key` }
                 display="flex"
                 flexDirection="column"
                 alignItems="center"
                 alignSelf="center"
-                fontSize={ isMobile ? '16px' : '20px' }
+                fontSize={ isMobile ? '14px' : '20px' }
                 flexWrap={ isMobile || isTablet ? 'wrap-reverse' : '' }
               >
                 <SectionedShape

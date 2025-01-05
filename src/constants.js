@@ -111,7 +111,7 @@ export const contentContainerStyles = {
 export const getBaseWrapperProps = (isMobile, isTablet, side) => {
   const isLeftSide = side === 'left';
   return {
-    width: isMobile ? '' : '85%',
+    width: isMobile ? '85%' : '95%',
     borderBottomLeftRadius: '10',
     borderTopRightRadius: '10',
     borderBottomRightRadius: isLeftSide ? '0' : '100',
@@ -411,6 +411,138 @@ export const getProcessSegments = ({ colorHexes }) => {
         }
       ],
       color: '#7CB342' // Light green
+    }
+  ];
+};
+
+// neeks todo: finish this in own words.
+export const getTimelineSegments = () => {
+  return [
+    {
+      id: 'timeline-childhood',
+      header: '1. Childhood',
+      subheader: 'The origins of a tech enthusiast.',
+      time: '2013',
+      bullets: [
+        {
+          id: 'timeline-childhood-1',
+          text: 'Grew up in Seattle, surrounded by the tech-driven culture of the Pacific Northwest.'
+        },
+        {
+          id: 'timeline-childhood-2',
+          text: 'Spent countless hours tinkering with computers, video games, and early web technologies.'
+        },
+        {
+          id: 'timeline-childhood-3',
+          text: 'Discovered a love for creating, experimenting, and solving problems.'
+        }
+      ],
+      color: '#FFFFFF' // Calm white, symbolizing beginnings and curiosity
+    },
+    {
+      id: 'timeline-education',
+      header: '2. Education',
+      subheader: 'Building a foundation for success.',
+      time: '2018',
+      bullets: [
+        {
+          id: 'timeline-education-1',
+          text: 'Studied at the University of Washington, focusing on technology and innovation.'
+        },
+        {
+          id: 'timeline-education-2',
+          text: 'Developed skills in programming, user experience design, and creative problem-solving.'
+        },
+        {
+          id: 'timeline-education-3',
+          text: 'Worked on personal projects and freelance gigs, applying classroom knowledge to real-world challenges.'
+        }
+      ],
+      color: '#DFF6E0' // Soft green, symbolizing growth and learning
+    },
+    {
+      id: 'timeline-people-tech',
+      header: '3. People Tech Group',
+      subheader: 'The first professional milestone.',
+      time: '2019',
+      bullets: [
+        {
+          id: 'timeline-people-tech-1',
+          text: 'Began my career as a front-end developer, diving into professional development environments.'
+        },
+        {
+          id: 'timeline-people-tech-2',
+          text: 'Collaborated on various projects, delivering intuitive and functional user interfaces.'
+        },
+        {
+          id: 'timeline-people-tech-3',
+          text: 'Built a solid foundation of technical and teamwork skills.'
+        }
+      ],
+      color: '#BCE7C5' // Light green, symbolizing a significant step in growth
+    },
+    {
+      id: 'timeline-microsoft-teams',
+      header: '4. Microsoft Teams',
+      subheader: 'Scaling impact at a global company.',
+      time: '2021',
+      bullets: [
+        {
+          id: 'timeline-microsoft-teams-1',
+          text: 'Contributed to Microsoft Teams, enhancing collaboration tools for millions of users.'
+        },
+        {
+          id: 'timeline-microsoft-teams-2',
+          text: 'Focused on accessibility, scalability, and performance in enterprise applications.'
+        },
+        {
+          id: 'timeline-microsoft-teams-3',
+          text: 'Gained experience in large-scale application development and corporate environments.'
+        }
+      ],
+      color: '#8DCB9B' // Balanced green, symbolizing professional growth and impact
+    },
+    {
+      id: 'timeline-princess-cruiselines',
+      header: '5. Princess Cruiselines',
+      subheader: 'Shaping the digital travel experience.',
+      time: 'today',
+      bullets: [
+        {
+          id: 'timeline-princess-cruiselines-1',
+          text: 'Enhanced digital experiences for Princess Cruiselines customers around the world.'
+        },
+        {
+          id: 'timeline-princess-cruiselines-2',
+          text: 'Focused on interactivity and user engagement for global audiences.'
+        },
+        {
+          id: 'timeline-princess-cruiselines-3',
+          text: 'Balanced performance optimization with elegant design solutions.'
+        }
+      ],
+      color: '#66B675' // Strong green, symbolizing refinement and achievement
+    },
+    {
+      id: 'timeline-future',
+      header: '6. Future',
+      subheader: 'Evolving, innovating, and exploring.',
+      time: 'looking ahead',
+      bullets: [
+        {
+          id: 'timeline-future-1',
+          text: 'Continuing to push the boundaries of front-end development and UI/UX design.'
+        },
+        {
+          id: 'timeline-future-2',
+          text: 'Exploring new opportunities in global projects and creative tech.'
+        },
+        {
+          id: 'timeline-future-3',
+          text: 'Balancing professional growth with personal passions, like music production and travel.'
+        }
+      ],
+      color: '#43A047' // Growth green, symbolizing optimism and potential
     }
   ];
 };

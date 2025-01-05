@@ -10,6 +10,7 @@ const initialTopTabs = [
   },
   {
     id: 'my-story',
+    link: '#my-story',
     label: 'my story',
     isActive: false,
     isLoaded: false

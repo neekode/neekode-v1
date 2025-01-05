@@ -16,7 +16,7 @@ function NeekodeIcon({
   theme,
   isMobile
 }) {
-  const size = isMobile ? 18 : 36;
+  const size = isMobile ? 28 : 36;
   return (
     <div className="m-2">
       <svg xmlns="http://www.w3.org/2000/svg" width={ size } height={ size } viewBox="0 0 260 260">

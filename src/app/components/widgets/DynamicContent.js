@@ -1,6 +1,6 @@
 import { Box, Flex, Heading, ListItem, UnorderedList, WrapItem } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import {
   fadeAnimation,
   getListItemVariantsReveal,
@@ -23,7 +23,8 @@ export default function DynamicContent(props) {
     colorHexes,
     isMobile,
     isTablet,
-    activeSegment
+    activeSegment,
+    setActiveSegment
   } = props;
 
   const isDirectionLeft = direction === 'left';
@@ -52,8 +53,10 @@ export default function DynamicContent(props) {
 
       return (
         <Flex
-          gap="24px"
+          gap={ isMobile && !isTablet ? '12px' : '24px' }
+          minH={ isMobile && !isTablet ? '180px' : '240px' }
           direction="column"
+          placeContent="center"
           alignItems="center"
         >
           <MotionHeading
@@ -90,20 +93,46 @@ export default function DynamicContent(props) {
         </Flex>
       );
     }
+
     return (
       <MotionBox { ...fadeAnimation }>
         <TapMeIcon
           colorHexes={ colorHexes }
-          size={ 128 }
-          rotate={ isMobile || isTablet ? 180 : 45 }
+          size={ isMobile || isTablet ? 64 : 128 }
+          rotate={
+            isDirectionLeft
+              ? isMobileOrTablet
+                ? 0 // isDirectionLeft + Mobile/Tablet
+                : -45 // isDirectionLeft + Desktop
+              : isMobileOrTablet
+                ? 180 // Not isDirectionLeft + Mobile/Tablet
+                : 45 // Not isDirectionLeft + Desktop
+          }
+
         />
       </MotionBox>
     );
   }, [activeSegment, isMobile, isTablet]);
 
+  /**
+   * useEffect - Reset Active Segment After Timeout
+   * This useEffect automatically resets the active segment to null after 30 seconds,
+   * which resets it back to its default state.
+   */
+  useEffect(() => {
+    let timeoutId;
+    if (activeSegment !== null) {
+      timeoutId = setTimeout(() => {
+        setActiveSegment(null);
+      }, 12000);
+    }
+    return () => clearTimeout(timeoutId);
+  }, [activeSegment]);
+
   return (
     <WrapItem
-      width={ isMobile || isTablet ? '100%' : '30%' }
+      width={ isMobile || isTablet ? '100%' : '40%' }
+      minH={ isMobile || isTablet ? '240px' : '300px' }
       textAlign="center"
       flexDirection="column"
     >
@@ -125,11 +154,13 @@ export default function DynamicContent(props) {
         } }
         fontStyle={ activeSegment ? '' : 'italic' }
         fontSize={ isMobile ? '12px' : '18px' }
+        minW={ isMobile || isTablet ? '' : '550px' }
+        minH={ isMobile ? '' : '300px' }
         width="100%"
         height="100%"
         display="flex"
         flexDirection="column"
-        padding="24px"
+        padding={ isMobile ? '12px' : '24px' }
         gap="12px"
         placeContent="center"
         overflow="hidden"

@@ -53,7 +53,7 @@ export default function Nav() {
         width: offsetWidth
       });
     }
-  }, [selectedIndex]);
+  }, [selectedIndex, isMobile]);
 
   return (
     <nav
@@ -74,9 +74,7 @@ export default function Nav() {
             ref={ (el) => {
               navItemsRef.current[i] = el;
             } }
-            className={ `nav-item flex my-auto items-center underline-offset-4 transition-all ${
-              isActive ? '' : 'hover:scale-125'
-            }` }
+            className="nav-item flex my-auto items-center underline-offset-4 transition-all"
           >
             <a
               href={ link }

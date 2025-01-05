@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import DynamicContent from '../widgets/DynamicContent';
 import Timeline from '../widgets/Timeline';
+import { getTimelineSegments } from '../../../constants';
 
 export default function MyStory({
   wrapperProps,
@@ -17,8 +18,8 @@ export default function MyStory({
     }
   } = useSelector((state) => state.common);
 
-  // , setActiveSegment
-  const [activeSegment] = useState(null);
+  const [segments] = useState(getTimelineSegments());
+  const [activeSegment, setActiveSegment] = useState(null);
 
   return (
     <AnimatePresence>
@@ -29,7 +30,16 @@ export default function MyStory({
         color={ colorValues.textColor }
         flexDirection="column-reverse"
       >
-        <Timeline />
+        <Timeline
+          isMobile={ isMobile }
+          isTablet={ isTablet }
+          textColor={ colorHexes.textHex }
+          shapeColor={ colorHexes.neutralHex }
+          shadowColor={ colorHexes.darkerBgHex }
+          segments={ segments }
+          activeSegment={ activeSegment }
+          setActiveSegment={ setActiveSegment }
+        />
         <DynamicContent
           type="my-story"
           direction="left"
@@ -39,6 +49,7 @@ export default function MyStory({
           isMobile={ isMobile }
           isTablet={ isTablet }
           activeSegment={ activeSegment }
+          setActiveSegment={ setActiveSegment }
         />
       </Wrap>
     </AnimatePresence>
