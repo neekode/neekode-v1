@@ -527,7 +527,7 @@ export const getTimelineSegments = () => {
       id: 'timeline-future',
       header: '6. Future',
       subheader: 'Evolving, innovating, and exploring.',
-      time: 'looking ahead',
+      time: 'tmrw',
       bullets: [
         {
           id: 'timeline-future-1',

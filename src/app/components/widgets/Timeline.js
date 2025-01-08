@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect, useRef } from 'react';
+import React, { useCallback, useState, useEffect, useRef, useMemo } from 'react';
 import { WrapItem } from '@chakra-ui/react';
 
 export default function Timeline({
@@ -12,7 +12,7 @@ export default function Timeline({
 }) {
   const containerRef = useRef(null); // Ref to observe container size
   const [dimensions, setDimensions] = useState({
-    width: 950, // Adjusted width for padding
+    width: 920, // Adjusted width for padding
     height: !isMobile ? 200 : 160
   });
   const gap = 8; // Gap between segments
@@ -65,16 +65,24 @@ export default function Timeline({
     [segmentSpacing, gap, height]
   );
 
-  const svgHeight = isMobile || isTablet ? height - 50 : height / 2 + 80;
+  const svgHeight = useMemo(() => {
+    if (isMobile) {
+      return height - 24; // Slightly larger for better touch support
+    }
+    if (isTablet) {
+      return height; // A middle ground for tablet displays
+    }
+    return height + 40; // Default for larger screens
+  }, [isMobile, isTablet, height]);
 
   return (
     <WrapItem
-      width={ isMobile || isTablet ? '100%' : '59%' }
+      width={ isMobile || isTablet ? '99%' : '59%' }
       position="relative"
       ref={ containerRef } // Attach ref to observe the container
     >
       <svg
-        width="100%"
+        width="99%"
         height="100%"
         viewBox={ `0 0 ${width} ${svgHeight}` }
         style={ { transition: 'all 0.5s ease-in-out' } }
@@ -99,7 +107,7 @@ export default function Timeline({
                 x={ startX }
                 y="0"
                 width={ endX - startX + 20 }
-                height={ height + 50 } // Ensure rect fills the parent SVG height
+                height={ svgHeight - 32 }
                 fill="transparent"
                 opacity="0.1"
                 style={ {
@@ -111,7 +119,7 @@ export default function Timeline({
               <path
                 d={ path }
                 stroke={ isActive ? segment.color : shapeColor }
-                strokeWidth="6" // Adjust stroke width if needed
+                strokeWidth={ !isMobile ? '6' : '4' }
                 fill="none"
                 strokeLinecap="round"
                 style={ {
@@ -127,7 +135,7 @@ export default function Timeline({
                 x={ endX }
                 y="0"
                 width="2"
-                height={ height - 32 }
+                height={ svgHeight - 24 }
                 fill={ shapeColor }
                 opacity=".2"
               />
@@ -136,7 +144,7 @@ export default function Timeline({
               <circle
                 cx={ endX }
                 cy={ height / 2 }
-                r={ isActive ? 12 : 10 }
+                r={ isMobile ? isActive ? 7 : 6 : isActive ? 6 : 10 }
                 fill={ isActive ? segment.color : '#ffffff' }
                 stroke={ isActive ? segment.color : shapeColor }
                 strokeWidth="4"
