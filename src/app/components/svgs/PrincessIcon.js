@@ -10,7 +10,11 @@ function PrincessIcon({
   colorHexes
 }) {
   return (
-    <a className="m-2 icon-path-hover-effect" href="https://www.princess.com/cruise-search/">
+    <a
+      aria-label="Go to princess website"
+      className="m-2 icon-path-hover-effect"
+      href="https://www.princess.com/cruise-search/"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="60"

@@ -1,6 +1,6 @@
 'use client';
 
-/* This layout is the wrapper for all the content of the page. Siblings with <Nav/>.  */
+/* This layout is the wrapper for all the content of each specific module. Siblings with <Nav/>.  */
 import { Flex, useTheme } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import React from 'react';

@@ -1,6 +1,6 @@
 import { Wrap, WrapItem } from '@chakra-ui/react';
 import { AnimatePresence } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import SectionedShape from '../widgets/SectionedShape';
 import {

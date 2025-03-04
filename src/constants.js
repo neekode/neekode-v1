@@ -138,7 +138,7 @@ export const getExperienceSegments = ({ colorHexes }) => {
       bullets: [
         {
           id: 'exp-pcl-1',
-          text: 'Major code owner of princess.com/cruise-search/, PCLs primary source of online Booking Revenue.'
+          text: 'Major code owner of princess.com/cruise-search/, PCLs primary source of online revenue.'
         },
         {
           id: 'exp-pcl-2',
@@ -420,126 +420,126 @@ export const getTimelineSegments = () => {
   return [
     {
       id: 'timeline-childhood',
-      header: '1. Childhood',
-      subheader: 'The origins of a tech enthusiast.',
+      header: 'Growing Up',
+      subheader: 'Foundations of a nerd',
       time: '2013',
       bullets: [
         {
           id: 'timeline-childhood-1',
-          text: 'Grew up in Seattle, surrounded by the tech-driven culture of the Pacific Northwest.'
+          text: 'Grew up in Seattle and learned computers by playing Roller Coaster Tycoon and Starcraft on my dad\'s office computer.'
         },
         {
           id: 'timeline-childhood-2',
-          text: 'Spent countless hours tinkering with computers, video games, and early web technologies.'
+          text: 'Spent hundreds of hours tinkering, evolving my tech literacy to play games, and exploring the internet.'
         },
         {
           id: 'timeline-childhood-3',
-          text: 'Discovered a love for creating, experimenting, and solving problems.'
+          text: 'Discovered a deep desire for not just consuming technology and it\'s products, but contributing to it as well.'
         }
       ],
       color: '#FFFFFF' // Calm white, symbolizing beginnings and curiosity
     },
     {
       id: 'timeline-education',
-      header: '2. Education',
-      subheader: 'Building a foundation for success.',
+      header: 'Education',
+      subheader: 'Failure, self-teaching, and success',
       time: '2018',
       bullets: [
         {
           id: 'timeline-education-1',
-          text: 'Studied at the University of Washington, focusing on technology and innovation.'
+          text: 'Attempted the computer science program twice at University of Washington, and getting rejected both times.'
         },
         {
           id: 'timeline-education-2',
-          text: 'Developed skills in programming, user experience design, and creative problem-solving.'
+          text: 'Instead, I pursued a UX degree. While in the program, I was also in the library every day teaching myself web development.'
         },
         {
           id: 'timeline-education-3',
-          text: 'Worked on personal projects and freelance gigs, applying classroom knowledge to real-world challenges.'
+          text: 'With a design education and being a self-taught developer with personal projects, I landed my first UI job.'
         }
       ],
       color: '#DFF6E0' // Soft green, symbolizing growth and learning
     },
     {
       id: 'timeline-people-tech',
-      header: '3. People Tech Group',
-      subheader: 'The first professional milestone.',
+      header: 'People Tech Group',
+      subheader: 'First steps in my career',
       time: '2019',
       bullets: [
         {
           id: 'timeline-people-tech-1',
-          text: 'Began my career as a front-end developer, diving into professional development environments.'
+          text: 'Started in a month-long intern program, impressed my superiors enough to get offered a Junior position.'
         },
         {
           id: 'timeline-people-tech-2',
-          text: 'Collaborated on various projects, delivering intuitive and functional user interfaces.'
+          text: 'Worked with several real-life professionals for 8 months who helped me form the groundwork of my career.'
         },
         {
           id: 'timeline-people-tech-3',
-          text: 'Built a solid foundation of technical and teamwork skills.'
+          text: 'Moved on after realizing the company was not the right fit, but left with eagerness and real experience.'
         }
       ],
       color: '#BCE7C5' // Light green, symbolizing a significant step in growth
     },
     {
       id: 'timeline-microsoft-teams',
-      header: '4. Microsoft Teams',
-      subheader: 'Scaling impact at a global company.',
+      header: 'Microsoft Teams Rooms',
+      subheader: 'Evolution, mentorship, and solidifying my confidence',
       time: '2021',
       bullets: [
         {
           id: 'timeline-microsoft-teams-1',
-          text: 'Contributed to Microsoft Teams, enhancing collaboration tools for millions of users.'
+          text: 'On a very high-level team as a Dev I. Mostly support work, but also contributed to several significant pieces of MTR.'
         },
         {
           id: 'timeline-microsoft-teams-2',
-          text: 'Focused on accessibility, scalability, and performance in enterprise applications.'
+          text: 'Learned at an intensive speed and level. Strictly followed Microsoft\'s rigid standards which deeply evolved my profession. Was mentored and challenged.'
         },
         {
           id: 'timeline-microsoft-teams-3',
-          text: 'Gained experience in large-scale application development and corporate environments.'
+          text: 'After almost two years, decided to move forward to find my first mid-level position with real confidence.'
         }
       ],
       color: '#8DCB9B' // Balanced green, symbolizing professional growth and impact
     },
     {
       id: 'timeline-princess-cruiselines',
-      header: '5. Princess Cruiselines',
-      subheader: 'Shaping the digital travel experience.',
+      header: 'Princess Cruiselines',
+      subheader: 'A full-fledged developer',
       time: 'today',
       bullets: [
         {
           id: 'timeline-princess-cruiselines-1',
-          text: 'Enhanced digital experiences for Princess Cruiselines customers around the world.'
+          text: 'At mid-level, I\'m now contributing to and owning the massive and deeply complex Princess booking app.'
         },
         {
           id: 'timeline-princess-cruiselines-2',
-          text: 'Focused on interactivity and user engagement for global audiences.'
+          text: 'I am a leading voice in technical discussion. I define, build, and re-build various systems and architectures. I perform interviews, write thorough documentation, and am trusted.'
         },
         {
           id: 'timeline-princess-cruiselines-3',
-          text: 'Balanced performance optimization with elegant design solutions.'
+          text: 'After almost four years, several previous of my managers have considered me a Senior and Tech Lead'
         }
       ],
       color: '#66B675' // Strong green, symbolizing refinement and achievement
     },
     {
       id: 'timeline-future',
-      header: '6. Future',
-      subheader: 'Evolving, innovating, and exploring.',
+      header: 'Future',
+      subheader: 'What lies ahead',
       time: 'tmrw',
       bullets: [
         {
           id: 'timeline-future-1',
-          text: 'Continuing to push the boundaries of front-end development and UI/UX design.'
+          text: 'Always making time to work my personal projects such as this portfolio. All the while, learning new methodologies and tech like prompt engineering and server components.'
         },
         {
           id: 'timeline-future-2',
-          text: 'Exploring new opportunities in global projects and creative tech.'
+          text: 'Balancing professional growth with personal passions like nerd culture, music production, and travel.'
         },
         {
           id: 'timeline-future-3',
-          text: 'Balancing professional growth with personal passions, like music production and travel.'
+          text: 'Exploring new opportunities to potentially challenge myself and evolve my career further.'
         }
       ],
       color: '#43A047' // Growth green, symbolizing optimism and potential

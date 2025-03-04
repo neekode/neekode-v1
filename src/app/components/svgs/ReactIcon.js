@@ -7,7 +7,11 @@ function ReactIcon({
   colorHexes
 }) {
   return (
-    <a className="m-2 icon-path-hover-effect" href="https://nextjs.org/">
+    <a
+      aria-label="Go to react website"
+      className="m-2 icon-path-hover-effect"
+      href="https://nextjs.org/"
+    >
       <svg
         width="60"
         height="60"

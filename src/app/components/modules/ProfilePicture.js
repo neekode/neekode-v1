@@ -12,12 +12,13 @@ export default function ProfilePicture(
   const { colorValues } = useSelector((state) => state.common);
   const outerWrapperProps = !isInner ? contentContainerStyles : {};
 
+  // neeks TODO: for some reason on my actual website this
+  //  image is taking for fuckin ever. probably because it's huge
   return (
     <Flex { ...outerWrapperProps } alignSelf="center">
       <Wrap
         position="relative"
-        width="100%"
-        maxWidth={ isMobile ? '300px' : '440px' }
+        width={ isMobile ? '300px' : '480px' }
         boxShadow="lg"
         borderBottom="1px"
         borderRight="1px"
@@ -34,11 +35,12 @@ export default function ProfilePicture(
         <WrapItem
           position={ isMobile ? 'relative' : 'absolute' }
           left={ isMobile ? 'relative' : '-60px' }
+          bottom={ isMobile ? 'relative' : '-24px' }
         >
           <Image
             borderRadius="full"
             placeSelf="center"
-            boxSize="180"
+            boxSize="220"
             src="/head-shot-3.jpg"
             alt="intro head shot"
             boxShadow="lg"

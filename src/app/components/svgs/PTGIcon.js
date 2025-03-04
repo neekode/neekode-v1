@@ -11,7 +11,11 @@ function PTGIcon({
   colorHexes
 }) {
   return (
-    <a className="m-2 icon-path-hover-effect" href="https://peopletech.com/home">
+    <a
+      aria-label="Go to ptg website"
+      className="m-2 icon-path-hover-effect"
+      href="https://peopletech.com/home"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill={ colorHexes.iconHex }
